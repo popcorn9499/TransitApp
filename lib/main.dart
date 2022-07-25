@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'dart:math';
 import 'package:transit_app/SecondRoute.dart';
-import "package:transit_app/BusStatus.dart";
-import "package:transit_app/BusListItemData.dart";
 
 void main() {
   runApp(const MyApp());
