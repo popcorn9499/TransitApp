@@ -174,9 +174,9 @@ class _MyHomePageState extends State<MyHomePage> {
                 ]
             ),
 
-            MyCustomColumn(timeRemaining: "5 Min", busStatus: BusStatus.Late, stopName: "WHY"),
-            MyCustomColumn(timeRemaining: "2 Min", busStatus: BusStatus.Late, stopName: "WHY"),
-            MyCustomColumn(timeRemaining: "1 Min", busStatus: BusStatus.Late, stopName: "WHY"),
+            BusListItemData(timeRemaining: "5 Min", busStatus: BusStatus.Late, stopName: "WHY"),
+            BusListItemData(timeRemaining: "2 Min", busStatus: BusStatus.Late, stopName: "WHY"),
+            BusListItemData(timeRemaining: "1 Min", busStatus: BusStatus.Late, stopName: "WHY"),
             ElevatedButton(
               child: const Text('Open route'),
               onPressed: () {
@@ -203,8 +203,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
 
 
-class MyCustomColumn extends StatelessWidget {
-  MyCustomColumn ({ Key? key, required this.timeRemaining, required this.busStatus, required this.stopName}) : super(key: key);
+class BusListItemData extends StatelessWidget {
+  BusListItemData ({ Key? key, required this.timeRemaining, required this.busStatus, required this.stopName}) : super(key: key);
   String timeRemaining;
   BusStatus busStatus;
   String stopName;
