@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import "package:transit_app/BusStatus.dart";
+import "package:transit_app/BusListItemData.dart";
 
 class SecondRoute extends StatelessWidget {
   const SecondRoute({super.key});
@@ -27,21 +29,8 @@ class SecondRoute extends StatelessWidget {
               dense: true,
             ),
             ListTile(
-              leading: const Icon(Icons.phone),
               minVerticalPadding: 0,
-              title: Row(
-                  children: const <Widget>[
-                    Expanded(
-                      child: Text('123', textAlign: TextAlign.left),
-                    ),
-                    Expanded(
-                      child:Text("OK", textAlign: TextAlign.right),
-                    ),
-                    Expanded(
-                      child: Text('1 Min', textAlign: TextAlign.right),
-                    ),
-                  ]
-              ),
+              title: BusListItemData(timeRemaining: "1 Min", busStatus: BusStatus.Late, stopName: "WHY"),
             ),
           ],
         ),
