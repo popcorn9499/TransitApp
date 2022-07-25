@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import "package:transit_app/BusStatus.dart";
-import "package:transit_app/BusListItemData.dart";
+import "package:transit_app/BusListTile.dart";
 
 class SecondRoute extends StatelessWidget {
   const SecondRoute({super.key});
@@ -28,10 +28,7 @@ class SecondRoute extends StatelessWidget {
               title: Text('Album'),
               dense: true,
             ),
-            ListTile(
-              minVerticalPadding: 0,
-              title: BusListItemData(timeRemaining: "1 Min", busStatus: BusStatus.Late, stopName: "WHY"),
-            ),
+            BusListItemData(timeRemaining: "1 Min", busStatus: BusStatus.Late, stopName: "WHY"),
           ],
         ),
       ),
