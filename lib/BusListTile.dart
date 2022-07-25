@@ -20,10 +20,11 @@ class BusListItemData extends StatelessWidget {
         children: <Widget>[
           Icon(Icons.map),
           Expanded(
+            flex: 6,
             child: Text(stopName, textAlign: TextAlign.left),
           ),
           Expanded(
-            flex: 4,
+            flex: 2,
             child: Text(busStatus.toShortString(), textAlign: TextAlign.right),
           ),
           Expanded(
