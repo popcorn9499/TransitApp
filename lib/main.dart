@@ -204,8 +204,6 @@ class _MyHomePageState extends State<MyHomePage> {
 
 
 class MyCustomColumn extends StatelessWidget {
-
-
   MyCustomColumn ({ Key? key, required this.timeRemaining, required this.busStatus, required this.stopName}) : super(key: key);
   String timeRemaining;
   BusStatus busStatus;
