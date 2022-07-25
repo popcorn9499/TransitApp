@@ -112,9 +112,6 @@ class _MyHomePageState extends State<MyHomePage> {
               'You have pushed the button this many times:',
               style: Theme.of(context).textTheme.headline6,
             ),
-            BusListItemData(timeRemaining: "5 Min", busStatus: BusStatus.Late, stopName: "WHY"),
-            BusListItemData(timeRemaining: "2 Min", busStatus: BusStatus.Late, stopName: "WHY"),
-            BusListItemData(timeRemaining: "1 Min", busStatus: BusStatus.Late, stopName: "WHY"),
             ElevatedButton(
               child: const Text('Open route'),
               onPressed: () {
