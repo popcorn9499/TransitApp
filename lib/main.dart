@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:math';
 import 'SecondRoute.dart';
-
+import "BusStatus.dart";
 void main() {
   runApp(const MyApp());
 }
@@ -174,9 +174,9 @@ class _MyHomePageState extends State<MyHomePage> {
                 ]
             ),
 
-            MyCustomColumn(),
-            MyCustomColumn(),
-            MyCustomColumn(),
+            MyCustomColumn(timeRemaining: "5 Min", busStatus: BusStatus.Late, stopName: "WHY"),
+            MyCustomColumn(timeRemaining: "2 Min", busStatus: BusStatus.Late, stopName: "WHY"),
+            MyCustomColumn(timeRemaining: "1 Min", busStatus: BusStatus.Late, stopName: "WHY"),
             ElevatedButton(
               child: const Text('Open route'),
               onPressed: () {
@@ -204,28 +204,34 @@ class _MyHomePageState extends State<MyHomePage> {
 
 
 class MyCustomColumn extends StatelessWidget {
-  const MyCustomColumn ({ Key? key }) : super(key: key);
+
+
+  MyCustomColumn ({ Key? key, required this.timeRemaining, required this.busStatus, required this.stopName}) : super(key: key);
+  String timeRemaining;
+  BusStatus busStatus;
+  String stopName;
 
   @override
   Widget build(BuildContext context) {
     return Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: const <Widget>[
+        children: <Widget>[
           Icon(Icons.map),
           Expanded(
-            child: Text('testRow', textAlign: TextAlign.left),
+            child: Text(stopName, textAlign: TextAlign.left),
           ),
           Expanded(
             flex: 4,
-            child: Text("OK", textAlign: TextAlign.right),
+            child: Text(busStatus.toShortString(), textAlign: TextAlign.right),
 
           ),
           Expanded(
             flex: 1,
-            child: Text('1 Min', textAlign: TextAlign.right),
+            child: Text(timeRemaining, textAlign: TextAlign.right),
           ),
         ]
     );
   }
 }
+
 
