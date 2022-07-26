@@ -29,6 +29,8 @@ class SecondRoute extends StatelessWidget {
               dense: true,
             ),
             BusListItemData(timeRemaining: "1 Min", busStatus: BusStatus.Late, stopName: "WHY"),
+            BusListItemData(timeRemaining: "1 Min", busStatus: BusStatus.Late, stopName: "WHY"),
+            BusListItemData(timeRemaining: "1 Min", busStatus: BusStatus.Late, stopName: "KP Louelda AT 123 hi my life 1000000 1000"),
           ],
         ),
       ),
