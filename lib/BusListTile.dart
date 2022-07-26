@@ -24,7 +24,7 @@ class BusListItemData extends StatelessWidget {
             child: Text(stopName, textAlign: TextAlign.left),
           ),
           Expanded(
-            flex: 2,
+            flex: 1,
             child: Text(busStatus.toShortString(), textAlign: TextAlign.right),
           ),
           Expanded(
