@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'dart:math';
-import 'package:transit_app/Widgets/SecondRoute.dart';
+import 'package:transit_app/widgets/SecondRoute.dart';
 
 void main() {
   runApp(const MyApp());
