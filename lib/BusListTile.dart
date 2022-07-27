@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import "package:transit_app/BusStatus.dart";
 
-class BusListItemData extends StatelessWidget {
-  BusListItemData(
+class BusListItem extends StatelessWidget {
+  BusListItem(
       {Key? key,
       required this.timeRemaining,
       required this.busStatus,
