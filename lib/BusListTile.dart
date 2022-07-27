@@ -2,15 +2,15 @@ import 'package:flutter/material.dart';
 import "package:transit_app/BusStatus.dart";
 
 class BusListItem extends StatelessWidget {
-  BusListItem(
+  const BusListItem(
       {Key? key,
       required this.timeRemaining,
       required this.busStatus,
       required this.stopName})
       : super(key: key);
-  String timeRemaining;
-  BusStatus busStatus;
-  String stopName;
+  final String timeRemaining;
+  final BusStatus busStatus;
+  final String stopName;
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +18,7 @@ class BusListItem extends StatelessWidget {
       title: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
-          Icon(Icons.map),
+          const Icon(Icons.map),
           Expanded(
             flex: 6,
             child: Text(stopName, textAlign: TextAlign.left),
