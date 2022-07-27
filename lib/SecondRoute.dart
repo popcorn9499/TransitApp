@@ -3,18 +3,18 @@ import "package:transit_app/BusStatus.dart";
 import "package:transit_app/BusListTile.dart";
 
 class SecondRoute extends StatefulWidget {
-  SecondRoute({Key? key}) : super(key: key);
+  const SecondRoute({Key? key}) : super(key: key);
 
   @override
-  _MyListState createState() => _MyListState();
+  MyListState createState() => MyListState();
 }
 
-class _MyListState extends State<SecondRoute> {
+class MyListState extends State<SecondRoute> {
   var newList = <BusListItem>[];
 
   _addItem() {
     setState(() {
-      newList.add(BusListItem(timeRemaining: "1 Min", busStatus: BusStatus.Late, stopName: "ME"));
+      newList.add(const BusListItem(timeRemaining: "1 Min", busStatus: BusStatus.Late, stopName: "ME"));
     });
   }
 
@@ -22,14 +22,14 @@ class _MyListState extends State<SecondRoute> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("SecondRoute"),
+        title: const Text("SecondRoute"),
       ),
       body: ListView.builder(
-          itemCount: this.newList.length,
-          itemBuilder: (context, index) => this._buildRow(index)),
+          itemCount: newList.length,
+          itemBuilder: (context, index) => _buildRow(index)),
       floatingActionButton: FloatingActionButton(
         onPressed: _addItem,
-        child: Icon(Icons.add),
+        child: const Icon(Icons.add),
       ),
     );
   }
