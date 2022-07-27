@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import "package:transit_app/bus_status.dart";
-import 'package:transit_app/widgets/BusListTile.dart';
+import 'package:transit_app/widgets/bus_list_tile.dart';
 
 class SecondRoute extends StatefulWidget {
   const SecondRoute({Key? key}) : super(key: key);
