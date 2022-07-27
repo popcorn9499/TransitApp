@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import "package:transit_app/BusStatus.dart";
-import "package:transit_app/BusListTile.dart";
+import 'package:transit_app/Widgets/BusListTile.dart';
 
 class SecondRoute extends StatefulWidget {
   const SecondRoute({Key? key}) : super(key: key);
@@ -34,6 +34,7 @@ class MyListState extends State<SecondRoute> {
     );
   }
 
+  //actually manages to return the BusListTile object for the user interface
   _buildRow(int index) {
     return newList[index];
   }
