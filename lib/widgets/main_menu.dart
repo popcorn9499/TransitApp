@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'dart:math';
-import 'package:transit_app/widgets/SecondRoute.dart';
+import 'package:transit_app/widgets/second_route.dart';
 
 
 class MainMenu extends StatelessWidget {
