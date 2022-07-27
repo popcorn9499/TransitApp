@@ -3,8 +3,8 @@ import 'dart:math';
 import 'package:transit_app/widgets/SecondRoute.dart';
 
 
-class main_menu extends StatelessWidget {
-  const main_menu({Key? key}) : super(key: key);
+class MainMenu extends StatelessWidget {
+  const MainMenu({Key? key}) : super(key: key);
 
   // This widget is the root of your application.
   @override
