@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import "package:transit_app/BusStatus.dart";
+import "package:transit_app/bus_status.dart";
 
 class BusListTile extends StatelessWidget {
   const BusListTile(
