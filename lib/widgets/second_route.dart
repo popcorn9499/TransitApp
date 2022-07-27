@@ -12,6 +12,11 @@ class SecondRoute extends StatefulWidget {
 class MyListState extends State<SecondRoute> {
   var newList = <BusListTile>[];
 
+  @override
+  initState() {
+    super.initState();
+  }
+
   _addItem() {
     setState(() {
       newList.add(const BusListTile(timeRemaining: "1 Min", busStatus: BusStatus.Late, stopName: "ME"));
