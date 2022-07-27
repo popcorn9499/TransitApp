@@ -2,38 +2,39 @@ import 'package:flutter/material.dart';
 import "package:transit_app/BusStatus.dart";
 import "package:transit_app/BusListTile.dart";
 
-class SecondRoute extends StatelessWidget {
-  const SecondRoute({super.key});
+class SecondRoute extends StatefulWidget {
+  SecondRoute({Key? key}) : super(key: key);
+
+  @override
+  _MyListState createState() => _MyListState();
+}
+
+class _MyListState extends State<SecondRoute> {
+  var newList = <BusListItem>[];
+
+  _addItem() {
+    setState(() {
+      newList.add(BusListItem(timeRemaining: "1 Min", busStatus: BusStatus.Late, stopName: "ME"));
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Second Route'),
+        title: Text("SecondRoute"),
       ),
-      body: Center(
-        child: ListView(
-          padding: const EdgeInsets.all(0),
-          children: <Widget>[
-            const ListTile(
-              leading: Icon(Icons.map),
-              title: Text('Map'),
-            ),
-            const ListTile(
-              leading: Icon(Icons.photo_album),
-              title: Text('Album'),
-            ),
-            const ListTile(
-              leading: Icon(Icons.photo_album),
-              title: Text('Album'),
-              dense: true,
-            ),
-            BusListItemData(timeRemaining: "1 Min", busStatus: BusStatus.Late, stopName: "WHY"),
-            BusListItemData(timeRemaining: "1 Min", busStatus: BusStatus.Late, stopName: "WHY"),
-            BusListItemData(timeRemaining: "1 Min", busStatus: BusStatus.Late, stopName: "KP Louelda AT 123 hi my life 1000000 1000"),
-          ],
-        ),
+      body: ListView.builder(
+          itemCount: this.newList.length,
+          itemBuilder: (context, index) => this._buildRow(index)),
+      floatingActionButton: FloatingActionButton(
+        onPressed: _addItem,
+        child: Icon(Icons.add),
       ),
     );
+  }
+
+  _buildRow(int index) {
+    return newList[index];
   }
 }

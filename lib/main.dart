@@ -116,7 +116,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 // Navigate to second route when tapped.
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const SecondRoute()),
+                  MaterialPageRoute(builder: (context) => SecondRoute()),
                 );
               },
             ),
