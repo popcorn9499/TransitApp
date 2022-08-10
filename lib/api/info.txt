@@ -16,4 +16,14 @@ https://api.winnipegtransit.com/home/api/v3/services/stops
 
     -- Poll this to grab all the stop numbers for a given bus
 
+    --https://api.winnipegtransit.com/v3/stops/(STOP_NUMBER)/schedule.json?usage=short&api-key=(KEY)&route=11&start=2022-08-09T22:20:00
+    --https://api.winnipegtransit.com/v3/stops:(stop_name).json?usage=short&api-key=(KEY)
 
+
+variants api
+
+    for grabbing names of specific variant names "11-0-W" is "Portage-Kildonan to Westwood Via"
+
+Routes api
+
+    For grabbing all variant names of a specific bus number like 11 or 16
