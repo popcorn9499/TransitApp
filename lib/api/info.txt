@@ -1,0 +1,19 @@
+https://api.winnipegtransit.com/home/api/v3/services/stop-schedules
+
+    Useful to grab buses on a specific stop.
+    Would need to use something else to provide this information however.
+    also provides each bus if it has a bike rack/wifi and bus number
+
+    --poll this to grab the times a bus will go past a given stop
+
+    - https://api.winnipegtransit.com/v3/stops/(STOP_NUMBER)/schedule.json?usage=short&api-key=(KEY)&route=11&start=2022-08-09T22:20:00
+
+https://api.winnipegtransit.com/home/api/v3/services/stops
+
+    useful to get the stops in a specific area.
+    be it location lon and lat of a specific distance
+    or down a street or intersection
+
+    -- Poll this to grab all the stop numbers for a given bus
+
+
