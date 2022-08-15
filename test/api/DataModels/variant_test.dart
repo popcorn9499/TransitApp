@@ -6,13 +6,14 @@
 // tree, read text, and verify that the values of widget properties are correct.
 
 import 'package:flutter_test/flutter_test.dart';
+import 'package:transit_app/api/DataModels/variant.dart';
 
 
 void main() {
-  test('Counter increments smoke test', () async {
-
-    print("TESTING");
-
+  test('Test Variant Creation', () async {
+    Variant variant = Variant(name: "hello",key: "goodbye");
+    expect(variant.key, equals("hello"));
+    expect(variant.key, equals("goodbye"));
   });
 }
 
