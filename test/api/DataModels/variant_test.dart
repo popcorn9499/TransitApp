@@ -17,6 +17,10 @@ void main() {
     expect(variant.name, isNot(equals("goodbye")));
     expect(variant.name, equals("hello"));
     //not sure how to test if something isnt changable but anyways..
+  });
+
+  test('Test Variant toString', () async {
+    Variant variant = Variant(name: "hello",key: "goodbye");
 
     expect(variant.toString(), equals("goodbye: hello"));
   });
