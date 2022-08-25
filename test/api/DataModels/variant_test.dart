@@ -12,8 +12,13 @@ import 'package:transit_app/api/DataModels/variant.dart';
 void main() {
   test('Test Variant Creation', () async {
     Variant variant = Variant(name: "hello",key: "goodbye");
-    expect(variant.key, equals("hello"));
+    expect(variant.key, isNot(equals("hello")));
     expect(variant.key, equals("goodbye"));
+    expect(variant.name, isNot(equals("goodbye")));
+    expect(variant.name, equals("hello"));
+    //not sure how to test if something isnt changable but anyways..
+
+    expect(variant.toString(), equals("goodbye: hello"));
   });
 }
 
