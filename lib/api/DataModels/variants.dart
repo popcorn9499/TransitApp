@@ -2,9 +2,18 @@ import 'variant.dart';
 
 
 class Variants {
-  Variants({required this.name, required this.variants});
+  Variants({required this.name, required List<Variant> variants}) {
+    List<Variant> variantsCopy = <Variant>[];
+    Variant temp;
+    //preform a deep copy on the list
+    for (Variant element in variants){
+      temp = Variant(name: element.name, key: element.key);
+      variantsCopy.add(temp);
+    }
+    this.variants = variantsCopy;
+  }
   final String name;
-  final List<Variant> variants;
+  late List<Variant> variants;
 
   //preform a shallow copy of the list to ensure the list structure is immutable
   List<Variant> getVariants() {
