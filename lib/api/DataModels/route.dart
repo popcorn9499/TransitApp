@@ -44,7 +44,7 @@ class Route {
 
   @override
   String toString() {
-    String result = "name: $name key: $key number: $number variants: [";
+    String result = "Route name: $name key: $key number: $number variants: [";
     for (String element in _variantKeys) {
       result += "$element, ";
     }
