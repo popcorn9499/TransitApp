@@ -17,9 +17,11 @@ class BusInfo {
 
   @override
   String toString() {
-    String result = "";
-    
-
+    String result = "Bus #$number $name arrival scheduled: $arrivalScheduled arrival estimated: $arrivalEstimated ";
+    result += "departure scheduled $departureScheduled departure estimated $departureEstimated ";
+    result += variant.toString();
+    result += " at stop ";
+    result += stop.toString();
     return result;
   }
 }
