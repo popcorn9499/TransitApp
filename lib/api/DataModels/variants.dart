@@ -1,4 +1,4 @@
-import 'variant.dart';
+import "package:transit_app/api/DataModels/variant.dart";
 
 
 class Variants {
