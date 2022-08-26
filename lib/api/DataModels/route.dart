@@ -22,6 +22,17 @@ class Route {
     return Route(name: name, key: key,number: number, variantKeys: variantKeys);
   }
 
+  List<String> getVariants() {
+    List<String> result = <String>[];
+    String duplicate = "";
+    for (String element in variantKeys){ //preform a deep copy of the list to ensure the list structure is immutable
+      duplicate = element;
+      result.add(duplicate);
+    }
+    
+    return result;
+  }
+
   @override
   String toString() {
     String result = "name: $name key: $key number: $number variants: [";
