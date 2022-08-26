@@ -7,6 +7,11 @@ class BusInfo {
   BusInfo({required this.stop, required this.route, required this.arrivalScheduled,
     required this.arrivalEstimated, required this.departureEstimated, required this.departureScheduled, required this.variant});
 
+  final int busNumber;
+  final bool bikeRack; //shows if the bus has a bike rack
+  final bool wifi; //shows if the bus has wifi or not
+  final bool cancelled; //shows if the bus got cancelled or not
+
   final BusStop stop;
   final Route route;
   final String arrivalScheduled;
@@ -33,9 +38,10 @@ class BusInfo {
   factory BusInfo.fromJson(String name, Map<String, dynamic> stopData, Map<String, dynamic> routeInfo) {
     BusStop stop = BusStop.fromJson(stopData);
     final Route route = Route.fromJson(routeInfo["route"]);
-    final 
-
-
+    final busNumber = routeInfo["scheduled-stops"][0]["bus"]["key"] as int;
+    final bikeRack = routeInfo["scheduled-stops"][0]["bus"]["bike-rack"] as bool;
+    final wifi = routeInfo["scheduled-stops"][0]["bus"]["wifi"] as bool;
+    final cancelled = routeInfo["scheduled-stops"][0]["bus"]["cancelled"] as bool;
     return Variants(name: name, variants: variants);
   }
 }
