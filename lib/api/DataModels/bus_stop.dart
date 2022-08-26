@@ -13,4 +13,11 @@ class BusStop {
 
     return BusStop(name: name, key: key,number: number, direction: direction);
   }
+
+  @override
+  String toString(){
+    return "Stop #$number at $name direction $direction";
+  }
+
+
 }
