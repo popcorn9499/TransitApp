@@ -1,11 +1,20 @@
 import "package:transit_app/api/DataModels/variants.dart";
 
 class Route {
-  Route({required this.key,required this.number,required this.name,required this.variantKeys});
+  Route({required this.key,required this.number,required this.name,required List<String> variantKeys}) {
+    List<String> tempVariantKeys = <String>[];
+    String temp = "";
+    //copy the variantKeys list to keep it safe from the input list being changed
+    for (String element in variantKeys) {
+      temp = element;
+      tempVariantKeys.add(temp);
+    }
+    _variantKeys = tempVariantKeys;
+  }
   final int key;
   final int number; //this should be the same as the key
   final String name; //this should show the route name example "Route 11 Portage-Kildonan"
-  final List<String> variantKeys; //list of the variant keys "11-1-D"
+  late  List<String> _variantKeys; //list of the variant keys "11-1-D"
 
   factory Route.fromJson(Map<String, dynamic> data) {
     final key = data['key'] as int;
@@ -25,11 +34,11 @@ class Route {
   List<String> getVariants() {
     List<String> result = <String>[];
     String duplicate = "";
-    for (String element in variantKeys){ //preform a deep copy of the list to ensure the list structure is immutable
+    for (String element in _variantKeys){ //preform a deep copy of the list to ensure the list structure is immutable
       duplicate = element;
       result.add(duplicate);
     }
-    
+
     return result;
   }
 
