@@ -10,15 +10,15 @@ class Variants {
       temp = Variant(name: element.name, key: element.key);
       variantsCopy.add(temp);
     }
-    this.variants = variantsCopy;
+    _variants = variantsCopy;
   }
   final String name;
-  late List<Variant> variants;
+  late List<Variant> _variants;
 
   //preform a shallow copy of the list to ensure the list structure is immutable
   List<Variant> getVariants() {
     List<Variant> result = [];
-    for (Variant element in variants){
+    for (Variant element in _variants){
       result.add(element);
     }
     return result;
@@ -26,7 +26,7 @@ class Variants {
 
   @override
   String toString() {
-    String result = "$name: $variants";
+    String result = "$name: $_variants";
     return result;
   }
 
