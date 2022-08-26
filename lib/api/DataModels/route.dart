@@ -45,7 +45,7 @@ class Route {
   @override
   String toString() {
     String result = "name: $name key: $key number: $number variants: [";
-    for (String element in variantKeys) {
+    for (String element in _variantKeys) {
       result += "$element, ";
     }
     result = result.substring(0,result.length-2); //remove the last ', ' in the string to make it look cleaner
