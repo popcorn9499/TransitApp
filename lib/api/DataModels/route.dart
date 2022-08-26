@@ -1,7 +1,7 @@
 import "package:transit_app/api/DataModels/variants.dart";
 
 class Route {
-  Route({required this.key,required this.number,required this.name,required List<String> variantKeys}) {
+  Route({required this.key, required this.number,required this.name, required List<String> variantKeys}) {
     List<String> tempVariantKeys = <String>[];
     String temp = "";
     //copy the variantKeys list to keep it safe from the input list being changed
