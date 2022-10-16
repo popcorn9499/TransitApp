@@ -39,7 +39,14 @@ class Route {
     return Route(name: name, key: key,number: number, variantKeys: variantKeys);
   }
 
+/*
+  Add details for different routes.
 
+  Rapid Transit (Blue)
+    Anything above route number 137
+  Express(Yellow?)
+    21,22,24,25,28,30,31,32,34,35,36,40,41,42,46,48,54,57,58,59,64,65,67
+ */
   /*
     Returns a list of strings of bus variants
     this is a deep copy of the initial list
