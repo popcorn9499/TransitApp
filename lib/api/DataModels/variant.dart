@@ -1,3 +1,8 @@
+/*
+  Stores a single bus variant 11-k
+  name and the key
+ */
+
 class Variant {
   Variant({required this.name, required this.key});
   final String name;
