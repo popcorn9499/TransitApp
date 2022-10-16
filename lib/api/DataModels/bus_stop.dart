@@ -1,3 +1,12 @@
+/*
+  A record of an individual bus stop.
+  Which direction the stop is and so forth
+  keeps a stop number
+  stop name
+  and a direction
+
+ */
+
 class BusStop {
   BusStop({required this.key,required this.number,required this.name,required this.direction});
   final int key;
