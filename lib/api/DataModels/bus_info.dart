@@ -35,7 +35,7 @@ class BusInfo {
   //stop data being a map<string, dynamic> storing the "stop" keyword from a given json string. this includes key, name, number, direction etc
   //routeInfo being map<string, dynamic> this "scheduled-stops"[i] some specific number of the stops
   //modeled after https://api.winnipegtransit.com/v3/stops/10611/schedule.json?usage=short&api-key={apikey}&start=2022-08-26T16:20:00
-  factory BusInfo.fromJson(String name, BusStop stop, Route route, Map<String, dynamic> routeInfo) {
+  factory BusInfo.fromJson(BusStop stop, Route route, Map<String, dynamic> routeInfo) {
     final busNumber = routeInfo["bus"]["key"] as int;
     final bikeRack = routeInfo["bus"]["bike-rack"] as bool;
     final wifi = routeInfo["bus"]["wifi"] as bool;
