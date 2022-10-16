@@ -4,7 +4,7 @@ import "package:transit_app/api/DataModels/route.dart";
 
 class BusInfo {
 
-  BusInfo({required this.stop, required this.route,, required this.arrivalScheduled,
+  BusInfo({required this.stop, required this.route, required this.arrivalScheduled,
     required this.arrivalEstimated, required this.departureEstimated, required this.departureScheduled, required this.variant, required this.busNumber, required this.bikeRack, required this.wifi, required this.cancelled});
 
   final int busNumber;
