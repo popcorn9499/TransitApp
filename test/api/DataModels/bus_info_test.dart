@@ -11,17 +11,28 @@ import 'package:transit_app/api/DataModels/bus_stop.dart';
 import 'package:transit_app/api/DataModels/route.dart';
 import 'package:transit_app/api/DataModels/variant.dart';
 
-
 void main() {
   test('Test bus_info Creation', () async {
-    BusStop busStop = BusStop(key: 1234, number: 1234, name: "cool stop", direction: "South");
-    Route route = Route(name: "cool super name", number: 123, key: 123, variantKeys: ["123", "hello"]);
-    Variant variant = Variant(name:"cool super name 123", key:"123");
-    BusInfo busInfo = BusInfo(stop: busStop, route: route, bikeRack: false, wifi: false, cancelled: false,
-      busNumber: 666, arrivalEstimated: "2022-12-19T19:44:50", arrivalScheduled: "2022-12-19T19:44:50",
-        departureEstimated: "2022-12-19T19:44:50", departureScheduled: "2022-12-19T19:44:50",
-        variant: variant
-    );
+    BusStop busStop =
+        BusStop(key: 1234, number: 1234, name: "cool stop", direction: "South");
+    Route route = Route(
+        name: "cool super name",
+        number: 123,
+        key: 123,
+        variantKeys: ["123", "hello"]);
+    Variant variant = Variant(name: "cool super name 123", key: "123");
+    BusInfo busInfo = BusInfo(
+        stop: busStop,
+        route: route,
+        bikeRack: false,
+        wifi: false,
+        cancelled: false,
+        busNumber: 666,
+        arrivalEstimated: "2022-12-19T19:44:50",
+        arrivalScheduled: "2022-12-19T19:44:50",
+        departureEstimated: "2022-12-19T19:44:50",
+        departureScheduled: "2022-12-19T19:44:50",
+        variant: variant);
 
     expect(busInfo.busNumber, equals(666));
     expect(busInfo.bikeRack, equals(false));
@@ -38,16 +49,31 @@ void main() {
 
 
   test('Test bus_info toString', () async {
-    BusStop busStop = BusStop(key: 1234, number: 1234, name: "cool stop", direction: "South");
-    Route route = Route(name: "cool super name", number: 123, key: 123, variantKeys: ["123", "hello"]);
-    Variant variant = Variant(name:"cool super name 123", key:"123");
-    BusInfo busInfo = BusInfo(stop: busStop, route: route, bikeRack: false, wifi: false, cancelled: false,
-        busNumber: 666, arrivalEstimated: "2022-12-19T19:44:50", arrivalScheduled: "2022-12-19T19:44:50",
-        departureEstimated: "2022-12-19T19:44:50", departureScheduled: "2022-12-19T19:44:50",
-        variant: variant
-    );
+    BusStop busStop =
+        BusStop(key: 1234, number: 1234, name: "cool stop", direction: "South");
+    Route route = Route(
+        name: "cool super name",
+        number: 123,
+        key: 123,
+        variantKeys: ["123", "hello"]);
+    Variant variant = Variant(name: "cool super name 123", key: "123");
+    BusInfo busInfo = BusInfo(
+        stop: busStop,
+        route: route,
+        bikeRack: false,
+        wifi: false,
+        cancelled: false,
+        busNumber: 666,
+        arrivalEstimated: "2022-12-19T19:44:50",
+        arrivalScheduled: "2022-12-19T19:44:50",
+        departureEstimated: "2022-12-19T19:44:50",
+        departureScheduled: "2022-12-19T19:44:50",
+        variant: variant);
 
     print(busInfo.toString());
-    expect(busInfo.toString(), equals("Bus Route name: cool super name key: 123 number: 123 variants: [123, hello]arrival scheduled: 2022-12-19T19:44:50 arrival estimated: 2022-12-19T19:44:50 departure scheduled 2022-12-19T19:44:50 departure estimated 2022-12-19T19:44:50 123: cool super name 123 at stop Stop #1234 at cool stop direction South"));
+    expect(
+        busInfo.toString(),
+        equals(
+            "Bus Route name: cool super name key: 123 number: 123 variants: [123, hello]arrival scheduled: 2022-12-19T19:44:50 arrival estimated: 2022-12-19T19:44:50 departure scheduled 2022-12-19T19:44:50 departure estimated 2022-12-19T19:44:50 123: cool super name 123 at stop Stop #1234 at cool stop direction South"));
   });
 }
