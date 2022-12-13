@@ -79,12 +79,42 @@ void main() {
     });
 
     expect(route.key, equals(16));
-    expect(route.key, equals(16));
-    expect(route.key, equals(16));
+    expect(route.number, equals(16));
+    expect(route.name, equals("Route 16 Selkirk-Osborne"));
     List<String> v = route.getVariants();
     expect(v.length, equals(11));
     print(route.toString());
     expect(route.toString(), equals("Route name: Route 16 Selkirk-Osborne key: 16 number: 16 variants: [16-0-B, 16-0-M, 16-1-P, 16-1-V, 16-1-##, 16-1-*, 16-1-L, 16-0-*, 16-1-K, 16-0-K, 16-0-s]"));
+  });
+
+  test('Test Route from Json seperated variants', () async {
+    Route route = Route.fromJson({
+      "key": 16,
+      "number": 16,
+      "name": "Route 16 Selkirk-Osborne",
+      "customer-type": "regular",
+      "coverage": "regular",
+      "badge-label": 16,
+      "badge-style": {
+        "class-names": {
+          "class-name": [
+            "badge-label",
+            "regular"
+          ]
+        },
+        "background-color": "#ffffff",
+        "border-color": "#d9d9d9",
+        "color": "#000000"
+      }
+    }, variantsData: ["1234","567"]);
+
+    expect(route.key, equals(16));
+    expect(route.number, equals(16));
+    expect(route.name, equals("Route 16 Selkirk-Osborne"));
+    List<String> v = route.getVariants();
+    expect(v.length, equals(2));
+    print(route.toString());
+    expect(route.toString(), equals("Route name: Route 16 Selkirk-Osborne key: 16 number: 16 variants: [1234, 567]"));
   });
 
   test('Test Route toString', () async {
