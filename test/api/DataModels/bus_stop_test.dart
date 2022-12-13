@@ -20,6 +20,29 @@ void main() {
     expect(busStop.direction, equals("South"));
   });
 
+
+  test('Test bus stop fromJson', () async {
+    List<Variant> variantsList = <Variant>[];
+    //copy of json from a actual api request
+    BusStop busStop = BusStop.fromJson({
+    "key": 10171,
+    "name": "Northbound Osborne at River",
+    "number": 10171,
+    "direction": "Northbound",
+    "side": "Farside",
+    "street": {
+    "key": 2715,
+    "name": "Osborne Street",
+    "type": "Street"
+    }
+    });
+    expect(busStop.key, equals(10171));
+    expect(busStop.number, equals(10171));
+    expect(busStop.name, equals("Northbound Osborne at River"));
+    expect(busStop.direction, equals("Northbound"));
+    expect(busStop.toString(), equals("Stop #10171 at Northbound Osborne at River direction Northbound"));
+  });
+
   test('Test bus Stop toString', () async {
     BusStop busStop = BusStop(key: 1234, number: 1234, name: "cool stop", direction: "South");
     expect(busStop.toString(), equals("Stop #1234 at cool stop direction South"));
