@@ -1,0 +1,94 @@
+// This is a basic Flutter widget test.
+//
+// To perform an interaction with a widget in your test, use the WidgetTester
+// utility in the flutter_test package. For example, you can send tap and scroll
+// gestures. You can also use WidgetTester to find child widgets in the widget
+// tree, read text, and verify that the values of widget properties are correct.
+
+import 'package:flutter_test/flutter_test.dart';
+import 'package:transit_app/api/DataModels/route.dart';
+
+
+void main() {
+  // test('Test Variant Creation', () async {
+  //   Variant variant = Variant(name: "hello",key: "goodbye");
+  //   expect(variant.key, isNot(equals("hello")));
+  //   expect(variant.key, equals("goodbye"));
+  //   expect(variant.name, isNot(equals("goodbye")));
+  //   expect(variant.name, equals("hello"));
+  //   //not sure how to test if something isnt changable but anyways..
+  // });
+  test('Test Route from Json', () async {
+    Route route = Route.fromJson({
+      "route": {
+        "key": 16,
+        "number": 16,
+        "name": "Route 16 Selkirk-Osborne",
+        "customer-type": "regular",
+        "coverage": "regular",
+        "badge-label": 16,
+        "badge-style": {
+          "class-names": {
+            "class-name": [
+              "badge-label",
+              "regular"
+            ]
+          },
+          "background-color": "#ffffff",
+          "border-color": "#d9d9d9",
+          "color": "#000000"
+        },
+        "variants": [
+          {
+            "key": "16-0-B"
+          },
+          {
+            "key": "16-0-M"
+          },
+          {
+            "key": "16-1-P"
+          },
+          {
+            "key": "16-1-V"
+          },
+          {
+            "key": "16-1-##"
+          },
+          {
+            "key": "16-1-*"
+          },
+          {
+            "key": "16-1-L"
+          },
+          {
+            "key": "16-0-*"
+          },
+          {
+            "key": "16-1-K"
+          },
+          {
+            "key": "16-0-K"
+          },
+          {
+            "key": "16-0-s"
+          }
+        ]
+      },
+      "query-time": "2022-12-12T19:16:24"
+    });
+
+    expect(route.key, equals(16));
+    expect(route.key, equals(16));
+    expect(route.key, equals(16));
+    List<String> v = route.getVariants();
+    expect(v.length, equals(11));
+    print(route.toString());
+    expect(route.toString(), equals("Route name: Route 16 Selkirk-Osborne key: 16 number: 16 variants: [16-0-B, 16-0-M, 16-1-P, 16-1-V, 16-1-##, 16-1-*, 16-1-L, 16-0-*, 16-1-K, 16-0-K, 16-0-s]"));
+  });
+  // test('Test Variant toString', () async {
+  //   Variant variant = Variant(name: "hello",key: "goodbye");
+  //
+  //   expect(variant.toString(), equals("goodbye: hello"));
+  // });
+}
+
