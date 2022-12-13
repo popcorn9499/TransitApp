@@ -8,6 +8,8 @@ the variant names of the buses
  */
 
 class Route {
+  static const List<dynamic>  defaultData = ["none data"];
+
   Route({required this.key, required this.number,required this.name, required List<String> variantKeys}) {
     List<String> tempVariantKeys = <String>[];
     String temp = "";
@@ -24,17 +26,38 @@ class Route {
   late  List<String> _variantKeys; //list of the variant keys "11-1-D"
 
   //turns the incoming json into a object
-  factory Route.fromJson(Map<String, dynamic> data) {
-    final key = data['key'] as int;
-    final number = data['number'] as int;
-    final name = data['name'] as String;
-    List<dynamic> variants = data['variants'];
+  factory Route.fromJson(Map<String, dynamic> data, {List <dynamic> variantsData = Route.defaultData}) {
+    int key;
+    int number;
+    String name;
+    List<dynamic> variants = <String>[];
     List<String> variantKeys = <String>[];
+    //handle main data
+    if (data.containsKey("route")) {
+      key = data["route"]['key'] as int;
+      number = data["route"]['number'] as int;
+      name = data["route"]['name'] as String;
+      if (data["route"].containsKey("variants")){
+        print("I GOT THE KEY");
+        variants = data["route"]['variants'];
+      }
+    } else {
+      key = data['key'] as int;
+      number = data['number'] as int;
+      name = data['name'] as String;
+      if (variantsData != Route.defaultData) {
+        print("GOT extra data");
+        variants = variantsData;
+      }
+    }
 
     for (var element in variants) {
       String variant = element["key"];
       variantKeys.add(variant);
     }
+
+
+
 
     return Route(name: name, key: key,number: number, variantKeys: variantKeys);
   }
