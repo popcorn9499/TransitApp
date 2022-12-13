@@ -40,6 +40,10 @@ class Route {
       if (data["route"].containsKey("variants")){
         print("I GOT THE KEY");
         variants = data["route"]['variants'];
+        for (var element in variants) {
+          String variant = element["key"];
+          variantKeys.add(variant);
+        }
       }
     } else {
       key = data['key'] as int;
@@ -47,14 +51,13 @@ class Route {
       name = data['name'] as String;
       if (variantsData != Route.defaultData) {
         print("GOT extra data");
-        variants = variantsData;
+        for (String element in variantsData) {
+          variantKeys.add(element);
+        }
       }
     }
 
-    for (var element in variants) {
-      String variant = element["key"];
-      variantKeys.add(variant);
-    }
+
 
 
 
