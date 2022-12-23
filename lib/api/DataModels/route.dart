@@ -40,7 +40,7 @@ class Route {
     //handles adding variants if they exist in the json
     if (data.containsKey("variants")){
       print("I GOT THE KEY");
-      variants = data["route"]['variants'];
+      variants = data['variants'];
       for (var element in variants) {
         String variant = element["key"];
         variantKeys.add(variant);
