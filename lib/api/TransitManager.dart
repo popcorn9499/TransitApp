@@ -4,12 +4,20 @@ class TransitManager {
   static const String apiDateFormat = "yyyy-MM-dd'T'HH:mm:ss";
   static const String apiUrl = "https://api.winnipegtransit.com/v3/";
 
+  static const List<String> defaultRouteNumbers = [];
   String apiKey = "";
 
 
-
-
   TransitManager(apiKey);
+
+
+  Map<String, dynamic> getJson(String url) {
+    Map<String,dynamic> result = {"empty":1};
+
+    return result;
+  }
+
+  String genStopNumbersURL(int stopNumber, {List<String> routeNumbers = TransitManager.defaultRouteNumbers, })
 
   test(){
 
