@@ -17,8 +17,8 @@ void main() {
         BusStop(key: 1234, number: 1234, name: "cool stop", direction: "South");
     Route route = Route(
         name: "cool super name",
-        number: 123,
-        key: 123,
+        number: "123",
+        key: "123",
         variantKeys: ["123", "hello"]);
     Variant variant = Variant(name: "cool super name 123", key: "123");
     BusInfo busInfo = BusInfo(
@@ -154,8 +154,8 @@ void main() {
         BusStop(key: 1234, number: 1234, name: "cool stop", direction: "South");
     Route route = Route(
         name: "cool super name",
-        number: 123,
-        key: 123,
+        number: "123",
+        key: "123",
         variantKeys: ["123", "hello"]);
     Variant variant = Variant(name: "cool super name 123", key: "123");
     BusInfo busInfo = BusInfo(

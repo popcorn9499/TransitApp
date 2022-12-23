@@ -11,7 +11,7 @@ import 'package:transit_app/api/DataModels/route.dart';
 
 void main() {
   test('Test Route Creation', () async {
-    Route route = Route(name: "cool super name", number: 123, key: 123, variantKeys: ["123", "hello"]);
+    Route route = Route(name: "cool super name", number: "123", key: "123", variantKeys: ["123", "hello"]);
     expect(route.name, equals("cool super name"));
     expect(route.number, equals(123));
     expect(route.key, equals(123));
