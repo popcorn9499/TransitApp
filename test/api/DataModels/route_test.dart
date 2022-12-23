@@ -13,8 +13,8 @@ void main() {
   test('Test Route Creation', () async {
     Route route = Route(name: "cool super name", number: "123", key: "123", variantKeys: ["123", "hello"]);
     expect(route.name, equals("cool super name"));
-    expect(route.number, equals(123));
-    expect(route.key, equals(123));
+    expect(route.number, equals("123"));
+    expect(route.key, equals("123"));
 
     expect(route.toString(),equals("Route name: cool super name key: 123 number: 123 variants: [123, hello]"));
   });
@@ -78,8 +78,8 @@ void main() {
       "query-time": "2022-12-12T19:16:24"
     });
 
-    expect(route.key, equals(16));
-    expect(route.number, equals(16));
+    expect(route.key, equals("16"));
+    expect(route.number, equals("16"));
     expect(route.name, equals("Route 16 Selkirk-Osborne"));
     List<String> v = route.getVariants();
     expect(v.length, equals(11));
@@ -108,8 +108,8 @@ void main() {
       }
     }, variantsData: ["1234","567"]);
 
-    expect(route.key, equals(16));
-    expect(route.number, equals(16));
+    expect(route.key, equals("16"));
+    expect(route.number, equals("16"));
     expect(route.name, equals("Route 16 Selkirk-Osborne"));
     List<String> v = route.getVariants();
     expect(v.length, equals(2));
