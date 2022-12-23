@@ -11,10 +11,10 @@ class BusStopSchedules {
   factory BusStopSchedules.fromJson(Map<String, dynamic> data) {
     Route route;
     List<BusInfo> busSchedules = [];
-    BusStop busStop = BusStop.fromJson(data["stop"]);
+    BusStop busStop = BusStop.fromJson(data["stop-schedule"]["stop"]);
 
     //loop over every route to find all the routes at a stop
-    for (var routeSchedule in data["route-schedules"]){
+    for (var routeSchedule in data["stop-schedule"]["route-schedules"]){
       route = Route.fromJson(routeSchedule["route"]);
       //loop over every bus in each route at a stop
       for (var busSchedule in routeSchedule["scheduled-stops"]){
