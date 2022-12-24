@@ -1,23 +1,71 @@
 
 import 'dart:convert';
+import 'package:intl/intl.dart';
+
+import 'package:transit_app/api/URLGenerator.dart';
+import 'package:sprintf/sprintf.dart';
+import '../Config/BuildConfig.dart';
+import 'package:http/http.dart' as http;
+
 class TransitManager {
-  static const String apiDateFormat = "yyyy-MM-dd'T'HH:mm:ss";
-  static const String apiUrl = "https://api.winnipegtransit.com/v3/";
+  static DateFormat apiDateFormat = DateFormat("yyyy-MM-dd'T'HH:mm:ss");
+  static const String apiUrl = "https://api.winnipegtransit.com/v3/%s.json?usage=short&api-key=${BuildConfig.apiKey}";
+  static const Duration startTimeDecrease = Duration(microseconds: 10000);
 
-  static const List<String> defaultRouteNumbers = [];
-  String apiKey = "";
-
-
-  TransitManager(apiKey);
+  TransitManager();
 
 
   Map<String, dynamic> getJson(String url) {
     Map<String,dynamic> result = {"empty":1};
 
+    late Future<http.Response> requestAsync = http.get(Uri.parse(url));
+    late http.Response request;
+
+    requestAsync.then((data){
+      request = data;
+    });
+
+    if (request.statusCode == 503) {
+      //rate limited
+    } else if (request.statusCode == 404) {
+      //date not found
+    }
+
+    result = json.decode(request.body);
+    
     return result;
   }
 
-  String genStopNumbersURL(int stopNumber, {List<String> routeNumbers = TransitManager.defaultRouteNumbers, })
+  Future<http.Response> getRequest(String url) {
+    return http.get(Uri.parse(url));
+  }
+
+  String genStopNumbersURL(int stopNumber, {List<String>? routeNumbers, DateTime? startTime, DateTime? endTime}) {
+    String info = sprintf(apiUrl, ["stops/$stopNumber/schedule"]);
+    URLGenerator url = URLGenerator(url: info);
+    if (routeNumbers != null) {
+      url.addParamList("route", routeNumbers);
+    }
+
+    if (startTime != null) {
+      startTime.subtract(startTimeDecrease);
+      url.addParam("start", TransitManager.apiDateFormat.format(startTime));
+    }
+
+    if (endTime != null) {
+      url.addParam("end", TransitManager.apiDateFormat.format(endTime));
+    }
+
+    return url.toString();
+  }
+
+  String genSearchQuery(String search) {
+    URLGenerator url = URLGenerator(url: "stops:$search");
+
+    return url.toString();
+  }
+
+
 
   test(){
 
