@@ -37,11 +37,11 @@ class BusInfo {
   //modeled after https://api.winnipegtransit.com/v3/stops/10611/schedule.json?usage=short&api-key={apikey}&start=2022-08-26T16:20:00
   factory BusInfo.fromJson(BusStop stop, Route route, Map<String, dynamic> routeInfo) {
     final busNumber = routeInfo["bus"]["key"] as int;
-    final bikeRack = routeInfo["bus"]["bike-rack"] as bool;
-    final wifi = routeInfo["bus"]["wifi"] as bool;
-    final cancelled = routeInfo["bus"]["cancelled"] as bool;
-    final variantKey = routeInfo["bus"]["variant"]["key"] as String;
-    final variantName = routeInfo["bus"]["variant"]["name"] as String;
+    final bikeRack = routeInfo["bus"]["bike-rack"] == "true" ? true: false;
+    final wifi = routeInfo["wifi"] == "true" ? true: false;
+    final cancelled = routeInfo["cancelled"] == "true" ? true: false;
+    final variantKey = routeInfo["variant"]["key"] as String;
+    final variantName = routeInfo["variant"]["name"] as String;
     final Variant variant = Variant(name: variantName, key: variantKey);
     final arrivalScheduled = routeInfo["times"]["arrival"]["scheduled"] as String;
     final arrivalEstimated = routeInfo["times"]["arrival"]["estimated"] as String;

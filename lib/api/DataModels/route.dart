@@ -8,6 +8,8 @@ the variant names of the buses
  */
 
 class Route {
+  static const List<dynamic>  defaultData = ["none data"];
+
   Route({required this.key, required this.number,required this.name, required List<String> variantKeys}) {
     List<String> tempVariantKeys = <String>[];
     String temp = "";
@@ -18,23 +20,49 @@ class Route {
     }
     _variantKeys = tempVariantKeys;
   }
-  final int key;
-  final int number; //this should be the same as the key
+  final String key; //stored as a string for "blue"
+  final String number; //this should be the same as the key
   final String name; //this should show the route name example "Route 11 Portage-Kildonan"
   late  List<String> _variantKeys; //list of the variant keys "11-1-D"
 
   //turns the incoming json into a object
-  factory Route.fromJson(Map<String, dynamic> data) {
-    final key = data['key'] as int;
-    final number = data['number'] as int;
-    final name = data['name'] as String;
-    List<dynamic> variants = data['variants'];
+  factory Route.fromJson(Map<String, dynamic> data, {List <dynamic> variantsData = Route.defaultData}) {
+    String key;
+    String number;
+    String name;
+    List<dynamic> variants = <String>[];
     List<String> variantKeys = <String>[];
-
-    for (var element in variants) {
-      String variant = element["key"];
-      variantKeys.add(variant);
+    //handle main data
+    if (data.containsKey("route")) {
+      data = data["route"];
     }
+
+    //handles adding variants if they exist in the json
+    if (data.containsKey("variants")){
+      print("I GOT THE KEY");
+      variants = data['variants'];
+      for (var element in variants) {
+        String variant = element["key"];
+        variantKeys.add(variant);
+      }
+    }
+
+    //handles adding elements from the variantsData argument
+    if (variantsData != Route.defaultData) {
+      print("GOT extra data");
+      for (String element in variantsData) {
+        variantKeys.add(element);
+      }
+    }
+
+    key = data['key'].toString();
+    number = data['number'].toString();
+    if (data.containsKey("name")) { //handles the case when name is null
+      name = data['name'] as String;
+    } else {
+      name = key;
+    }
+
 
     return Route(name: name, key: key,number: number, variantKeys: variantKeys);
   }
