@@ -32,7 +32,7 @@ class TransitManager {
     }
 
     result = json.decode(request.body);
-    
+
     return result;
   }
 
