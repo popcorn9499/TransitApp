@@ -7,7 +7,9 @@ class URLGenerator {
   }
 
   void addParamList(String key, List<String> values) {
-
+    for (String value in values) {
+      addParam(key, value);
+    }
   }
 
   @override
