@@ -1,6 +1,7 @@
 
 import 'dart:convert';
 import 'package:intl/intl.dart';
+import 'package:transit_app/api/DataModels/bus_stop_schedules.dart';
 
 import 'package:transit_app/api/URLGenerator.dart';
 import 'package:sprintf/sprintf.dart';
@@ -56,6 +57,14 @@ class TransitManager {
     }
 
     return url.toString();
+  }
+
+  Future<BusStopSchedules> genStopNumbers(int stopNumber, {List<String>? routeNumbers, DateTime? startTime, DateTime? endTime}) async{
+    BusStopSchedules bss;
+    String url = genStopNumbersURL(stopNumber, routeNumbers: routeNumbers, startTime: startTime, endTime: endTime);
+    Map<String, dynamic> data = await getJson(url);
+    bss = BusStopSchedules.fromJson(data);
+    return bss;
   }
 
   String genSearchQueryURL(String search) {
