@@ -8,6 +8,7 @@
 
 
 import 'package:flutter_test/flutter_test.dart';
+import 'package:transit_app/api/DataModels/bus_stop.dart';
 import 'package:transit_app/api/TransitManager.dart';
 
 
@@ -32,5 +33,13 @@ void main() {
     String url = manager.genSearchQueryURL("coolStop");
     int apiIndex = url.lastIndexOf("api-key");
     expect(url.substring(0, apiIndex +8), equals("https://api.winnipegtransit.com/v3/stops:coolStop.json?usage=short&api-key="));
+  });
+
+  test('Test Transit Manager genSearchQuery', () async {
+    TransitManager manager = TransitManager();
+    String search = "10611";
+    List<BusStop> stops = await manager.genSearchQuery(search);
+
+    expect(stops[0].toString(), equals("Stop #10611 at EB Graham@Fort (Wpg Square) direction Eastbound"));
   });
 }
