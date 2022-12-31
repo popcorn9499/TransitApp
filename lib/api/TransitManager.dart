@@ -35,34 +35,34 @@ class TransitManager {
     }
       return result;
   }
-      Future<http.Response> getRequest(String url) {
-        return http.get(Uri.parse(url));
-      }
+  Future<http.Response> getRequest(String url) {
+    return http.get(Uri.parse(url));
+  }
 
-      String genStopNumbersURL(int stopNumber, {List<String>? routeNumbers, DateTime? startTime, DateTime? endTime}) {
-        String info = sprintf(apiUrl, ["stops/$stopNumber/schedule"]);
-        URLGenerator url = URLGenerator(url: info);
-        if (routeNumbers != null) {
-          url.addParamList("route", routeNumbers);
-        }
+  String genStopNumbersURL(int stopNumber, {List<String>? routeNumbers, DateTime? startTime, DateTime? endTime}) {
+    String info = sprintf(apiUrl, ["stops/$stopNumber/schedule"]);
+    URLGenerator url = URLGenerator(url: info);
+    if (routeNumbers != null) {
+      url.addParamList("route", routeNumbers);
+    }
 
-        if (startTime != null) {
-          startTime.subtract(startTimeDecrease);
-          url.addParam("start", TransitManager.apiDateFormat.format(startTime));
-        }
+    if (startTime != null) {
+      startTime.subtract(startTimeDecrease);
+      url.addParam("start", TransitManager.apiDateFormat.format(startTime));
+    }
 
-        if (endTime != null) {
-          url.addParam("end", TransitManager.apiDateFormat.format(endTime));
-        }
+    if (endTime != null) {
+      url.addParam("end", TransitManager.apiDateFormat.format(endTime));
+    }
 
-        return url.toString();
-      }
+    return url.toString();
+  }
 
-      String genSearchQuery(String search) {
-        URLGenerator url = URLGenerator(url: "stops:$search");
+  String genSearchQuery(String search) {
+    URLGenerator url = URLGenerator(url: "stops:$search");
 
-        return url.toString();
-      }
+    return url.toString();
+  }
 }
 
 
