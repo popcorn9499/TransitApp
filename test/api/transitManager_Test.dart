@@ -19,7 +19,7 @@ void main() {
 
   test('Test Transit Manager getJson', () async {
     TransitManager manager = TransitManager();
-    Map<String, dynamic> data = manager.getJson("https://jsonplaceholder.typicode.com/albums/1");
+    Map<String, dynamic> data = await manager.getJson("https://jsonplaceholder.typicode.com/albums/1");
     Map<String, dynamic> testData = {
       "userId": 1,
       "title": "quidem molestiae enim"
