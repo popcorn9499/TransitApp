@@ -3,6 +3,8 @@ import "package:transit_app/api/DataModels/variant.dart";
 import "package:transit_app/api/DataModels/route.dart";
 import 'package:transit_app/api/TransitManager.dart';
 
+import '../../bus_status.dart';
+
 class BusInfo {
 
   BusInfo({required this.stop, required this.route, required this.arrivalScheduled,
@@ -21,6 +23,16 @@ class BusInfo {
   final DateTime departureEstimated;
   final Variant variant;
 
+  BusStatus getOnTime() {
+    BusStatus result = BusStatus.Ok;
+    int diff = arrivalEstimated.compareTo(arrivalScheduled);
+    if (diff > 0) {
+      result = BusStatus.Late;
+    } else if (diff < 0){
+      result = BusStatus.Early;
+    }
+    return result;
+  }
   @override
   String toString() {
     String result = "Bus $route";
