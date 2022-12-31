@@ -7,6 +7,8 @@ import 'package:sprintf/sprintf.dart';
 import '../Config/BuildConfig.dart';
 import 'package:http/http.dart' as http;
 
+import 'DataModels/bus_stop.dart';
+
 class TransitManager {
   static DateFormat apiDateFormat = DateFormat("yyyy-MM-dd'T'HH:mm:ss");
   static const String apiUrl = "https://api.winnipegtransit.com/v3/%s.json?usage=short&api-key=${BuildConfig.apiKey}";
@@ -60,8 +62,21 @@ class TransitManager {
 
   String genSearchQueryURL(String search) {
     URLGenerator url = URLGenerator(url: sprintf(apiUrl, ["stops:$search"]));
-
     return url.toString();
+  }
+
+  List<BusStop> genSearchQuery(String search) {
+    List<BusStop> result = [];
+    String url = genSearchQueryURL(search);
+    Map<String, dynamic> data = getJson(url);
+    BusStop tempStop; //store the stop we are adding to the list of bus stops
+
+    for (var element in data["stops"]) {
+      tempStop = BusStop.fromJson(element);
+      result.add(tempStop);
+    }
+
+    return result;
   }
 }
 
