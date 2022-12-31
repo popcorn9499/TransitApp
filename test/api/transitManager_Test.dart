@@ -9,6 +9,7 @@
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:transit_app/api/DataModels/bus_stop.dart';
+import 'package:transit_app/api/DataModels/bus_stop_schedules.dart';
 import 'package:transit_app/api/TransitManager.dart';
 
 
@@ -41,5 +42,11 @@ void main() {
     List<BusStop> stops = await manager.genSearchQuery(search);
 
     expect(stops[0].toString(), equals("Stop #10611 at EB Graham@Fort (Wpg Square) direction Eastbound"));
+  });
+
+  test('Test Transit Manager genStopNumbers', () async {
+    TransitManager manager = TransitManager();
+    BusStopSchedules stops = await manager.genStopNumbers(10611);
+    //no real checks just ensures the code functions
   });
 }
