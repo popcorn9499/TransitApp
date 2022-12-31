@@ -17,15 +17,12 @@ class TransitManager {
   TransitManager();
 
 
-  Map<String, dynamic> getJson(String url) {
+  Future<Map<String, dynamic>> getJson(String url) async {
     Map<String, dynamic> result = {"empty": 1};
 
-    late Future<http.Response> requestAsync = http.get(Uri.parse(url));
-    http.Response? request;
+    http.Response request = await http.get(Uri.parse(url));
 
-    requestAsync.then((data) {
-      request = data;
-    });
+
     if (request?.statusCode == 503) {
       //rate limited
     } else if (request?.statusCode == 404) {
@@ -37,6 +34,7 @@ class TransitManager {
     }
       return result;
   }
+
   Future<http.Response> getRequest(String url) {
     return http.get(Uri.parse(url));
   }
@@ -65,10 +63,10 @@ class TransitManager {
     return url.toString();
   }
 
-  List<BusStop> genSearchQuery(String search) {
+  Future<List<BusStop>> genSearchQuery(String search) async{
     List<BusStop> result = [];
     String url = genSearchQueryURL(search);
-    Map<String, dynamic> data = getJson(url);
+    Map<String, dynamic> data = await getJson(url);
     BusStop tempStop; //store the stop we are adding to the list of bus stops
 
     for (var element in data["stops"]) {
