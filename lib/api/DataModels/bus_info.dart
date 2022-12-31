@@ -1,6 +1,7 @@
 import "package:transit_app/api/DataModels/bus_stop.dart";
 import "package:transit_app/api/DataModels/variant.dart";
 import "package:transit_app/api/DataModels/route.dart";
+import 'package:transit_app/api/TransitManager.dart';
 
 class BusInfo {
 
@@ -14,17 +15,21 @@ class BusInfo {
 
   final BusStop stop;
   final Route route;
-  final String arrivalScheduled;
-  final String arrivalEstimated;
-  final String departureScheduled;
-  final String departureEstimated;
+  final DateTime arrivalScheduled;
+  final DateTime arrivalEstimated;
+  final DateTime departureScheduled;
+  final DateTime departureEstimated;
   final Variant variant;
 
   @override
   String toString() {
     String result = "Bus $route";
-    result += "arrival scheduled: $arrivalScheduled arrival estimated: $arrivalEstimated ";
-    result += "departure scheduled $departureScheduled departure estimated $departureEstimated ";
+    String arrivalScheduledStr = TransitManager.apiDateFormat.format(arrivalScheduled);
+    String arrivalEstimatedStr = TransitManager.apiDateFormat.format(arrivalEstimated);
+    String departureScheduledStr = TransitManager.apiDateFormat.format(departureScheduled);
+    String departureEstimatedStr = TransitManager.apiDateFormat.format(departureEstimated);
+    result += "arrival scheduled: $arrivalScheduledStr arrival estimated: $arrivalEstimatedStr ";
+    result += "departure scheduled $departureScheduledStr departure estimated $departureEstimatedStr ";
     result += variant.toString();
     result += " at stop ";
     result += stop.toString();
@@ -43,10 +48,16 @@ class BusInfo {
     final variantKey = routeInfo["variant"]["key"] as String;
     final variantName = routeInfo["variant"]["name"] as String;
     final Variant variant = Variant(name: variantName, key: variantKey);
-    final arrivalScheduled = routeInfo["times"]["arrival"]["scheduled"] as String;
-    final arrivalEstimated = routeInfo["times"]["arrival"]["estimated"] as String;
-    final departureScheduled = routeInfo["times"]["departure"]["scheduled"] as String;
-    final departureEstimated = routeInfo["times"]["departure"]["estimated"] as String;
+    String arrivalScheduledStr = routeInfo["times"]["arrival"]["scheduled"] as String;
+    String arrivalEstimatedStr = routeInfo["times"]["arrival"]["estimated"] as String;
+    String departureScheduledStr = routeInfo["times"]["departure"]["scheduled"] as String;
+    String departureEstimatedStr = routeInfo["times"]["departure"]["estimated"] as String;
+
+    //convert date time strings to DateTime objects
+    DateTime arrivalScheduled = TransitManager.apiDateFormat.parse(arrivalScheduledStr);
+    DateTime arrivalEstimated = TransitManager.apiDateFormat.parse(arrivalEstimatedStr);
+    DateTime departureScheduled = TransitManager.apiDateFormat.parse(departureScheduledStr);
+    DateTime departureEstimated = TransitManager.apiDateFormat.parse(departureEstimatedStr);
 
     return BusInfo(stop: stop, route: route, arrivalScheduled: arrivalScheduled, arrivalEstimated: arrivalEstimated, departureEstimated: departureEstimated, departureScheduled: departureScheduled, variant: variant, busNumber: busNumber, bikeRack: bikeRack, wifi: wifi, cancelled: cancelled);
   }
