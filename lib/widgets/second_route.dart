@@ -9,15 +9,20 @@ import '../api/DataModels/bus_info.dart';
 
 
 class SecondRoute extends StatefulWidget {
-  const SecondRoute({Key? key}) : super(key: key);
+  final int searchNumber;
+  const SecondRoute({required this.searchNumber, Key? key}) : super(key: key);
 
   @override
-  MyListState createState() => MyListState();
+  MyListState createState() => MyListState(searchNumber: searchNumber);
 }
 
 class MyListState extends State<SecondRoute> {
   var newList = <BusListTile>[];
   int? value = 0;
+  final int searchNumber;
+
+  MyListState({required this.searchNumber});
+
   @override
   initState() {
     super.initState();
@@ -32,7 +37,7 @@ class MyListState extends State<SecondRoute> {
   _addItem() {
     setState(() {
       TransitManager tm = TransitManager();
-      Future<BusStopSchedules> info = tm.genStopNumbers(10611);
+      Future<BusStopSchedules> info = tm.genStopNumbers(searchNumber);
 
       info.then((result){
         BusStopSchedules bss = result;
