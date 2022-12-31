@@ -10,6 +10,7 @@ import 'package:transit_app/api/DataModels/bus_info.dart';
 import 'package:transit_app/api/DataModels/bus_stop.dart';
 import 'package:transit_app/api/DataModels/route.dart';
 import 'package:transit_app/api/DataModels/variant.dart';
+import 'package:transit_app/api/TransitManager.dart';
 
 void main() {
   test('Test bus_info Creation', () async {
@@ -28,10 +29,10 @@ void main() {
         wifi: false,
         cancelled: false,
         busNumber: 666,
-        arrivalEstimated: "2022-12-19T19:44:50",
-        arrivalScheduled: "2022-12-19T19:44:50",
-        departureEstimated: "2022-12-19T19:44:50",
-        departureScheduled: "2022-12-19T19:44:50",
+        arrivalEstimated: TransitManager.apiDateFormat.parse("2022-12-19T19:44:50"),
+        arrivalScheduled: TransitManager.apiDateFormat.parse("2022-12-19T19:44:50"),
+        departureEstimated: TransitManager.apiDateFormat.parse("2022-12-19T19:44:50"),
+        departureScheduled: TransitManager.apiDateFormat.parse("2022-12-19T19:44:50"),
         variant: variant);
 
     expect(busInfo.busNumber, equals(666));
@@ -40,10 +41,10 @@ void main() {
     expect(busInfo.cancelled, equals(false));
     expect(busInfo.stop.toString(), equals(busStop.toString()));
     expect(busInfo.route.toString(), equals(route.toString()));
-    expect(busInfo.arrivalEstimated, equals("2022-12-19T19:44:50"));
-    expect(busInfo.arrivalScheduled, equals("2022-12-19T19:44:50"));
-    expect(busInfo.departureScheduled, equals("2022-12-19T19:44:50"));
-    expect(busInfo.departureEstimated, equals("2022-12-19T19:44:50"));
+    expect(TransitManager.apiDateFormat.format(busInfo.arrivalEstimated), equals("2022-12-19T19:44:50"));
+    expect(TransitManager.apiDateFormat.format(busInfo.arrivalScheduled), equals("2022-12-19T19:44:50"));
+    expect(TransitManager.apiDateFormat.format(busInfo.departureScheduled), equals("2022-12-19T19:44:50"));
+    expect(TransitManager.apiDateFormat.format(busInfo.departureEstimated), equals("2022-12-19T19:44:50"));
     expect(busInfo.variant.toString(), equals(variant.toString()));
   });
 
@@ -165,10 +166,10 @@ void main() {
         wifi: false,
         cancelled: false,
         busNumber: 666,
-        arrivalEstimated: "2022-12-19T19:44:50",
-        arrivalScheduled: "2022-12-19T19:44:50",
-        departureEstimated: "2022-12-19T19:44:50",
-        departureScheduled: "2022-12-19T19:44:50",
+        arrivalEstimated: TransitManager.apiDateFormat.parse("2022-12-19T19:44:50"),
+        arrivalScheduled: TransitManager.apiDateFormat.parse("2022-12-19T19:44:50"),
+        departureEstimated: TransitManager.apiDateFormat.parse("2022-12-19T19:44:50"),
+        departureScheduled: TransitManager.apiDateFormat.parse("2022-12-19T19:44:50"),
         variant: variant);
 
     print(busInfo.toString());

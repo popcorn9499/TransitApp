@@ -13,6 +13,7 @@ import 'package:transit_app/api/DataModels/bus_stop_schedules.dart';
 import 'package:transit_app/api/DataModels/route.dart';
 import 'package:transit_app/api/DataModels/variant.dart';
 import 'package:transit_app/api/DataModels/variants.dart';
+import 'package:transit_app/api/TransitManager.dart';
 
 void main() {
   test('Test BusStopSchedules Creation', () async {
@@ -32,10 +33,10 @@ void main() {
         wifi: false,
         cancelled: false,
         busNumber: 666,
-        arrivalEstimated: "2022-12-19T19:44:50",
-        arrivalScheduled: "2022-12-19T19:44:50",
-        departureEstimated: "2022-12-19T19:44:50",
-        departureScheduled: "2022-12-19T19:44:50",
+        arrivalEstimated: TransitManager.apiDateFormat.parse("2022-12-19T19:44:50"),
+        arrivalScheduled: TransitManager.apiDateFormat.parse("2022-12-19T19:44:50"),
+        departureEstimated: TransitManager.apiDateFormat.parse("2022-12-19T19:44:50"),
+        departureScheduled: TransitManager.apiDateFormat.parse("2022-12-19T19:44:50"),
         variant: variant);
     List<BusInfo> busInfoList = <BusInfo>[];
 
