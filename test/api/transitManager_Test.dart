@@ -26,4 +26,11 @@ void main() {
     };
     expect(data, equals(testData));
   });
+
+  test('Test Transit Manager genSearchQueryURL', () async {
+    TransitManager manager = TransitManager();
+    String url = manager.genSearchQueryURL("coolStop");
+    int apiIndex = url.lastIndexOf("api-key");
+    expect(url.substring(0, apiIndex +8), equals("https://api.winnipegtransit.com/v3/stops:coolStop.json?usage=short&api-key="));
+  });
 }
