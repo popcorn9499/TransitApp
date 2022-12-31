@@ -58,8 +58,8 @@ class TransitManager {
     return url.toString();
   }
 
-  String genSearchQuery(String search) {
-    URLGenerator url = URLGenerator(url: "stops:$search");
+  String genSearchQueryURL(String search) {
+    URLGenerator url = URLGenerator(url: sprintf(apiUrl, ["stops:$search"]));
 
     return url.toString();
   }
