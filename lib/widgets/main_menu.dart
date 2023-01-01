@@ -48,6 +48,12 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
+  late TextEditingController _controller;
+  @override
+  void initState() {
+    super.initState();
+    _controller = TextEditingController();
+  }
 
   void _incrementCounter() {
     setState(() {
@@ -96,16 +102,13 @@ class _MyHomePageState extends State<MyHomePage> {
           // center the children vertically; the main axis here is the vertical
           // axis because Columns are vertical (the cross axis would be
           // horizontal).
-          mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text(
-              '$_counter times',
-              style: Theme.of(context).textTheme.headline4,
-            ),
-            Text(Random().nextInt(10).toString()),
-            Text(
-              'You have pushed the button this many times:',
-              style: Theme.of(context).textTheme.headline6,
+            TextField(
+              controller: _controller,
+                decoration: InputDecoration(
+                    labelText: "Search",
+                    hintText: "Search by Street name, Route Number or Stop Number",
+                ),
             ),
             ElevatedButton(
               child: const Text('Open route'),
@@ -113,7 +116,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 // Navigate to second route when tapped.
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const SecondRoute(searchNumber: 10611)),
+                  MaterialPageRoute(builder: (context) => SecondRoute(searchNumber: _controller.text ?? "")),
                 );
               },
             ),
