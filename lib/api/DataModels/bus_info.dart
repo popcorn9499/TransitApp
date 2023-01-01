@@ -5,7 +5,7 @@ import 'package:transit_app/api/TransitManager.dart';
 
 import '../../bus_status.dart';
 
-class BusInfo {
+class BusInfo implements Comparable {
 
   BusInfo({required this.stop, required this.route, required this.arrivalScheduled,
     required this.arrivalEstimated, required this.departureEstimated, required this.departureScheduled, required this.variant, required this.busNumber, required this.bikeRack, required this.wifi, required this.cancelled});
@@ -73,5 +73,10 @@ class BusInfo {
     DateTime departureEstimated = TransitManager.apiDateFormat.parse(departureEstimatedStr);
 
     return BusInfo(stop: stop, route: route, arrivalScheduled: arrivalScheduled, arrivalEstimated: arrivalEstimated, departureEstimated: departureEstimated, departureScheduled: departureScheduled, variant: variant, busNumber: busNumber, bikeRack: bikeRack, wifi: wifi, cancelled: cancelled);
+  }
+
+  @override
+  int compareTo(other) {
+    return this.arrivalEstimated.difference(other.arrivalEstimated).inMicroseconds;
   }
 }
