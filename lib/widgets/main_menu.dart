@@ -70,6 +70,13 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  void loadBusRoutes() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => SecondRoute(searchNumber: _controller.text ?? "")),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     // This method is rerun every time setState is called, for instance as done
@@ -105,19 +112,19 @@ class _MyHomePageState extends State<MyHomePage> {
           children: <Widget>[
             TextField(
               controller: _controller,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                     labelText: "Search",
                     hintText: "Search by Street name, Route Number or Stop Number",
                 ),
+              onSubmitted: (String value) async {
+                loadBusRoutes();
+              }
             ),
             ElevatedButton(
               child: const Text('Open route'),
               onPressed: () {
                 // Navigate to second route when tapped.
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => SecondRoute(searchNumber: _controller.text ?? "")),
-                );
+                loadBusRoutes();
               },
             ),
           ],
