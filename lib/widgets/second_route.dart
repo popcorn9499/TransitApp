@@ -63,7 +63,7 @@ class MyListState extends State<SecondRoute> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("SecondRoute"),
+        title: Text("Stop $searchNumber"),
         actions: [
           FloatingActionButton(
               onPressed: _addItem,
