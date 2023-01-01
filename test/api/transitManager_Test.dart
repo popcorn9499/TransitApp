@@ -46,7 +46,7 @@ void main() {
 
   test('Test Transit Manager genStopNumbers', () async {
     TransitManager manager = TransitManager();
-    BusStopSchedules stops = await manager.genStopNumbers(10611);
+    BusStopSchedules stops = await manager.genStopNumbers("10611");
     //no real checks just ensures the code functions
   });
 }
