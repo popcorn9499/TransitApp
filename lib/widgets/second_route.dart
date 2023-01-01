@@ -9,7 +9,7 @@ import '../api/DataModels/bus_info.dart';
 
 
 class SecondRoute extends StatefulWidget {
-  final int searchNumber;
+  final String searchNumber;
   const SecondRoute({required this.searchNumber, Key? key}) : super(key: key);
 
   @override
@@ -19,7 +19,7 @@ class SecondRoute extends StatefulWidget {
 class MyListState extends State<SecondRoute> {
   var newList = <BusListTile>[];
   int? value = 0;
-  final int searchNumber;
+  final String searchNumber;
 
   MyListState({required this.searchNumber});
 
