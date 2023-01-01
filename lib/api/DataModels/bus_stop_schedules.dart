@@ -3,12 +3,11 @@ import 'package:transit_app/api/DataModels/bus_info.dart';
 import 'package:transit_app/api/DataModels/route.dart';
 
 class BusStopSchedules {
+  final BusStop busStop;
+  final List<BusInfo> schedules;
   BusStopSchedules({required this.schedules, required this.busStop}) {
     schedules.sort();
   }
-  final BusStop busStop;
-  final List<BusInfo> schedules;
-
 
   factory BusStopSchedules.fromJson(Map<String, dynamic> data) {
     Route route;
