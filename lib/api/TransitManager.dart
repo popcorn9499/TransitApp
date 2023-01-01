@@ -23,7 +23,6 @@ class TransitManager {
 
     http.Response request = await http.get(Uri.parse(url));
 
-
     if (request?.statusCode == 503) {
       //rate limited
     } else if (request?.statusCode == 404) {
