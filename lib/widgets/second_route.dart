@@ -34,18 +34,16 @@ class MyListState extends State<SecondRoute> {
       Future.delayed(Duration(seconds: i), () => print(i));
     }
   }
+
   _addItem() {
     setState(() {
+
       TransitManager tm = TransitManager();
       Future<BusStopSchedules> info = tm.genStopNumbers(searchNumber);
 
       info.then((result){
         newList.clear();
         BusStopSchedules bss = result;
-        print("GO");
-
-
-        newList.add(BusListTile(timeRemaining: "1 Min", busStatus: BusStatus.Late, stopName: "RESEND", busColor: Color.fromARGB(255, 0, 114, 178), busNumber: "11"));
         DateTime currentTime = DateTime.now();
         for (BusInfo bi in bss.schedules) {
           int remaining = bi.arrivalEstimated.difference(currentTime).inMinutes;
@@ -53,8 +51,6 @@ class MyListState extends State<SecondRoute> {
         }
         setState(() { value = 123; });
       });
-      fetchUserOrder();
-      newList.add(const BusListTile(timeRemaining: "1 Min", busStatus: BusStatus.Late, stopName: "ME", busColor: Color.fromARGB(255, 0, 114, 178), busNumber: "11"));
     });
   }
 
@@ -71,15 +67,15 @@ class MyListState extends State<SecondRoute> {
         actions: [
           FloatingActionButton(
               onPressed: _addItem,
-              child: Icon(Icons.favorite)
+              child: const Icon(Icons.favorite)
           ),
           FloatingActionButton(
               onPressed: _addItem,
-              child: Icon(Icons.refresh)
+              child: const Icon(Icons.refresh)
           ),
           FloatingActionButton(
               onPressed: _addItem,
-              child: Icon(Icons.menu)
+              child: const Icon(Icons.menu)
           ),
         ],
       ),
