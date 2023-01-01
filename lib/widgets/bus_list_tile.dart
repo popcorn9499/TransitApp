@@ -20,6 +20,7 @@ class BusListTile extends StatelessWidget {
   final Color busColor;
 
 
+
   @override
   Widget build(BuildContext context) {
     String busNumber = this.busNumber;
@@ -28,7 +29,9 @@ class BusListTile extends StatelessWidget {
     }
 
 
+
     return ListTile(
+      onTap: () { print("COOL");},
       title: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
