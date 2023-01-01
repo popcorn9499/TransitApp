@@ -18,7 +18,15 @@ class BusListTile extends StatelessWidget {
       title: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
-          const Icon(Icons.map),
+          Container(
+            margin: const EdgeInsets.all(2.0),
+            padding: const EdgeInsets.all(5.0),
+            decoration: BoxDecoration(
+              border: Border.all(color: Colors.blue),
+              color: Colors.blue,
+            ),
+            child: Text("HI"),
+          ),
           Expanded(
             flex: 6,
             child: Text(stopName, textAlign: TextAlign.left),
