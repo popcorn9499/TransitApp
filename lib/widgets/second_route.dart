@@ -80,7 +80,28 @@ class MyListState extends State<SecondRoute> {
           ),
         ],
       ),
-      body: Column(
+      body: RefreshIndicator (
+        onRefresh: () {
+
+
+
+            return Future.delayed(
+                Duration(seconds: 1),
+                    ()
+                {
+                  setState(() {
+                    _addItem();
+                  });
+                }
+            );
+          //   // showing snackbar
+          //   _scaffoldKey.currentState.showSnackBar(
+          //   SnackBar(
+          //   content: const Text('Page Refreshed'),
+          // ),
+
+          },
+      child: Column(
         children: <Widget>[
           Container(
             decoration: const BoxDecoration(
