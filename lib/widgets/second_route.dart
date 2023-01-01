@@ -26,6 +26,7 @@ class MyListState extends State<SecondRoute> {
   @override
   initState() {
     super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) => _addItem()); //run a start item on startup
   }
 
   void fetchUserOrder() {
