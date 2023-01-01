@@ -81,10 +81,7 @@ class MyListState extends State<SecondRoute> {
       ),
       body: ListView.builder(
           itemCount: newList.length,
-          itemBuilder: (context, index) => _buildRow(index)),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _addItem,
-        child: const Icon(Icons.add),
+          itemBuilder: (context, index) => _buildRow(index)
       ),
     );
   }
