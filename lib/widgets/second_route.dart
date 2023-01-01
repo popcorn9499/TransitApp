@@ -67,6 +67,20 @@ class MyListState extends State<SecondRoute> {
     return Scaffold(
       appBar: AppBar(
         title: const Text("SecondRoute"),
+        actions: [
+          FloatingActionButton(
+              onPressed: _addItem,
+              child: Icon(Icons.favorite)
+          ),
+          FloatingActionButton(
+              onPressed: _addItem,
+              child: Icon(Icons.refresh)
+          ),
+          FloatingActionButton(
+              onPressed: _addItem,
+              child: Icon(Icons.menu)
+          ),
+        ],
       ),
       body: ListView.builder(
           itemCount: newList.length,
