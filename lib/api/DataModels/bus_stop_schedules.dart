@@ -3,7 +3,9 @@ import 'package:transit_app/api/DataModels/bus_info.dart';
 import 'package:transit_app/api/DataModels/route.dart';
 
 class BusStopSchedules {
-  BusStopSchedules({required this.schedules, required this.busStop});
+  BusStopSchedules({required this.schedules, required this.busStop}) {
+    schedules.sort();
+  }
   final BusStop busStop;
   final List<BusInfo> schedules;
 
