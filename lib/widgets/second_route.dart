@@ -36,7 +36,20 @@ class MyListState extends State<SecondRoute> {
   }
 
   _addItem() {
+    final snackBar = SnackBar(
+      content: const Text('Reloading bus schedule'),
+      action: SnackBarAction(
+        label: 'Undo',
+        onPressed: () {
+          // Some code to undo the change.
+        },
+      ),
+    );
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+
     setState(() {
+
+
 
       TransitManager tm = TransitManager();
       Future<BusStopSchedules> info = tm.genStopNumbers(searchNumber);
