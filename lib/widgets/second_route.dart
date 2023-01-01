@@ -145,11 +145,13 @@ class MyListState extends State<SecondRoute> {
           Expanded(
               child: ListView.builder(
               itemCount: newList.length,
-              itemBuilder: (context, index) => _buildRow(index)
+
+              itemBuilder: (context, index) => _buildRow(index),
           ),
           ),
         ]
       )
+      ),
     );
   }
 
