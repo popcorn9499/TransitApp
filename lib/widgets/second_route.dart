@@ -7,7 +7,6 @@ import 'package:http/http.dart' as http;
 
 import '../api/DataModels/bus_info.dart';
 
-
 class SecondRoute extends StatefulWidget {
   final String searchNumber;
   const SecondRoute({required this.searchNumber, Key? key}) : super(key: key);
@@ -26,17 +25,11 @@ class MyListState extends State<SecondRoute> {
   @override
   initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) => _addItem()); //run a start item on startup
+    WidgetsBinding.instance
+        .addPostFrameCallback((_) => _refreshStopList()); //run a start item on startup
   }
 
-  void fetchUserOrder() {
-    for (int i = 1; i <= 5; i++)
-    {
-      Future.delayed(Duration(seconds: i), () => print(i));
-    }
-  }
-
-  _addItem() {
+  _refreshStopList() {
     final snackBar = SnackBar(
       content: const Text('Reloading bus schedule'),
       action: SnackBarAction(
@@ -49,29 +42,28 @@ class MyListState extends State<SecondRoute> {
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
 
     setState(() {
-
-
-
       TransitManager tm = TransitManager();
       Future<BusStopSchedules> info = tm.genStopNumbers(searchNumber);
 
-      info.then((result){
+      info.then((result) {
         newList.clear();
         BusStopSchedules bss = result;
         routeName = bss.busStop.name;
         DateTime currentTime = DateTime.now();
         for (BusInfo bi in bss.schedules) {
           int remaining = bi.arrivalEstimated.difference(currentTime).inMinutes;
-          newList.add(BusListTile(timeRemaining: "$remaining Min", busStatus: bi.getOnTime(), stopName: bi.route.name, busColor: const Color.fromARGB(255, 0, 114, 178), busNumber: bi.route.number.toString()));
+          newList.add(BusListTile(
+              timeRemaining: "$remaining Min",
+              busStatus: bi.getOnTime(),
+              stopName: bi.route.name,
+              busColor: const Color.fromARGB(255, 0, 114, 178),
+              busNumber: bi.route.number.toString()));
         }
-        setState(() { value = 123; });
+        setState(() {
+          value = 123;
+        });
       });
     });
-  }
-
-  Future<http.Response> fetchAlbum() {
-    Future<http.Response>  result =  http.get(Uri.parse('https://jsonplaceholder.typicode.com/albums/1'));
-    return result;
   }
 
   @override
@@ -81,81 +73,55 @@ class MyListState extends State<SecondRoute> {
         title: Text("Stop $searchNumber"),
         actions: [
           FloatingActionButton(
-              onPressed: _addItem,
-              child: const Icon(Icons.favorite)
-          ),
+              onPressed: _refreshStopList, child: const Icon(Icons.favorite_border_outlined)),
           FloatingActionButton(
-              onPressed: _addItem,
-              child: const Icon(Icons.refresh)
-          ),
+              onPressed: _refreshStopList, child: const Icon(Icons.refresh)),
           FloatingActionButton(
-              onPressed: _addItem,
-              child: const Icon(Icons.menu)
-          ),
+              onPressed: _refreshStopList, child: const Icon(Icons.menu)),
         ],
       ),
-      body: RefreshIndicator (
-        onRefresh: () {
-
-
-
-            return Future.delayed(
-                Duration(seconds: 1),
-                    ()
-                {
-                  setState(() {
-                    _addItem();
-                  });
-                }
-            );
-          //   // showing snackbar
-          //   _scaffoldKey.currentState.showSnackBar(
-          //   SnackBar(
-          //   content: const Text('Page Refreshed'),
-          // ),
-
+      body: RefreshIndicator(
+          onRefresh: () {
+            return Future.delayed(Duration(seconds: 1), () {
+              setState(() {
+                _refreshStopList();
+              });
+            });
           },
-      child: Column(
-        children: <Widget>[
-          Container(
-            decoration: const BoxDecoration(
-              color: Colors.deepPurple,
-              borderRadius: BorderRadius.all(
-                Radius.circular(3),
+          child: Column(children: <Widget>[
+            Container(
+              decoration: const BoxDecoration(
+                color: Colors.deepPurple,
+                borderRadius: BorderRadius.all(
+                  Radius.circular(3),
+                ),
+              ),
+              width: double.infinity,
+              margin: const EdgeInsets.all(5),
+              padding: const EdgeInsets.all(5),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Text(
+                    routeName,
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 20,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                ],
               ),
             ),
-
-            width: double.infinity,
-            margin: const EdgeInsets.all(5),
-            padding: const EdgeInsets.all(5),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Text(
-                  routeName,
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 20,
-                  ),
-                  textAlign: TextAlign.center,
-                ),
-              ],
-            ),
-          ),
-
-          Expanded(
+            Expanded(
               child: ListView.builder(
-              itemCount: newList.length,
-
-              itemBuilder: (context, index) => _buildRow(index),
-          ),
-          ),
-        ]
-      )
-      ),
+                itemCount: newList.length,
+                itemBuilder: (context, index) => _buildRow(index),
+              ),
+            ),
+          ])),
     );
   }
-
 
   //actually manages to return the BusListTile object for the user interface
   _buildRow(int index) {
