@@ -20,7 +20,7 @@ class MyListState extends State<SecondRoute> {
   var newList = <BusListTile>[];
   int? value = 0;
   final String searchNumber;
-
+  String routeName = "Example";
   MyListState({required this.searchNumber});
 
   @override
@@ -44,6 +44,7 @@ class MyListState extends State<SecondRoute> {
       info.then((result){
         newList.clear();
         BusStopSchedules bss = result;
+        routeName = bss.busStop.name;
         DateTime currentTime = DateTime.now();
         for (BusInfo bi in bss.schedules) {
           int remaining = bi.arrivalEstimated.difference(currentTime).inMinutes;
@@ -79,10 +80,42 @@ class MyListState extends State<SecondRoute> {
           ),
         ],
       ),
-      body: ListView.builder(
-          itemCount: newList.length,
-          itemBuilder: (context, index) => _buildRow(index)
-      ),
+      body: Column(
+        children: <Widget>[
+          Container(
+            decoration: const BoxDecoration(
+              color: Colors.deepPurple,
+              borderRadius: BorderRadius.all(
+                Radius.circular(3),
+              ),
+            ),
+
+            width: double.infinity,
+            margin: const EdgeInsets.all(5),
+            padding: const EdgeInsets.all(5),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Text(
+                  routeName,
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 20,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+              ],
+            ),
+          ),
+
+          Expanded(
+              child: ListView.builder(
+              itemCount: newList.length,
+              itemBuilder: (context, index) => _buildRow(index)
+          ),
+          ),
+        ]
+      )
     );
   }
 
