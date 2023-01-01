@@ -26,22 +26,21 @@ class BusListTile extends StatelessWidget {
     if (this.busNumber.length >= 3) {
       busNumber = busNumber.substring(0,3);
     }
-    TextSpan ts = TextSpan(text: busNumber);
-    Text textNumber = Text.rich(ts);
-    TextPainter tpNumber = TextPainter(text: ts);
+
+
     return ListTile(
       title: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
           Container(
-            width: 45,
+            width: 45, //this should not be static
             margin: const EdgeInsets.all(2.0),
             padding: const EdgeInsets.all(5.0),
             decoration: BoxDecoration(
               border: Border.all(color: busColor),
               color: busColor,
             ),
-            child: Center(child: textNumber),
+            child: Center(child: Text(busNumber)),
           ),
           Expanded(
             flex: 6,
