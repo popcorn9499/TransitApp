@@ -40,6 +40,7 @@ class MyListState extends State<SecondRoute> {
       Future<BusStopSchedules> info = tm.genStopNumbers(searchNumber);
 
       info.then((result){
+        newList.clear();
         BusStopSchedules bss = result;
         print("GO");
 
