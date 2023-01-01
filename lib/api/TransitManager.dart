@@ -39,7 +39,7 @@ class TransitManager {
     return http.get(Uri.parse(url));
   }
 
-  String genStopNumbersURL(int stopNumber, {List<String>? routeNumbers, DateTime? startTime, DateTime? endTime}) {
+  String genStopNumbersURL(String stopNumber, {List<String>? routeNumbers, DateTime? startTime, DateTime? endTime}) {
     String info = sprintf(apiUrl, ["stops/$stopNumber/schedule"]);
     URLGenerator url = URLGenerator(url: info);
     if (routeNumbers != null) {
@@ -58,7 +58,7 @@ class TransitManager {
     return url.toString();
   }
 
-  Future<BusStopSchedules> genStopNumbers(int stopNumber, {List<String>? routeNumbers, DateTime? startTime, DateTime? endTime}) async{
+  Future<BusStopSchedules> genStopNumbers(String stopNumber, {List<String>? routeNumbers, DateTime? startTime, DateTime? endTime}) async{
     BusStopSchedules bss;
     String url = genStopNumbersURL(stopNumber, routeNumbers: routeNumbers, startTime: startTime, endTime: endTime);
     Map<String, dynamic> data = await getJson(url);
