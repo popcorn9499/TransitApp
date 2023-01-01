@@ -48,7 +48,7 @@ class MyListState extends State<SecondRoute> {
         DateTime currentTime = DateTime.now();
         for (BusInfo bi in bss.schedules) {
           int remaining = bi.arrivalEstimated.difference(currentTime).inMinutes;
-          newList.add(BusListTile(timeRemaining: "$remaining Min", busStatus: bi.getOnTime(), stopName: bi.route.name, busColor: Color.fromARGB(255, 0, 114, 178), busNumber: bi.route.number.toString()));
+          newList.add(BusListTile(timeRemaining: "$remaining Min", busStatus: bi.getOnTime(), stopName: bi.route.name, busColor: const Color.fromARGB(255, 0, 114, 178), busNumber: bi.route.number.toString()));
         }
         setState(() { value = 123; });
       });
