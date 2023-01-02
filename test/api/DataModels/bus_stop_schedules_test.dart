@@ -1610,7 +1610,7 @@ void main() {
     print(bss.schedules[0].toString());
     print(bss.schedules.length);
     expect(bss.busStop.toString(), equals("Stop #10611 at EB Graham@Fort (Wpg Square) direction Eastbound"));
-    expect(bss.schedules[0].toString(), equals("Bus Route name: Grey key: 44 number: 44 variants:]arrival scheduled: 2022-12-12T23:11:44 arrival estimated: 2022-12-12T23:11:44 departure scheduled 2022-12-12T23:11:44 departure estimated 2022-12-12T23:11:44 44-0-L: KP via London at stop Stop #10611 at EB Graham@Fort (Wpg Square) direction Eastbound"));
+    expect(bss.schedules[0].toString(), equals("Bus Route name: Talbot key: 45 number: 45 variants:]arrival scheduled: 2022-12-12T23:04:47 arrival estimated: 2022-12-12T23:04:16 departure scheduled 2022-12-12T23:04:47 departure estimated 2022-12-12T23:04:16 45-0-K: Kildonan Place at stop Stop #10611 at EB Graham@Fort (Wpg Square) direction Eastbound"));
     expect(bss.schedules.length, equals(57));
   });
 }
