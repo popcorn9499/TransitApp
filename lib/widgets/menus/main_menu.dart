@@ -80,7 +80,7 @@ class _MyHomePageState extends State<MyHomePage> {
       if (result.length == 1) { //handle just looking based on the text
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => BusStopTimes(searchNumber: _controller.text ?? "")),
+          MaterialPageRoute(builder: (context) => BusStopTimes(searchNumber: result[0].number.toString())),
         );
       } else {
         //load up another view for selecting from multiple
