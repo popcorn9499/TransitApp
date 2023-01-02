@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:transit_app/api/TransitManager.dart';
 import 'dart:math';
 import 'package:transit_app/widgets/menus/bus_stop_times.dart';
+import 'package:transit_app/widgets/menus/search_bus_stops.dart';
 
 import '../../api/DataModels/bus_stop.dart';
 
@@ -84,6 +85,7 @@ class _MyHomePageState extends State<MyHomePage> {
         );
       } else {
         //load up another view for selecting from multiple
+        SearchStopTimes(search: _controller.text);
       }
     });
 
