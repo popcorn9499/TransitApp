@@ -31,14 +31,8 @@ class BusStopTimesListState extends State<BusStopTimes> {
   }
 
   _refreshStopList() {
-    final snackBar = SnackBar(
-      content: const Text('Reloading bus schedule'),
-      action: SnackBarAction(
-        label: 'Undo',
-        onPressed: () {
-          // Some code to undo the change.
-        },
-      ),
+    const snackBar = SnackBar(
+      content: Text('Reloading bus schedule'),
     );
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
 
