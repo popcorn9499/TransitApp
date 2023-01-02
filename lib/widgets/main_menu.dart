@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'dart:math';
-import 'package:transit_app/widgets/second_route.dart';
+import 'package:transit_app/widgets/bus_stop_times.dart';
 
 
 class MainMenu extends StatelessWidget {
@@ -73,7 +73,7 @@ class _MyHomePageState extends State<MyHomePage> {
   void loadBusRoutes() {
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => SecondRoute(searchNumber: _controller.text ?? "")),
+      MaterialPageRoute(builder: (context) => BusStopTimes(searchNumber: _controller.text ?? "")),
     );
   }
 

@@ -7,15 +7,15 @@ import 'package:http/http.dart' as http;
 
 import '../api/DataModels/bus_info.dart';
 
-class SecondRoute extends StatefulWidget {
+class BusStopTimes extends StatefulWidget {
   final String searchNumber;
-  const SecondRoute({required this.searchNumber, Key? key}) : super(key: key);
+  const BusStopTimes({required this.searchNumber, Key? key}) : super(key: key);
 
   @override
   MyListState createState() => MyListState(searchNumber: searchNumber);
 }
 
-class MyListState extends State<SecondRoute> {
+class MyListState extends State<BusStopTimes> {
   var newList = <BusListTile>[];
   int? value = 0;
   final String searchNumber;
