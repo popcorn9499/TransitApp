@@ -13,6 +13,7 @@ class ErrorSnackBar {
     SnackBar snackBar = SnackBar(
       content: Text(e.toString()),
     );
+    ScaffoldMessenger.of(context).hideCurrentSnackBar(); //hide previous prompt if exists
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
 }
