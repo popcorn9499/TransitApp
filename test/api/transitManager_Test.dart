@@ -49,4 +49,13 @@ void main() {
     BusStopSchedules stops = await manager.genStopNumbers("10611");
     //no real checks just ensures the code functions
   });
+
+  test('Test Transit Manager genStopNumbers names', () async {
+    TransitManager manager = TransitManager();
+    String search = "Fort";
+    List<BusStop> stops = await manager.genSearchQuery(search);
+    print(stops);
+    expect(stops.toString(), equals("[Stop #10644 at NB Fort@Graham North direction Northbound, Stop #10643 at NB Fort@Graham direction Northbound, Stop #10646 at NB Fort@Portage direction Northbound, Stop #10830 at NB Fort@Assiniboine direction Northbound, Stop #11010 at NB Fort@Broadway direction Northbound, Stop #11024 at NB Fort@St. Mary direction Northbound, Stop #11038 at SB Fort Rouge Station@Fort Rouge Station (95 to Riverview) direction Southbound, Stop #11037 at SB Fort Rouge Station@Fort Rouge Station (Route 95) direction Southbound]"));
+    //no real checks just ensures the code functions
+  });
 }
