@@ -20,7 +20,7 @@ class BusStopTimesListState extends State<BusStopTimes> {
   var newList = <BusListTile>[];
   final String searchNumber;
   String routeName = "Example";
-
+  DateTime lookupTime = DateTime.now();
   BusStopTimesListState({required this.searchNumber});
 
   @override
@@ -50,6 +50,7 @@ class BusStopTimesListState extends State<BusStopTimes> {
         BusStopSchedules bss = result;
         routeName = bss.busStop.name;
         DateTime currentTime = DateTime.now();
+        lookupTime = currentTime;
         for (BusInfo bi in bss.schedules) {
           int remaining = bi.arrivalEstimated.difference(currentTime).inMinutes;
           newList.add(BusListTile(
@@ -87,7 +88,7 @@ class BusStopTimesListState extends State<BusStopTimes> {
             });
           },
           child: Column(children: <Widget>[
-            LayoutStopTimesHeader(routeName: routeName),
+            LayoutStopTimesHeader(routeName: routeName, time: lookupTime),
             Expanded(
               child: ListView.builder(
                 itemCount: newList.length,
