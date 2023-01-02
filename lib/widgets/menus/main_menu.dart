@@ -85,7 +85,10 @@ class _MyHomePageState extends State<MyHomePage> {
         );
       } else {
         //load up another view for selecting from multiple
-        SearchStopTimes(search: _controller.text);
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => SearchStopTimes(search: _controller.text)),
+        );
       }
     });
 
