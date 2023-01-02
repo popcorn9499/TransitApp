@@ -7,6 +7,7 @@ import 'package:http/http.dart' as http;
 
 import '../../api/DataModels/bus_info.dart';
 import '../../api/DataModels/bus_stop.dart';
+import '../widgets/bus_stop_list_tile.dart';
 import '../widgets/layout_stop_times_header.dart';
 
 class SearchStopTimes extends StatefulWidget {
@@ -18,7 +19,7 @@ class SearchStopTimes extends StatefulWidget {
 }
 
 class SearchStopTimesListState extends State<SearchStopTimes> {
-  var newList = <BusListTile>[];
+  var newList = <BusStopListTile>[];
   final String search;
   String routeName = "Example";
   DateTime lookupTime = DateTime.now();
@@ -40,9 +41,15 @@ class SearchStopTimesListState extends State<SearchStopTimes> {
 
     TransitManager tm = TransitManager();
     Future<List<BusStop>> busStops = tm.genSearchQuery(search);
+    String stopName;
+    String stopNumber;
 
     busStops.then((result) {
-
+      for (BusStop busStop in result) {
+        stopName = busStop.name;
+        stopNumber = busStop.number.toString();
+        newList.add(BusStopListTile(stopName: stopName, stopNumber: stopNumber));
+      }
       //unsure what this is for? something to do with updating the listview
       setState(() {});
     });
