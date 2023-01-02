@@ -49,10 +49,9 @@ class BusStopTimesListState extends State<BusStopTimes> {
         newList.clear();
         BusStopSchedules bss = result;
         routeName = bss.busStop.name;
-        DateTime currentTime = DateTime.now();
-        lookupTime = currentTime;
+        lookupTime = DateTime.now();;
         for (BusInfo bi in bss.schedules) {
-          int remaining = bi.arrivalEstimated.difference(currentTime).inMinutes;
+          int remaining = bi.arrivalEstimated.difference(lookupTime).inMinutes;
           newList.add(BusListTile(
               timeRemaining: "$remaining Min",
               busStatus: bi.getOnTime(),
