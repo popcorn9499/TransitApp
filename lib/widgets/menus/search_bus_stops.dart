@@ -75,7 +75,7 @@ class SearchStopTimesListState extends State<SearchStopTimes> {
       ),
       body: RefreshIndicator(
           onRefresh: () {
-            return Future.delayed(Duration(seconds: 1), () {
+            return Future.delayed(const Duration(seconds: 1), () {
               setState(() {
                 _refreshSearchList();
               });
