@@ -5,6 +5,7 @@ import 'package:transit_app/widgets/menus/bus_stop_times.dart';
 import 'package:transit_app/widgets/menus/search_bus_stops.dart';
 
 import '../../api/DataModels/bus_stop.dart';
+import '../../api/Exceptions/NetworkError.dart';
 
 
 class MainMenu extends StatelessWidget {
@@ -76,24 +77,30 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void loadBusRoutes() {
     TransitManager tm = TransitManager();
-    Future<List<BusStop>> busStops =  tm.genSearchQuery(_controller.text);
-    busStops.then((result) {
-      if (result.length == 1) { //handle just looking based on the text
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => BusStopTimes(searchNumber: result[0].number.toString())),
-        );
-      } else {
-        //load up another view for selecting from multiple
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => SearchStopTimes(search: _controller.text)),
-        );
-      }
-    });
+      Future<List<BusStop>> busStops =  tm.genSearchQuery(_controller.text);
+      busStops.then((result) {
+        if (result.length == 1) { //handle just looking based on the text
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => BusStopTimes(searchNumber: result[0].number.toString())),
+          );
+        } else {
+          //load up another view for selecting from multiple
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => SearchStopTimes(search: _controller.text)),
+          );
+        }
+      }).catchError(onError);
 
   }
 
+  void onError(e) {
+    SnackBar snackBar = SnackBar(
+      content: Text(e.toString()),
+    );
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+  }
   @override
   Widget build(BuildContext context) {
     // This method is rerun every time setState is called, for instance as done

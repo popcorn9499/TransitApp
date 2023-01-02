@@ -1,7 +1,10 @@
 
+import 'dart:async';
 import 'dart:convert';
+import 'dart:io';
 import 'package:intl/intl.dart';
 import 'package:transit_app/api/DataModels/bus_stop_schedules.dart';
+import 'package:transit_app/api/Exceptions/NetworkError.dart';
 
 import 'package:transit_app/api/URLGenerator.dart';
 import 'package:sprintf/sprintf.dart';
@@ -20,18 +23,24 @@ class TransitManager {
 
   Future<Map<String, dynamic>> getJson(String url) async {
     Map<String, dynamic> result = {"empty": 1};
+    try {
+      http.Response request = await http.get(Uri.parse(url));
 
-    http.Response request = await http.get(Uri.parse(url));
+      if (request?.statusCode == 503) {
+        //rate limited
+      } else if (request?.statusCode == 404) {
+        //date not found
+      }
 
-    if (request?.statusCode == 503) {
-      //rate limited
-    } else if (request?.statusCode == 404) {
-      //date not found
+      if (request?.body != null) {
+        result = json.decode(request?.body ?? "");
+      }
+    } on SocketException {
+      throw NetworkError("No internet access. Please connect your device to the Internet");
+    } on TimeoutException catch (e) {
+      throw NetworkError("Connection timed out. please check your internet connection");
     }
 
-    if (request?.body != null) {
-      result = json.decode(request?.body??"");
-    }
       return result;
   }
 
@@ -71,7 +80,7 @@ class TransitManager {
     return url.toString();
   }
 
-  Future<List<BusStop>> genSearchQuery(String search) async{
+  Future<List<BusStop>> genSearchQuery(String search) async {
     List<BusStop> result = [];
     String url = genSearchQueryURL(search);
     Map<String, dynamic> data = await getJson(url);
