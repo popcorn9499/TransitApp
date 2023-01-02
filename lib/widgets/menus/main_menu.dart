@@ -1,8 +1,11 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:transit_app/api/TransitManager.dart';
 import 'dart:math';
 import 'package:transit_app/widgets/menus/bus_stop_times.dart';
 import 'package:transit_app/widgets/menus/search_bus_stops.dart';
+import 'package:transit_app/widgets/widgets/error_snackbar.dart';
 
 import '../../api/DataModels/bus_stop.dart';
 import '../../api/Exceptions/NetworkError.dart';
@@ -54,10 +57,13 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
   late TextEditingController _controller;
+  late ErrorSnackBar errorPrompt;
+
   @override
   void initState() {
     super.initState();
     _controller = TextEditingController();
+    errorPrompt = ErrorSnackBar(context: context);
   }
 
   void _incrementCounter() {
@@ -91,16 +97,10 @@ class _MyHomePageState extends State<MyHomePage> {
             MaterialPageRoute(builder: (context) => SearchStopTimes(search: _controller.text)),
           );
         }
-      }).catchError(onError);
+      }).catchError(errorPrompt.onError);
 
   }
 
-  void onError(e) {
-    SnackBar snackBar = SnackBar(
-      content: Text(e.toString()),
-    );
-    ScaffoldMessenger.of(context).showSnackBar(snackBar);
-  }
   @override
   Widget build(BuildContext context) {
     // This method is rerun every time setState is called, for instance as done
