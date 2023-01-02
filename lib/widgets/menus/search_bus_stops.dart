@@ -4,6 +4,7 @@ import 'package:transit_app/api/TransitManager.dart';
 import "package:transit_app/bus_status.dart";
 import 'package:transit_app/widgets/widgets/bus_list_tile.dart';
 import 'package:http/http.dart' as http;
+import 'package:transit_app/widgets/widgets/error_snackbar.dart';
 
 import '../../api/DataModels/bus_info.dart';
 import '../../api/DataModels/bus_stop.dart';
@@ -23,11 +24,15 @@ class SearchStopTimesListState extends State<SearchStopTimes> {
   final String search;
   String routeName = "Example";
   DateTime lookupTime = DateTime.now();
+  late ErrorSnackBar errorPrompt;
+
   SearchStopTimesListState({required this.search});
+
 
   @override
   initState() {
     super.initState();
+    errorPrompt = ErrorSnackBar(context: context);
     WidgetsBinding.instance
         .addPostFrameCallback((_) => _refreshSearchList()); //run a start item on startup
   }
@@ -35,7 +40,6 @@ class SearchStopTimesListState extends State<SearchStopTimes> {
   _refreshSearchList() {
     const snackBar = SnackBar(
       content: Text('Reloading bus schedule'),
-
     );
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
 
@@ -44,7 +48,7 @@ class SearchStopTimesListState extends State<SearchStopTimes> {
     String stopName;
     String stopNumber;
 
-    busStops.then((result) {
+    busStops.then((result) { //asyncly parse the object recieved and store data required
       for (BusStop busStop in result) {
         stopName = busStop.name;
         stopNumber = busStop.number.toString();
@@ -52,14 +56,14 @@ class SearchStopTimesListState extends State<SearchStopTimes> {
       }
       //unsure what this is for? something to do with updating the listview
       setState(() {});
-    });
+    }).catchError(errorPrompt.onError);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Search Results"),
+        title: const Text("Search Results"),
         actions: [
           FloatingActionButton(
               onPressed: _refreshSearchList, child: const Icon(Icons.favorite_border_outlined)),

@@ -6,6 +6,7 @@ import 'package:transit_app/widgets/widgets/bus_list_tile.dart';
 import 'package:http/http.dart' as http;
 
 import '../../api/DataModels/bus_info.dart';
+import '../widgets/error_snackbar.dart';
 import '../widgets/layout_stop_times_header.dart';
 
 class BusStopTimes extends StatefulWidget {
@@ -22,10 +23,13 @@ class BusStopTimesListState extends State<BusStopTimes> {
   String routeName = "Example";
   DateTime lookupTime = DateTime.now();
   BusStopTimesListState({required this.searchNumber});
+  late ErrorSnackBar errorPrompt;
+
 
   @override
   initState() {
     super.initState();
+    errorPrompt = ErrorSnackBar(context: context);
     WidgetsBinding.instance
         .addPostFrameCallback((_) => _refreshStopList()); //run a start item on startup
   }
@@ -39,13 +43,15 @@ class BusStopTimesListState extends State<BusStopTimes> {
       TransitManager tm = TransitManager();
       Future<BusStopSchedules> info = tm.genStopNumbers(searchNumber);
 
-      info.then((result) {
+      info.then((result) { //handle waiting and asyncly getting the data to display
         newList.clear();
         BusStopSchedules bss = result;
         routeName = bss.busStop.name;
-        lookupTime = DateTime.now();;
-        for (BusInfo bi in bss.schedules) {
+        lookupTime = DateTime.now();
+
+        for (BusInfo bi in bss.schedules) { //loop over the busInfo list to parse that data
           int remaining = bi.arrivalEstimated.difference(lookupTime).inMinutes;
+          //create and add the new object to the list
           newList.add(BusListTile(
               timeRemaining: "$remaining Min",
               busStatus: bi.getOnTime(),
@@ -55,7 +61,7 @@ class BusStopTimesListState extends State<BusStopTimes> {
         }
         //unsure what this is for? something to do with updating the listview
         setState(() {});
-      });
+      }).catchError(errorPrompt.onError);
   }
 
   @override
