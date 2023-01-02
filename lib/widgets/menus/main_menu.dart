@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'dart:math';
-import 'package:transit_app/widgets/bus_stop_times.dart';
+import 'package:transit_app/widgets/menus/bus_stop_times.dart';
 
 
 class MainMenu extends StatelessWidget {
