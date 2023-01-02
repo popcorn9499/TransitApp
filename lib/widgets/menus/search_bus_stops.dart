@@ -66,7 +66,7 @@ class SearchStopTimesListState extends State<SearchStopTimes> {
         title: const Text("Search Results"),
         actions: [
           FloatingActionButton(
-              onPressed: _refreshSearchList, child: const Icon(Icons.favorite_border_outlined)),
+              onPressed: _refreshSearchList, child: const Icon(Icons.favorite)),
           FloatingActionButton(
               onPressed: _refreshSearchList, child: const Icon(Icons.menu)),
         ],

@@ -118,7 +118,7 @@ class _MyHomePageState extends State<MyHomePage> {
           FloatingActionButton(
           onPressed: _incrementCounter, child: const Icon(Icons.location_pin)),
           FloatingActionButton(
-              onPressed: _incrementCounter, child: const Icon(Icons.favorite_border_outlined)),
+              onPressed: _incrementCounter, child: const Icon(Icons.favorite)),
           FloatingActionButton(
               onPressed: _incrementCounter, child: const Icon(Icons.menu)),
         ],
