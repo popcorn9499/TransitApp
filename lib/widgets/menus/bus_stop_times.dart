@@ -6,6 +6,7 @@ import 'package:transit_app/widgets/widgets/bus_list_tile.dart';
 import 'package:http/http.dart' as http;
 
 import '../../api/DataModels/bus_info.dart';
+import '../widgets/layout_stop_times_header.dart';
 
 class BusStopTimes extends StatefulWidget {
   final String searchNumber;
@@ -86,30 +87,7 @@ class BusStopTimesListState extends State<BusStopTimes> {
             });
           },
           child: Column(children: <Widget>[
-            Container(
-              decoration: const BoxDecoration(
-                color: Colors.deepPurple,
-                borderRadius: BorderRadius.all(
-                  Radius.circular(3),
-                ),
-              ),
-              width: double.infinity,
-              margin: const EdgeInsets.all(5),
-              padding: const EdgeInsets.all(5),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Text(
-                    routeName,
-                    style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 20,
-                    ),
-                    textAlign: TextAlign.center,
-                  ),
-                ],
-              ),
-            ),
+            LayoutStopTimesHeader(routeName: routeName),
             Expanded(
               child: ListView.builder(
                 itemCount: newList.length,
