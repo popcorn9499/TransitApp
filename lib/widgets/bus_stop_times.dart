@@ -12,16 +12,15 @@ class BusStopTimes extends StatefulWidget {
   const BusStopTimes({required this.searchNumber, Key? key}) : super(key: key);
 
   @override
-  MyListState createState() => MyListState(searchNumber: searchNumber);
+  BusStopTimesListState createState() => BusStopTimesListState(searchNumber: searchNumber);
 }
 
-class MyListState extends State<BusStopTimes> {
+class BusStopTimesListState extends State<BusStopTimes> {
   var newList = <BusListTile>[];
-  int? value = 0;
   final String searchNumber;
   String routeName = "Example";
 
-  MyListState({required this.searchNumber});
+  BusStopTimesListState({required this.searchNumber});
 
   @override
   initState() {
@@ -59,10 +58,8 @@ class MyListState extends State<BusStopTimes> {
               busColor: const Color.fromARGB(255, 0, 114, 178),
               busNumber: bi.route.number.toString()));
         }
-        //unsure what this is for?
-        setState(() {
-          value = 123;
-        });
+        //unsure what this is for? something to do with updating the listview
+        setState(() {});
       });
   }
 
