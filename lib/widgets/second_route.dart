@@ -20,6 +20,7 @@ class MyListState extends State<SecondRoute> {
   int? value = 0;
   final String searchNumber;
   String routeName = "Example";
+
   MyListState({required this.searchNumber});
 
   @override
@@ -41,7 +42,6 @@ class MyListState extends State<SecondRoute> {
     );
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
 
-    setState(() {
       TransitManager tm = TransitManager();
       Future<BusStopSchedules> info = tm.genStopNumbers(searchNumber);
 
@@ -59,11 +59,11 @@ class MyListState extends State<SecondRoute> {
               busColor: const Color.fromARGB(255, 0, 114, 178),
               busNumber: bi.route.number.toString()));
         }
+        //unsure what this is for?
         setState(() {
           value = 123;
         });
       });
-    });
   }
 
   @override
