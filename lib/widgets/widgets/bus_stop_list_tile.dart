@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import "package:transit_app/bus_status.dart";
 
+import '../menus/bus_stop_times.dart';
+
 class BusStopListTile extends StatelessWidget {
   const BusStopListTile(
       {Key? key,
@@ -17,7 +19,12 @@ class BusStopListTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      onTap: () { print("COOL");},
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => BusStopTimes(searchNumber: stopNumber)),
+        );
+      },
       title: Container(
         decoration: BoxDecoration(
           border: Border.all(color: Colors.deepPurple),
