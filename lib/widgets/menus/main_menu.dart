@@ -9,6 +9,7 @@ import 'package:transit_app/widgets/widgets/error_snackbar.dart';
 
 import '../../api/DataModels/bus_stop.dart';
 import '../../api/Exceptions/NetworkError.dart';
+import 'close_stops_menu.dart';
 import 'favorites_menu.dart';
 
 
@@ -89,6 +90,13 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
+  void loadCloseStops() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => const CloseStopsMenu()),
+    );
+  }
+
   void loadBusRoutes() {
     TransitManager tm = TransitManager();
       Future<List<BusStop>> busStops =  tm.genSearchQuery(_controller.text);
@@ -124,9 +132,9 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text(widget.title),
         actions: [
           FloatingActionButton(
-          onPressed: loadFavorites, child: const Icon(Icons.location_pin)),
+          onPressed: loadCloseStops, child: const Icon(Icons.location_pin)),
           FloatingActionButton(
-              onPressed: _incrementCounter, child: const Icon(Icons.favorite)),
+              onPressed: loadFavorites, child: const Icon(Icons.favorite)),
           FloatingActionButton(
               onPressed: _incrementCounter, child: const Icon(Icons.menu)),
         ],
