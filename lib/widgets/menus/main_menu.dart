@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:transit_app/api/TransitManager.dart';
 import 'dart:math';
 import 'package:transit_app/widgets/menus/bus_stop_times.dart';
+
+import '../../api/DataModels/bus_stop.dart';
 
 
 class MainMenu extends StatelessWidget {
@@ -71,10 +74,19 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   void loadBusRoutes() {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => BusStopTimes(searchNumber: _controller.text ?? "")),
-    );
+    TransitManager tm = TransitManager();
+    Future<List<BusStop>> busStops =  tm.genSearchQuery(_controller.text);
+    busStops.then((result) {
+      if (result.length == 1) { //handle just looking based on the text
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => BusStopTimes(searchNumber: _controller.text ?? "")),
+        );
+      } else {
+        //load up another view for selecting from multiple
+      }
+    });
+
   }
 
   @override
