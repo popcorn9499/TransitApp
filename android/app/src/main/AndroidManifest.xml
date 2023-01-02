@@ -31,4 +31,8 @@
             android:name="flutterEmbedding"
             android:value="2" />
     </application>
+    <!-- so the app can acess the internet -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
 </manifest>
