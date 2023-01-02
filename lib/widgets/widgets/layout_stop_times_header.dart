@@ -1,22 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import "package:transit_app/bus_status.dart";
 
 class LayoutStopTimesHeader extends StatelessWidget {
-  const LayoutStopTimesHeader(
-      {Key? key,
-        required this.routeName,
-      })
-      : super(key: key);
+
 
 
   final String routeName;
+  final DateTime time;
+  final DateFormat formatDate = DateFormat('hh:mm:ss');
 
-
-
+  LayoutStopTimesHeader(
+      {Key? key,
+        required this.routeName,
+        required this.time
+      })
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-
+    String time = formatDate.format(this.time);
     return Container(
       decoration: const BoxDecoration(
         color: Colors.deepPurple,
@@ -27,16 +30,27 @@ class LayoutStopTimesHeader extends StatelessWidget {
       width: double.infinity,
       margin: const EdgeInsets.all(5),
       padding: const EdgeInsets.all(5),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
+      child: Column(
         children: [
-          Text(
-            routeName,
-            style: const TextStyle(
-              color: Colors.white,
-              fontSize: 20,
+          Align(
+            alignment: Alignment.centerLeft,
+            child: Text(
+              routeName,
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 20,
+              ),
             ),
-            textAlign: TextAlign.center,
+          ),
+          Align(
+            alignment: Alignment.centerRight,
+            child: Text(
+              "Updated $time",
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 15,
+              ),
+            ),
           ),
         ],
       ),
