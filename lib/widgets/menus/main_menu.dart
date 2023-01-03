@@ -7,6 +7,7 @@ import 'package:transit_app/widgets/menus/bus_stop_times.dart';
 import 'package:transit_app/widgets/menus/search_bus_stops.dart';
 import 'package:transit_app/widgets/widgets/error_snackbar.dart';
 
+import '../../Config/favorite_manager.dart';
 import '../../api/DataModels/bus_stop.dart';
 import '../../api/Exceptions/NetworkError.dart';
 import 'close_stops_menu.dart';
@@ -14,7 +15,9 @@ import 'favorites_menu.dart';
 
 
 class MainMenu extends StatelessWidget {
-  const MainMenu({Key? key}) : super(key: key);
+  final FavoriteManager fm;
+
+  const MainMenu({Key? key, required this.fm}) : super(key: key);
 
   // This widget is the root of your application.
   @override
@@ -33,13 +36,14 @@ class MainMenu extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.deepPurple,
       ),
-      home: const MyHomePage(title: 'Transit App'),
+      home: MyHomePage(title: 'Transit App', fm: fm),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key, required this.title}) : super(key: key);
+  final FavoriteManager fm;
+  const MyHomePage({Key? key,required this.fm, required this.title}) : super(key: key);
 
   // This widget is the home page of your application. It is stateful, meaning
   // that it has a State object (defined below) that contains fields that affect
@@ -110,7 +114,7 @@ class _MyHomePageState extends State<MyHomePage> {
           //load up another view for selecting from multiple
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => SearchStopTimes(search: _controller.text)),
+            MaterialPageRoute(builder: (context) => SearchStopTimes(search: _controller.text, fm: widget.fm)),
           );
         }
       }).catchError(errorPrompt.onError);

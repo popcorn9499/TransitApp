@@ -6,6 +6,7 @@ import 'package:transit_app/widgets/widgets/bus_list_tile.dart';
 import 'package:http/http.dart' as http;
 import 'package:transit_app/widgets/widgets/error_snackbar.dart';
 
+import '../../Config/favorite_manager.dart';
 import '../../api/DataModels/bus_info.dart';
 import '../../api/DataModels/bus_stop.dart';
 import '../widgets/bus_stop_list_tile.dart';
@@ -13,7 +14,8 @@ import '../widgets/layout_stop_times_header.dart';
 
 class SearchStopTimes extends StatefulWidget {
   final String search;
-  const SearchStopTimes({required this.search, Key? key}) : super(key: key);
+  final FavoriteManager fm;
+  const SearchStopTimes({required this.search, required this.fm, Key? key}) : super(key: key);
 
   @override
   SearchStopTimesListState createState() => SearchStopTimesListState();

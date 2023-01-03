@@ -7,13 +7,15 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:transit_app/Config/favorite_manager.dart';
 
 import 'package:transit_app/widgets/menus/main_menu.dart';
 
 void main() {
   testWidgets('Counter increments smoke test', (WidgetTester tester) async {
+    FavoriteManager fm = FavoriteManager();
     // Build our app and trigger a frame.
-    await tester.pumpWidget(const MainMenu());
+    await tester.pumpWidget(MainMenu(fm: fm));
     print("TESTING");
     // Verify that our counter starts at 0.
     expect(find.text('0 times'), findsOneWidget);
