@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:transit_app/Config/favorite_manager.dart';
 import 'package:transit_app/api/DataModels/bus_stop_schedules.dart';
 import 'package:transit_app/api/TransitManager.dart';
 import "package:transit_app/bus_status.dart";
@@ -26,11 +27,15 @@ class BusStopTimesListState extends State<BusStopTimes> {
   BusStopTimesListState();
   late ErrorSnackBar errorPrompt;
 
+  Icon favoriteIcon = const Icon(Icons.favorite_border_outlined);
 
   @override
   initState() {
     super.initState();
     errorPrompt = ErrorSnackBar(context: context);
+    if (widget.fm.isFavorited(widget.searchNumber)) {
+      favoriteIcon = const Icon(Icons.favorite);
+    }
     WidgetsBinding.instance
         .addPostFrameCallback((_) => _refreshStopList()); //run a start item on startup
   }
@@ -49,7 +54,6 @@ class BusStopTimesListState extends State<BusStopTimes> {
         BusStopSchedules bss = result;
         routeName = bss.busStop.name;
         lookupTime = DateTime.now();
-
         for (BusInfo bi in bss.schedules) { //loop over the busInfo list to parse that data
           int remaining = bi.arrivalEstimated.difference(lookupTime).inMinutes;
           //create and add the new object to the list
