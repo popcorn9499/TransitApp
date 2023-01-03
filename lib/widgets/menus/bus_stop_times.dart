@@ -7,6 +7,7 @@ import 'package:transit_app/widgets/widgets/bus_list_tile.dart';
 import 'package:http/http.dart' as http;
 
 import '../../api/DataModels/bus_info.dart';
+import '../../api/DataModels/bus_stop.dart';
 import '../widgets/error_snackbar.dart';
 import '../widgets/layout_stop_times_header.dart';
 
@@ -26,7 +27,7 @@ class BusStopTimesListState extends State<BusStopTimes> {
   DateTime lookupTime = DateTime.now();
   BusStopTimesListState();
   late ErrorSnackBar errorPrompt;
-
+  late BusStop busStop;
   Icon favoriteIcon = const Icon(Icons.favorite_border_outlined);
 
   @override
@@ -53,6 +54,7 @@ class BusStopTimesListState extends State<BusStopTimes> {
         newList.clear();
         BusStopSchedules bss = result;
         routeName = bss.busStop.name;
+        busStop = bss.busStop;
         lookupTime = DateTime.now();
         for (BusInfo bi in bss.schedules) { //loop over the busInfo list to parse that data
           int remaining = bi.arrivalEstimated.difference(lookupTime).inMinutes;
@@ -69,6 +71,19 @@ class BusStopTimesListState extends State<BusStopTimes> {
       }).catchError(errorPrompt.onError);
   }
 
+  void toggleFavorite() {
+    print("toggling favorite");
+    if (widget.fm.isFavorited(widget.searchNumber)) {
+      favoriteIcon = const Icon(Icons.favorite_border_outlined);
+      widget.fm.removeFavorite(busStop);
+    } else {
+      favoriteIcon = const Icon(Icons.favorite);
+      //widget.fm.addFavorite(busStop);
+    }
+    print("Setting icon");
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -76,7 +91,7 @@ class BusStopTimesListState extends State<BusStopTimes> {
         title: Text("Stop ${widget.searchNumber}"),
         actions: [
           FloatingActionButton(
-              onPressed: _refreshStopList, child: favoriteIcon),
+              onPressed: toggleFavorite, child: favoriteIcon),
           FloatingActionButton(
               onPressed: _refreshStopList, child: const Icon(Icons.refresh)),
           FloatingActionButton(
