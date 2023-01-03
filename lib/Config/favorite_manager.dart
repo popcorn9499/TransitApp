@@ -25,6 +25,14 @@ class FavoriteManager {
     }
   }
 
+  bool isFavorited(int stopNumber ) {
+    bool result = false;
+    for (BusStop busStop in favorites) {
+      result = result || (busStop.number == stopNumber);
+    }
+    return false;
+  }
+
   Future<void> save() async {
     List<String> data = [];
     for (BusStop stop in favorites) {
