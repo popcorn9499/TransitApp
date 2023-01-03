@@ -7,6 +7,8 @@
 
  */
 
+import 'dart:convert';
+
 class BusStop {
   BusStop({required this.key,required this.number,required this.name,required this.direction});
   final int key;
@@ -23,10 +25,22 @@ class BusStop {
     return BusStop(name: name, key: key,number: number, direction: direction);
   }
 
+  String toJson() {
+    String result = "";
+
+    Map<String, dynamic> mapped = {
+      "key": key.toString(),
+      "number": number.toString(),
+      "name": name,
+      "direction": direction,
+    };
+
+    result = json.encode(mapped);
+    return result;
+  }
+
   @override
   String toString(){
     return "Stop #$number at $name direction $direction";
   }
-
-
 }
