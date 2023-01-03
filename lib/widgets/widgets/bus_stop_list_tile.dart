@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:transit_app/Config/favorite_manager.dart';
 import "package:transit_app/bus_status.dart";
 
 import '../menus/bus_stop_times.dart';
@@ -7,11 +8,12 @@ class BusStopListTile extends StatelessWidget {
   const BusStopListTile(
       {Key? key,
         required this.stopName,
-        required this.stopNumber
+        required this.stopNumber,
+        required this.fm
       })
       : super(key: key);
 
-
+  final FavoriteManager fm;
   final String stopName;
   final String stopNumber;
 
@@ -22,7 +24,7 @@ class BusStopListTile extends StatelessWidget {
       onTap: () {
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => BusStopTimes(searchNumber: stopNumber)),
+          MaterialPageRoute(builder: (context) => BusStopTimes(searchNumber: stopNumber, fm: fm)),
         );
       },
       title: Container(

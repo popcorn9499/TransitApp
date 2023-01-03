@@ -97,7 +97,7 @@ class _MyHomePageState extends State<MyHomePage> {
   void loadCloseStops() {
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => const CloseStopsMenu()),
+      MaterialPageRoute(builder: (context) => CloseStopsMenu(fm: widget.fm)),
     );
   }
 
@@ -108,7 +108,7 @@ class _MyHomePageState extends State<MyHomePage> {
         if (result.length == 1) { //handle just looking based on the text
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => BusStopTimes(searchNumber: result[0].number.toString())),
+            MaterialPageRoute(builder: (context) => BusStopTimes(searchNumber: result[0].number, fm: widget.fm)),
           );
         } else {
           //load up another view for selecting from multiple

@@ -48,13 +48,13 @@ class SearchStopTimesListState extends State<SearchStopTimes> {
     TransitManager tm = TransitManager();
     Future<List<BusStop>> busStops = tm.genSearchQuery(widget.search);
     String stopName;
-    String stopNumber;
+    int stopNumber;
 
     busStops.then((result) { //asyncly parse the object recieved and store data required
       for (BusStop busStop in result) {
         stopName = busStop.name;
-        stopNumber = busStop.number.toString();
-        newList.add(BusStopListTile(stopName: stopName, stopNumber: stopNumber));
+        stopNumber = busStop.number;
+        newList.add(BusStopListTile(stopName: stopName, stopNumber: stopNumber, fm: widget.fm));
       }
       //unsure what this is for? something to do with updating the listview
       setState(() {});

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:transit_app/Config/favorite_manager.dart';
 import 'package:transit_app/api/DataModels/bus_stop_schedules.dart';
 import 'package:transit_app/api/TransitManager.dart';
 import "package:transit_app/bus_status.dart";
@@ -12,8 +13,9 @@ import '../widgets/bus_stop_list_tile.dart';
 import '../widgets/layout_stop_times_header.dart';
 
 class CloseStopsMenu extends StatefulWidget {
-  const CloseStopsMenu({Key? key}) : super(key: key);
+  final FavoriteManager fm;
 
+  const CloseStopsMenu({Key? key, required this.fm}) : super(key: key);
   @override
   CloseStopsMenuListState createState() => CloseStopsMenuListState();
 }
@@ -50,7 +52,7 @@ class CloseStopsMenuListState extends State<CloseStopsMenu> {
       for (BusStop busStop in result) {
         stopName = busStop.name;
         stopNumber = busStop.number.toString();
-        newList.add(BusStopListTile(stopName: stopName, stopNumber: stopNumber));
+        newList.add(BusStopListTile(stopName: stopName, stopNumber: stopNumber, fm: widget.fm));
       }
       //unsure what this is for? something to do with updating the listview
       setState(() {});

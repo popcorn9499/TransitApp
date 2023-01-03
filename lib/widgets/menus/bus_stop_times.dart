@@ -11,7 +11,8 @@ import '../widgets/layout_stop_times_header.dart';
 
 class BusStopTimes extends StatefulWidget {
   final String searchNumber;
-  const BusStopTimes({required this.searchNumber, Key? key}) : super(key: key);
+  final FavoriteManager fm;
+  const BusStopTimes({required this.searchNumber, required this.fm, Key? key}) : super(key: key);
 
   @override
   BusStopTimesListState createState() => BusStopTimesListState();
