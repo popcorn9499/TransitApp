@@ -29,8 +29,8 @@ class BusStop {
     String result = "";
 
     Map<String, dynamic> mapped = {
-      "key": key.toString(),
-      "number": number.toString(),
+      "key": key,
+      "number": number,
       "name": name,
       "direction": direction,
     };
