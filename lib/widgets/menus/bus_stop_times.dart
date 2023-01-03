@@ -14,15 +14,15 @@ class BusStopTimes extends StatefulWidget {
   const BusStopTimes({required this.searchNumber, Key? key}) : super(key: key);
 
   @override
-  BusStopTimesListState createState() => BusStopTimesListState(searchNumber: searchNumber);
+  BusStopTimesListState createState() => BusStopTimesListState();
 }
 
 class BusStopTimesListState extends State<BusStopTimes> {
   var newList = <BusListTile>[];
-  final String searchNumber;
+
   String routeName = "Example";
   DateTime lookupTime = DateTime.now();
-  BusStopTimesListState({required this.searchNumber});
+  BusStopTimesListState();
   late ErrorSnackBar errorPrompt;
 
 
@@ -41,7 +41,7 @@ class BusStopTimesListState extends State<BusStopTimes> {
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
 
       TransitManager tm = TransitManager();
-      Future<BusStopSchedules> info = tm.genStopNumbers(searchNumber);
+      Future<BusStopSchedules> info = tm.genStopNumbers(widget.searchNumber);
 
       info.then((result) { //handle waiting and asyncly getting the data to display
         newList.clear();
@@ -68,7 +68,7 @@ class BusStopTimesListState extends State<BusStopTimes> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Stop $searchNumber"),
+        title: Text("Stop ${widget.searchNumber}"),
         actions: [
           FloatingActionButton(
               onPressed: _refreshStopList, child: const Icon(Icons.favorite_border_outlined)),

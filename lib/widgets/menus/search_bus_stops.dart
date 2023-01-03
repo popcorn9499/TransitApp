@@ -16,17 +16,17 @@ class SearchStopTimes extends StatefulWidget {
   const SearchStopTimes({required this.search, Key? key}) : super(key: key);
 
   @override
-  SearchStopTimesListState createState() => SearchStopTimesListState(search: search);
+  SearchStopTimesListState createState() => SearchStopTimesListState();
 }
 
 class SearchStopTimesListState extends State<SearchStopTimes> {
   var newList = <BusStopListTile>[];
-  final String search;
+
   String routeName = "Example";
   DateTime lookupTime = DateTime.now();
   late ErrorSnackBar errorPrompt;
 
-  SearchStopTimesListState({required this.search});
+  SearchStopTimesListState();
 
 
   @override
@@ -44,7 +44,7 @@ class SearchStopTimesListState extends State<SearchStopTimes> {
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
 
     TransitManager tm = TransitManager();
-    Future<List<BusStop>> busStops = tm.genSearchQuery(search);
+    Future<List<BusStop>> busStops = tm.genSearchQuery(widget.search);
     String stopName;
     String stopNumber;
 
