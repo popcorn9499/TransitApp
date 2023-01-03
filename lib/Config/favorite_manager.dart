@@ -52,11 +52,17 @@ class FavoriteManager {
 
   bool removeFavorite(BusStop stop) {
     bool result = false;
+    BusStop removeMe = stop;
     for (BusStop busStop in favorites) {
-      result = result || stop.number == busStop.number;
+      if (stop.number == busStop.number) {
+        removeMe = busStop;
+        result = true;
+      }
     }
-    favorites.remove(stop);
-    save();
+    if (result) {
+      favorites.remove(removeMe);
+      save();
+    }
     return result;
   }
 }
