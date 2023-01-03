@@ -76,7 +76,7 @@ class BusStopTimesListState extends State<BusStopTimes> {
         title: Text("Stop ${widget.searchNumber}"),
         actions: [
           FloatingActionButton(
-              onPressed: _refreshStopList, child: const Icon(Icons.favorite_border_outlined)),
+              onPressed: _refreshStopList, child: favoriteIcon),
           FloatingActionButton(
               onPressed: _refreshStopList, child: const Icon(Icons.refresh)),
           FloatingActionButton(
