@@ -15,9 +15,9 @@ import 'favorites_menu.dart';
 
 
 class MainMenu extends StatelessWidget {
-  final FavoriteManager fm;
+  final FavoriteManager fm = FavoriteManager();
 
-  const MainMenu({Key? key, required this.fm}) : super(key: key);
+  MainMenu({Key? key}) : super(key: key);
 
   // This widget is the root of your application.
   @override
