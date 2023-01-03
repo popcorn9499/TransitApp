@@ -16,6 +16,7 @@ class CloseStopsMenu extends StatefulWidget {
   final FavoriteManager fm;
 
   const CloseStopsMenu({Key? key, required this.fm}) : super(key: key);
+
   @override
   CloseStopsMenuListState createState() => CloseStopsMenuListState();
 }
