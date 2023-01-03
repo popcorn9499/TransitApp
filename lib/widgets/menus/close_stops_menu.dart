@@ -46,12 +46,12 @@ class CloseStopsMenuListState extends State<CloseStopsMenu> {
     TransitManager tm = TransitManager();
     Future<List<BusStop>> busStops = tm.genSearchQuery("");
     String stopName;
-    String stopNumber;
+    int stopNumber;
 
     busStops.then((result) { //asyncly parse the object recieved and store data required
       for (BusStop busStop in result) {
         stopName = busStop.name;
-        stopNumber = busStop.number.toString();
+        stopNumber = busStop.number;
         newList.add(BusStopListTile(stopName: stopName, stopNumber: stopNumber, fm: widget.fm));
       }
       //unsure what this is for? something to do with updating the listview

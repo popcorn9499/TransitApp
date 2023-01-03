@@ -15,7 +15,7 @@ class BusStopListTile extends StatelessWidget {
 
   final FavoriteManager fm;
   final String stopName;
-  final String stopNumber;
+  final int stopNumber;
 
 
   @override
@@ -51,7 +51,7 @@ class BusStopListTile extends StatelessWidget {
             Align(
               alignment: Alignment.centerRight,
               child: Text(
-                stopNumber,
+                stopNumber.toString(),
                 style: const TextStyle(
                   fontSize: 15,
                 ),

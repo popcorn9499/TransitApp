@@ -10,7 +10,7 @@ import '../widgets/error_snackbar.dart';
 import '../widgets/layout_stop_times_header.dart';
 
 class BusStopTimes extends StatefulWidget {
-  final String searchNumber;
+  final int searchNumber;
   final FavoriteManager fm;
   const BusStopTimes({required this.searchNumber, required this.fm, Key? key}) : super(key: key);
 
@@ -42,7 +42,7 @@ class BusStopTimesListState extends State<BusStopTimes> {
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
 
       TransitManager tm = TransitManager();
-      Future<BusStopSchedules> info = tm.genStopNumbers(widget.searchNumber);
+      Future<BusStopSchedules> info = tm.genStopNumbers(widget.searchNumber.toString());
 
       info.then((result) { //handle waiting and asyncly getting the data to display
         newList.clear();

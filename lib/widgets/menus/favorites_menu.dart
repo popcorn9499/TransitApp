@@ -50,7 +50,7 @@ class FavoritesMenuListState extends State<FavoritesMenu> {
       for (BusStop busStop in result) {
         stopName = busStop.name;
         stopNumber = busStop.number.toString();
-        newList.add(BusStopListTile(stopName: stopName, stopNumber: stopNumber));
+        //newList.add(BusStopListTile(stopName: stopName, stopNumber: stopNumber));
       }
       //unsure what this is for? something to do with updating the listview
       setState(() {});
