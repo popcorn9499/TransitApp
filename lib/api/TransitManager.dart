@@ -26,15 +26,15 @@ class TransitManager {
     try {
       http.Response request = await http.get(Uri.parse(url));
 
-      if (request?.statusCode == 503) {
+      if (request.statusCode == 503) {
         //rate limited
-      } else if (request?.statusCode == 404) {
+      } else if (request.statusCode == 404) {
         //date not found
       }
 
-      if (request?.body != null) {
-        result = json.decode(request?.body ?? "");
-      }
+
+      result = json.decode(request.body);
+
     } on SocketException {
       throw NetworkError("No internet access. Please connect your device to the Internet");
     } on TimeoutException catch (e) {
