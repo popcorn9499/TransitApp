@@ -76,12 +76,14 @@ class BusStopTimesListState extends State<BusStopTimes> {
     if (widget.fm.isFavorited(widget.searchNumber)) {
       favoriteIcon = const Icon(Icons.favorite_border_outlined);
       widget.fm.removeFavorite(busStop);
+      setState(() {favoriteIcon = const Icon(Icons.favorite_border_outlined); });
     } else {
       favoriteIcon = const Icon(Icons.favorite);
-      //widget.fm.addFavorite(busStop);
+      widget.fm.addFavorite(busStop);
+      setState(() {favoriteIcon = const Icon(Icons.favorite); });
     }
     print("Setting icon");
-    setState(() {});
+
   }
 
   @override
