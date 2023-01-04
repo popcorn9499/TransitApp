@@ -11,6 +11,7 @@ import '../../api/DataModels/bus_info.dart';
 import '../../api/DataModels/bus_stop.dart';
 import '../widgets/bus_stop_list_tile.dart';
 import '../widgets/layout_stop_times_header.dart';
+import 'favorites_menu.dart';
 
 class SearchStopTimes extends StatefulWidget {
   final String search;
@@ -61,6 +62,13 @@ class SearchStopTimesListState extends State<SearchStopTimes> {
     }).catchError(errorPrompt.onError);
   }
 
+  void loadFavorites() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => const FavoritesMenu()),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -68,7 +76,7 @@ class SearchStopTimesListState extends State<SearchStopTimes> {
         title: const Text("Search Results"),
         actions: [
           FloatingActionButton(
-              onPressed: _refreshSearchList, child: const Icon(Icons.favorite)),
+              onPressed: loadFavorites, child: const Icon(Icons.favorite)),
           FloatingActionButton(
               onPressed: _refreshSearchList, child: const Icon(Icons.menu)),
         ],
