@@ -34,9 +34,13 @@ class BusStopTimesListState extends State<BusStopTimes> {
   initState() {
     super.initState();
     errorPrompt = ErrorSnackBar(context: context);
-    if (widget.fm.isFavorited(widget.searchNumber)) {
-      favoriteIcon = const Icon(Icons.favorite);
-    }
+    Future<bool> future = widget.fm.isFavorited(widget.searchNumber);
+    future.then((result) {
+      if (result) {
+        favoriteIcon = const Icon(Icons.favorite);
+      }
+    });
+
     WidgetsBinding.instance
         .addPostFrameCallback((_) => _refreshStopList()); //run a start item on startup
   }
@@ -73,17 +77,23 @@ class BusStopTimesListState extends State<BusStopTimes> {
 
   void toggleFavorite() {
     print("toggling favorite");
-    if (widget.fm.isFavorited(widget.searchNumber)) {
-      favoriteIcon = const Icon(Icons.favorite_border_outlined);
-      widget.fm.removeFavorite(busStop);
-      setState(() {favoriteIcon = const Icon(Icons.favorite_border_outlined); });
-    } else {
-      favoriteIcon = const Icon(Icons.favorite);
-      widget.fm.addFavorite(busStop);
-      setState(() {favoriteIcon = const Icon(Icons.favorite); });
-    }
-    print("Setting icon");
-
+    Future<bool> future = widget.fm.isFavorited(widget.searchNumber);
+    future.then((result) {
+      if (result) {
+        favoriteIcon = const Icon(Icons.favorite_border_outlined);
+        widget.fm.removeFavorite(busStop);
+        setState(() {
+          favoriteIcon = const Icon(Icons.favorite_border_outlined);
+        });
+      } else {
+        favoriteIcon = const Icon(Icons.favorite);
+        widget.fm.addFavorite(busStop);
+        setState(() {
+          favoriteIcon = const Icon(Icons.favorite);
+        });
+      }
+      print("Setting icon");
+    });
   }
 
   @override
