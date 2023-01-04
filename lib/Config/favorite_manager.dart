@@ -8,12 +8,12 @@ import '../api/DataModels/bus_stop.dart';
 class FavoriteManager {
 
   List<BusStop> favorites = [];
-  FavoriteManager() {
-    load();
-  }
+  FavoriteManager();
 
   Future<void> load() async {
+    print("loading");
     SharedPreferences prefs  = await SharedPreferences.getInstance();
+    print("loaded");
     List<String>? routes = prefs.getStringList("Favorites");
     if (routes != null) {
       for (String route in routes) { //add each bus stop from the favorites file
@@ -25,8 +25,14 @@ class FavoriteManager {
     }
   }
 
-  bool isFavorited(int stopNumber ) {
+  Future<List<BusStop>> getFavorites() async {
+    await load();
+    return favorites;
+  }
+
+  Future<bool> isFavorited(int stopNumber ) async {
     bool result = false;
+    await load();
     for (BusStop busStop in favorites) {
       result = result || (busStop.number == stopNumber);
     }
@@ -42,17 +48,19 @@ class FavoriteManager {
     prefs.setStringList("Favorites", data);
   }
 
-  bool addFavorite(BusStop stop) {
+  Future<bool> addFavorite(BusStop stop) async {
     bool result = false;
+    await load();
     favorites.add(stop);
     result = favorites.contains(stop);
     save();
     return result;
   }
 
-  bool removeFavorite(BusStop stop) {
+  Future<bool> removeFavorite(BusStop stop) async {
     bool result = false;
     BusStop removeMe = stop;
+    load();
     for (BusStop busStop in favorites) {
       if (stop.number == busStop.number) {
         removeMe = busStop;
