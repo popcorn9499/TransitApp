@@ -7,12 +7,12 @@ import '../api/DataModels/bus_stop.dart';
 
 class FavoriteManager {
 
-  List<BusStop> favorites = [];
   FavoriteManager();
 
-  Future<void> load() async {
+  Future<List<BusStop>> load() async {
     print("loading");
     SharedPreferences prefs  = await SharedPreferences.getInstance();
+    List<BusStop> favorites = []; //reset the favorites list back to blank before continuing
     print("loaded");
     List<String>? routes = prefs.getStringList("Favorites");
     if (routes != null) {
@@ -23,23 +23,23 @@ class FavoriteManager {
       List<String> routes = [];
       prefs.setStringList("Favorites", routes);
     }
+    return favorites;
   }
 
   Future<List<BusStop>> getFavorites() async {
-    await load();
-    return favorites;
+    return await load();
   }
 
   Future<bool> isFavorited(int stopNumber ) async {
     bool result = false;
-    await load();
+    List<BusStop> favorites = await load();
     for (BusStop busStop in favorites) {
       result = result || (busStop.number == stopNumber);
     }
     return result;
   }
 
-  Future<void> save() async {
+  Future<void> save(List<BusStop> favorites) async {
     SharedPreferences prefs  = await SharedPreferences.getInstance();
     List<String> data = [];
     for (BusStop stop in favorites) {
@@ -50,27 +50,26 @@ class FavoriteManager {
 
   Future<bool> addFavorite(BusStop stop) async {
     bool result = false;
-    await load();
+    List<BusStop> favorites = await load();
     favorites.add(stop);
     result = favorites.contains(stop);
-    save();
+    await save(favorites);
     return result;
   }
 
   Future<bool> removeFavorite(BusStop stop) async {
     bool result = false;
-    BusStop removeMe = stop;
-    load();
-    for (BusStop busStop in favorites) {
+    //BusStop removeMe = stop;
+    List<BusStop> favorites = await load();
+    List<BusStop> favoritesCpy = favorites.toList();
+    
+    for (BusStop busStop in favoritesCpy) {
       if (stop.number == busStop.number) {
-        removeMe = busStop;
+        favorites.removeWhere((element) => element == busStop);
         result = true;
       }
     }
-    if (result) {
-      favorites.remove(removeMe);
-      save();
-    }
+    await save(favorites);
     return result;
   }
 }
