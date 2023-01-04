@@ -6,6 +6,7 @@ import 'package:transit_app/widgets/widgets/bus_list_tile.dart';
 import 'package:http/http.dart' as http;
 import 'package:transit_app/widgets/widgets/error_snackbar.dart';
 
+import '../../Config/favorite_manager.dart';
 import '../../api/DataModels/bus_info.dart';
 import '../../api/DataModels/bus_stop.dart';
 import '../widgets/bus_stop_list_tile.dart';
@@ -32,29 +33,23 @@ class FavoritesMenuListState extends State<FavoritesMenu> {
     super.initState();
     errorPrompt = ErrorSnackBar(context: context);
     WidgetsBinding.instance
-        .addPostFrameCallback((_) => _refreshSearchList()); //run a start item on startup
+        .addPostFrameCallback((_) => loadFavoritesList()); //run a start item on startup
   }
 
-  _refreshSearchList() {
-    const snackBar = SnackBar(
-      content: Text('Reloading bus schedule'),
-    );
-    ScaffoldMessenger.of(context).showSnackBar(snackBar);
-
-    TransitManager tm = TransitManager();
-    Future<List<BusStop>> busStops = tm.genSearchQuery("");
-    String stopName;
-    String stopNumber;
-
-    busStops.then((result) { //asyncly parse the object recieved and store data required
-      for (BusStop busStop in result) {
-        stopName = busStop.name;
-        stopNumber = busStop.number.toString();
-        //newList.add(BusStopListTile(stopName: stopName, stopNumber: stopNumber));
+  loadFavoritesList() {
+    newList.clear();
+    FavoriteManager fm = FavoriteManager();
+    BusStopListTile busStopTile;
+    Future<List<BusStop>> future = fm.getFavorites();
+    future.then((favorites) {
+        for (BusStop busStop in favorites) {
+        busStopTile = BusStopListTile(stopName: busStop.name, stopNumber: busStop.number, fm: fm);
+        newList.add(busStopTile);
       }
-      //unsure what this is for? something to do with updating the listview
-      setState(() {});
-    }).catchError(errorPrompt.onError);
+    //unsure what this is for? something to do with updating the listview
+    setState(() {});
+    });
+
   }
 
   @override
@@ -64,14 +59,14 @@ class FavoritesMenuListState extends State<FavoritesMenu> {
         title: const Text("Favorites"),
         actions: [
           FloatingActionButton(
-              onPressed: _refreshSearchList, child: const Icon(Icons.menu)),
+              onPressed: loadFavoritesList, child: const Icon(Icons.menu)),
         ],
       ),
       body: RefreshIndicator(
           onRefresh: () {
             return Future.delayed(const Duration(seconds: 1), () {
               setState(() {
-                _refreshSearchList();
+                loadFavoritesList();
               });
             });
           },
