@@ -13,9 +13,8 @@ import 'package:transit_app/widgets/menus/main_menu.dart';
 
 void main() {
   testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-    FavoriteManager fm = FavoriteManager();
     // Build our app and trigger a frame.
-    await tester.pumpWidget(MainMenu(fm: fm));
+    await tester.pumpWidget(MainMenu());
     print("TESTING");
     // Verify that our counter starts at 0.
     expect(find.text('0 times'), findsOneWidget);
