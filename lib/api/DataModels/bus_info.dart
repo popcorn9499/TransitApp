@@ -54,8 +54,14 @@ class BusInfo implements Comparable {
   //routeInfo being map<string, dynamic> this "scheduled-stops"[i] some specific number of the stops
   //modeled after https://api.winnipegtransit.com/v3/stops/10611/schedule.json?usage=short&api-key={apikey}&start=2022-08-26T16:20:00
   factory BusInfo.fromJson(BusStop stop, Route route, Map<String, dynamic> routeInfo) {
-    final busNumber = routeInfo["bus"]["key"] as int;
-    final bikeRack = routeInfo["bus"]["bike-rack"] == "true" ? true: false;
+    int busNumber = -1;
+    bool bikeRack = false;
+    if (routeInfo.containsKey("bus")) { //handles transits api being stupid and not giving us this information???
+      busNumber = routeInfo["bus"]["key"] as int;
+      bikeRack = routeInfo["bus"]["bike-rack"] == "true" ? true : false;
+    } else {
+      print("WTF TRANSIT");
+    }
     final wifi = routeInfo["wifi"] == "true" ? true: false;
     final cancelled = routeInfo["cancelled"] == "true" ? true: false;
     final variantKey = routeInfo["variant"]["key"] as String;
@@ -74,6 +80,7 @@ class BusInfo implements Comparable {
 
     return BusInfo(stop: stop, route: route, arrivalScheduled: arrivalScheduled, arrivalEstimated: arrivalEstimated, departureEstimated: departureEstimated, departureScheduled: departureScheduled, variant: variant, busNumber: busNumber, bikeRack: bikeRack, wifi: wifi, cancelled: cancelled);
   }
+
 
   @override
   int compareTo(other) {
