@@ -45,23 +45,27 @@ class BusStopTimesListState extends State<BusStopTimes> {
         .addPostFrameCallback((_) => _refreshStopList()); //run a start item on startup
   }
 
-  _refreshStopList() {
+  Future<void> _refreshStopList() async {
     const snackBar = SnackBar(
       content: Text('Reloading bus schedule'),
     );
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
 
       TransitManager tm = TransitManager();
-      Future<BusStopSchedules> info = tm.genStopNumbers(widget.searchNumber.toString());
+      //try {
+        BusStopSchedules info = await tm.genStopNumbers(
+            widget.searchNumber.toString());
 
-      info.then((result) { //handle waiting and asyncly getting the data to display
         newList.clear();
-        BusStopSchedules bss = result;
+        BusStopSchedules bss = info;
         routeName = bss.busStop.name;
         busStop = bss.busStop;
         lookupTime = DateTime.now();
-        for (BusInfo bi in bss.schedules) { //loop over the busInfo list to parse that data
-          int remaining = bi.arrivalEstimated.difference(lookupTime).inMinutes;
+        for (BusInfo bi in bss
+            .schedules) { //loop over the busInfo list to parse that data
+          int remaining = bi.arrivalEstimated
+              .difference(lookupTime)
+              .inMinutes;
           //create and add the new object to the list
           newList.add(BusListTile(
               timeRemaining: "$remaining Min",
@@ -71,8 +75,11 @@ class BusStopTimesListState extends State<BusStopTimes> {
               busNumber: bi.route.number.toString()));
         }
         //unsure what this is for? something to do with updating the listview
-        setState(() {});
-      }).catchError(errorPrompt.onError);
+
+      // } catch(e) {
+      //   errorPrompt.onError(e);
+      // }
+    setState(() {});
   }
 
   void toggleFavorite() {
