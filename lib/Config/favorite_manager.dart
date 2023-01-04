@@ -10,10 +10,10 @@ class FavoriteManager {
   FavoriteManager();
 
   Future<List<BusStop>> load() async {
-    print("loading");
+    print("fm loading");
     SharedPreferences prefs  = await SharedPreferences.getInstance();
     List<BusStop> favorites = []; //reset the favorites list back to blank before continuing
-    print("loaded");
+    print("fm loaded");
     List<String>? routes = prefs.getStringList("Favorites");
     if (routes != null) {
       for (String route in routes) { //add each bus stop from the favorites file
@@ -62,7 +62,7 @@ class FavoriteManager {
     //BusStop removeMe = stop;
     List<BusStop> favorites = await load();
     List<BusStop> favoritesCpy = favorites.toList();
-    
+
     for (BusStop busStop in favoritesCpy) {
       if (stop.number == busStop.number) {
         favorites.removeWhere((element) => element == busStop);

@@ -40,7 +40,7 @@ class BusStopTimesListState extends State<BusStopTimes> {
         favoriteIcon = const Icon(Icons.favorite);
       }
     });
-
+    print("Loading bus stop times");
     WidgetsBinding.instance
         .addPostFrameCallback((_) => _refreshStopList()); //run a start item on startup
   }
@@ -50,13 +50,15 @@ class BusStopTimesListState extends State<BusStopTimes> {
       content: Text('Reloading bus schedule'),
     );
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
-
+    print("Reloading stop list");
     TransitManager tm = TransitManager();
     try {
+      print("getting stop information");
       BusStopSchedules info = await tm.genStopNumbers(
           widget.searchNumber.toString());
 
       newList.clear();
+      print("Parsing stop information");
       BusStopSchedules bss = info;
       routeName = bss.busStop.name;
       busStop = bss.busStop;
@@ -66,6 +68,7 @@ class BusStopTimesListState extends State<BusStopTimes> {
         int remaining = bi.arrivalEstimated
             .difference(lookupTime)
             .inMinutes;
+        print("adding stop item to display");
         //create and add the new object to the list
         newList.add(BusListTile(
             timeRemaining: "$remaining Min",
@@ -74,12 +77,14 @@ class BusStopTimesListState extends State<BusStopTimes> {
             busColor: const Color.fromARGB(255, 0, 114, 178),
             busNumber: bi.route.number.toString()));
       }
-      //unsure what this is for? something to do with updating the listview
 
+      //unsure what this is for? something to do with updating the listview
+    //
     } catch(e) {
       errorPrompt.onError(e);
     }
     setState(() {});
+    print("Finished");
   }
 
   Future<void> toggleFavorite() async {
