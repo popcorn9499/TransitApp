@@ -51,34 +51,34 @@ class BusStopTimesListState extends State<BusStopTimes> {
     );
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
 
-      TransitManager tm = TransitManager();
-      //try {
-        BusStopSchedules info = await tm.genStopNumbers(
-            widget.searchNumber.toString());
+    TransitManager tm = TransitManager();
+    try {
+      BusStopSchedules info = await tm.genStopNumbers(
+          widget.searchNumber.toString());
 
-        newList.clear();
-        BusStopSchedules bss = info;
-        routeName = bss.busStop.name;
-        busStop = bss.busStop;
-        lookupTime = DateTime.now();
-        for (BusInfo bi in bss
-            .schedules) { //loop over the busInfo list to parse that data
-          int remaining = bi.arrivalEstimated
-              .difference(lookupTime)
-              .inMinutes;
-          //create and add the new object to the list
-          newList.add(BusListTile(
-              timeRemaining: "$remaining Min",
-              busStatus: bi.getOnTime(),
-              stopName: bi.route.name,
-              busColor: const Color.fromARGB(255, 0, 114, 178),
-              busNumber: bi.route.number.toString()));
-        }
-        //unsure what this is for? something to do with updating the listview
+      newList.clear();
+      BusStopSchedules bss = info;
+      routeName = bss.busStop.name;
+      busStop = bss.busStop;
+      lookupTime = DateTime.now();
+      for (BusInfo bi in bss
+          .schedules) { //loop over the busInfo list to parse that data
+        int remaining = bi.arrivalEstimated
+            .difference(lookupTime)
+            .inMinutes;
+        //create and add the new object to the list
+        newList.add(BusListTile(
+            timeRemaining: "$remaining Min",
+            busStatus: bi.getOnTime(),
+            stopName: bi.route.name,
+            busColor: const Color.fromARGB(255, 0, 114, 178),
+            busNumber: bi.route.number.toString()));
+      }
+      //unsure what this is for? something to do with updating the listview
 
-      // } catch(e) {
-      //   errorPrompt.onError(e);
-      // }
+    } catch(e) {
+      errorPrompt.onError(e);
+    }
     setState(() {});
   }
 
