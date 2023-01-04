@@ -82,25 +82,23 @@ class BusStopTimesListState extends State<BusStopTimes> {
     setState(() {});
   }
 
-  void toggleFavorite() {
+  Future<void> toggleFavorite() async {
     print("toggling favorite");
-    Future<bool> future = widget.fm.isFavorited(widget.searchNumber);
-    future.then((result) {
-      if (result) {
+    bool isFavorited = await widget.fm.isFavorited(widget.searchNumber);
+    if (isFavorited) {
+      favoriteIcon = const Icon(Icons.favorite_border_outlined);
+      await widget.fm.removeFavorite(busStop);
+      setState(() {
         favoriteIcon = const Icon(Icons.favorite_border_outlined);
-        widget.fm.removeFavorite(busStop);
-        setState(() {
-          favoriteIcon = const Icon(Icons.favorite_border_outlined);
-        });
-      } else {
+      });
+    } else {
+      favoriteIcon = const Icon(Icons.favorite);
+      await widget.fm.addFavorite(busStop);
+      setState(() {
         favoriteIcon = const Icon(Icons.favorite);
-        widget.fm.addFavorite(busStop);
-        setState(() {
-          favoriteIcon = const Icon(Icons.favorite);
-        });
-      }
-      print("Setting icon");
-    });
+      });
+    }
+    print("Setting icon");
   }
 
   @override
