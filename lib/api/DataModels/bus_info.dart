@@ -62,15 +62,25 @@ class BusInfo implements Comparable {
     } else {
       print("WTF TRANSIT");
     }
+    String arrivalScheduledStr;
+    String arrivalEstimatedStr;
     final wifi = routeInfo["wifi"] == "true" ? true: false;
     final cancelled = routeInfo["cancelled"] == "true" ? true: false;
     final variantKey = routeInfo["variant"]["key"] as String;
     final variantName = routeInfo["variant"]["name"] as String;
     final Variant variant = Variant(name: variantName, key: variantKey);
-    String arrivalScheduledStr = routeInfo["times"]["arrival"]["scheduled"] as String;
-    String arrivalEstimatedStr = routeInfo["times"]["arrival"]["estimated"] as String;
     String departureScheduledStr = routeInfo["times"]["departure"]["scheduled"] as String;
     String departureEstimatedStr = routeInfo["times"]["departure"]["estimated"] as String;
+    if (routeInfo["times"].containsKey("arrival")) {
+      arrivalScheduledStr =
+      routeInfo["times"]["arrival"]["scheduled"] as String;
+      arrivalEstimatedStr =
+      routeInfo["times"]["arrival"]["estimated"] as String;
+    } else {
+      arrivalScheduledStr = departureScheduledStr;
+      arrivalEstimatedStr = departureEstimatedStr;
+    }
+
 
     //convert date time strings to DateTime objects
     DateTime arrivalScheduled = TransitManager.apiDateFormat.parse(arrivalScheduledStr);
