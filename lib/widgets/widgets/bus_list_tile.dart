@@ -13,8 +13,8 @@ class BusListTile extends StatelessWidget {
         .inMinutes;
     timeRemaining = "$remaining Min";
     busStatus = busInfo.getOnTime();
-    stopName = busInfo.route.name;
-    busNumber = busInfo.route.number.toString();
+    stopName = busInfo.getName();
+    busNumber = busInfo.route.number;
     busColor = HexColor(busInfo.route.borderColor);
   }
 

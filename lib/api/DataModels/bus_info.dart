@@ -93,6 +93,9 @@ class BusInfo implements Comparable {
     return BusInfo(stop: stop, route: route, arrivalScheduled: arrivalScheduled, arrivalEstimated: arrivalEstimated, departureEstimated: departureEstimated, departureScheduled: departureScheduled, variant: variant, busNumber: busNumber, bikeRack: bikeRack, wifi: wifi, cancelled: cancelled);
   }
 
+  String getName() {
+    return variant.name;
+  }
 
   @override
   int compareTo(other) {
