@@ -1,23 +1,29 @@
 import 'package:flutter/material.dart';
 import "package:transit_app/bus_status.dart";
+import 'package:transit_app/hex_color.dart';
+
+import '../../api/DataModels/bus_info.dart';
 
 class BusListTile extends StatelessWidget {
-  const BusListTile(
-      {Key? key,
-      required this.timeRemaining,
-      required this.busStatus,
-      required this.stopName,
-      required this.busNumber,
-      required this.busColor,
-      })
-      : super(key: key);
+  BusListTile(BusInfo busInfo, DateTime lookupTime,
+      {Key? key})
+      : super(key: key) {
+    int remaining = busInfo.arrivalEstimated
+        .difference(lookupTime)
+        .inMinutes;
+    timeRemaining = "busInfo Min";
+    busStatus = busInfo.getOnTime();
+    stopName = busInfo.route.name;
+    busNumber = busInfo.route.number.toString();
+    busColor = HexColor(busInfo.route.borderColor);
+  }
 
 
-  final String timeRemaining;
-  final BusStatus busStatus;
-  final String stopName;
-  final String busNumber;
-  final Color busColor;
+  late String timeRemaining;
+  late BusStatus busStatus;
+  late String stopName;
+  late String busNumber;
+  late Color busColor;
 
 
 
