@@ -12,6 +12,8 @@ import '../../api/DataModels/bus_stop.dart';
 import '../widgets/bus_stop_list_tile.dart';
 import '../widgets/layout_stop_times_header.dart';
 
+import 'package:geolocator/geolocator.dart';
+
 class CloseStopsMenu extends StatefulWidget {
   final FavoriteManager fm;
 
@@ -44,20 +46,65 @@ class CloseStopsMenuListState extends State<CloseStopsMenu> {
     );
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
 
-    TransitManager tm = TransitManager();
-    Future<List<BusStop>> busStops = tm.genSearchQuery("");
-    String stopName;
-    int stopNumber;
+    _determinePosition().then((position) {
+      print(position.toString());
+    });
 
-    busStops.then((result) { //asyncly parse the object recieved and store data required
-      for (BusStop busStop in result) {
-        stopName = busStop.name;
-        stopNumber = busStop.number;
-        newList.add(BusStopListTile(stopName: stopName, stopNumber: stopNumber, fm: widget.fm));
+    // TransitManager tm = TransitManager();
+    // Future<List<BusStop>> busStops = tm.genSearchQuery("");
+    // String stopName;
+    // int stopNumber;
+    //
+    // busStops.then((result) { //asyncly parse the object recieved and store data required
+    //   for (BusStop busStop in result) {
+    //     stopName = busStop.name;
+    //     stopNumber = busStop.number;
+    //     newList.add(BusStopListTile(stopName: stopName, stopNumber: stopNumber, fm: widget.fm));
+    //   }
+    //   //unsure what this is for? something to do with updating the listview
+    //   setState(() {});
+    // }).catchError(errorPrompt.onError);
+  }
+
+  /// Determine the current position of the device.
+  ///
+  /// When the location services are not enabled or permissions
+  /// are denied the `Future` will return an error.
+  Future<Position> _determinePosition() async {
+    bool serviceEnabled;
+    LocationPermission permission;
+
+    // Test if location services are enabled.
+    serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) {
+      // Location services are not enabled don't continue
+      // accessing the position and request users of the
+      // App to enable the location services.
+      return Future.error('Location services are disabled.');
+    }
+
+    permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied) {
+        // Permissions are denied, next time you could try
+        // requesting permissions again (this is also where
+        // Android's shouldShowRequestPermissionRationale
+        // returned true. According to Android guidelines
+        // your App should show an explanatory UI now.
+        return Future.error('Location permissions are denied');
       }
-      //unsure what this is for? something to do with updating the listview
-      setState(() {});
-    }).catchError(errorPrompt.onError);
+    }
+
+    if (permission == LocationPermission.deniedForever) {
+      // Permissions are denied forever, handle appropriately.
+      return Future.error(
+          'Location permissions are permanently denied, we cannot request permissions.');
+    }
+
+    // When we reach here, permissions are granted and we can
+    // continue accessing the position of the device.
+    return await Geolocator.getCurrentPosition();
   }
 
   @override
