@@ -10,19 +10,25 @@
 import 'dart:convert';
 
 class BusStop {
-  BusStop({required this.key,required this.number,required this.name,required this.direction});
+  BusStop({required this.key,required this.number,required this.name,required this.direction, required this.distance});
   final int key;
   final int number;
   final String name;
   final String direction;
+  final double distance;
+
 
   factory BusStop.fromJson(Map<String, dynamic> data) {
     final key = data['key'] as int;
     final number = data['number'] as int;
     final name = data['name'] as String;
     final direction = data['direction'] as String;
-
-    return BusStop(name: name, key: key,number: number, direction: direction);
+    double distance = -1;
+    //handle parsing in walking distance if it in fact exists
+    if (data.containsKey("distances") && double.tryParse(data["distances"]["walking"]) != null){
+      distance = double.tryParse(data["distances"]["walking"]) as double;
+    }
+    return BusStop(name: name, key: key,number: number, direction: direction, distance: distance);
   }
 
   String toJson() {
