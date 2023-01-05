@@ -48,15 +48,11 @@ class CloseStopsMenuListState extends State<CloseStopsMenu> {
       TransitManager tm = TransitManager();
       List<BusStop> busStops = await tm.genStopLocations(
           pos.longitude, pos.latitude, 200, true);
-      String stopName;
-      int stopNumber;
 
 
       for (BusStop busStop in busStops) {
-        stopName = busStop.name;
-        stopNumber = busStop.number;
         newList.add(BusStopListTile(
-            stopName: stopName, stopNumber: stopNumber));
+            busStop: busStop));
       }
     } catch(e) {
       errorPrompt.onError(e);

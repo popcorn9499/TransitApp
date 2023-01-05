@@ -2,18 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:transit_app/Config/favorite_manager.dart';
 import "package:transit_app/bus_status.dart";
 
+import '../../api/DataModels/bus_stop.dart';
 import '../menus/bus_stop_times.dart';
 
 class BusStopListTile extends StatelessWidget {
-  const BusStopListTile(
+  BusStopListTile(
       {Key? key,
-        required this.stopName,
-        required this.stopNumber
+        required this.busStop,
       })
-      : super(key: key);
-
-  final String stopName;
-  final int stopNumber;
+      : super(key: key) {
+      stopName = busStop.name;
+      stopNumber = busStop.number;
+  }
+  final BusStop busStop;
+  late String stopName;
+  late int stopNumber;
 
 
   @override

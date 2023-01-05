@@ -45,15 +45,9 @@ class SearchStopTimesListState extends State<SearchStopTimes> {
     try {
       TransitManager tm = TransitManager();
       List<BusStop> busStops = await tm.genSearchQuery(widget.search);
-      String stopName;
-      int stopNumber;
-
 
       for (BusStop busStop in busStops) {
-        stopName = busStop.name;
-        stopNumber = busStop.number;
-        newList.add(BusStopListTile(
-            stopName: stopName, stopNumber: stopNumber));
+        newList.add(BusStopListTile(busStop: busStop));
       }
     } catch(e) {
       errorPrompt.onError(e);
