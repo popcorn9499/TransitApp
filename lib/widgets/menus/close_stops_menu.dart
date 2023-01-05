@@ -40,30 +40,33 @@ class CloseStopsMenuListState extends State<CloseStopsMenu> {
         .addPostFrameCallback((_) => _refreshSearchList()); //run a start item on startup
   }
 
-  _refreshSearchList() {
+  Future<void>_refreshSearchList() async{
     const snackBar = SnackBar(
       content: Text('Reloading bus schedule'),
     );
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    try {
+      Position pos = await _determinePosition();
 
-    _determinePosition().then((position) {
-      print(position.toString());
-    });
+      TransitManager tm = TransitManager();
+      List<BusStop> busStops = await tm.genStopLocations(
+          pos.longitude, pos.latitude, 200, true);
+      String stopName;
+      int stopNumber;
 
-    // TransitManager tm = TransitManager();
-    // Future<List<BusStop>> busStops = tm.genSearchQuery("");
-    // String stopName;
-    // int stopNumber;
-    //
-    // busStops.then((result) { //asyncly parse the object recieved and store data required
-    //   for (BusStop busStop in result) {
-    //     stopName = busStop.name;
-    //     stopNumber = busStop.number;
-    //     newList.add(BusStopListTile(stopName: stopName, stopNumber: stopNumber, fm: widget.fm));
-    //   }
-    //   //unsure what this is for? something to do with updating the listview
-    //   setState(() {});
-    // }).catchError(errorPrompt.onError);
+
+      for (BusStop busStop in busStops) {
+        stopName = busStop.name;
+        stopNumber = busStop.number;
+        newList.add(BusStopListTile(
+            stopName: stopName, stopNumber: stopNumber, fm: widget.fm));
+      }
+    } catch(e) {
+      errorPrompt.onError(e);
+    }
+
+    //unsure what this is for? something to do with updating the listview
+    setState(() {});
   }
 
   /// Determine the current position of the device.
