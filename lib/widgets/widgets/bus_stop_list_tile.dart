@@ -8,12 +8,10 @@ class BusStopListTile extends StatelessWidget {
   const BusStopListTile(
       {Key? key,
         required this.stopName,
-        required this.stopNumber,
-        required this.fm
+        required this.stopNumber
       })
       : super(key: key);
 
-  final FavoriteManager fm;
   final String stopName;
   final int stopNumber;
 
@@ -24,7 +22,7 @@ class BusStopListTile extends StatelessWidget {
       onTap: () {
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => BusStopTimes(searchNumber: stopNumber, fm: fm)),
+          MaterialPageRoute(builder: (context) => BusStopTimes(searchNumber: stopNumber)),
         );
       },
       title: Container(

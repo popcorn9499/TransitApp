@@ -15,7 +15,6 @@ import 'favorites_menu.dart';
 
 
 class MainMenu extends StatelessWidget {
-  final FavoriteManager fm = FavoriteManager();
 
   MainMenu({Key? key}) : super(key: key);
 
@@ -36,14 +35,13 @@ class MainMenu extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.deepPurple,
       ),
-      home: MyHomePage(title: 'Transit App', fm: fm),
+      home: MyHomePage(title: 'Transit App'),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  final FavoriteManager fm;
-  const MyHomePage({Key? key,required this.fm, required this.title}) : super(key: key);
+  const MyHomePage({Key? key, required this.title}) : super(key: key);
 
   // This widget is the home page of your application. It is stateful, meaning
   // that it has a State object (defined below) that contains fields that affect
@@ -97,7 +95,7 @@ class _MyHomePageState extends State<MyHomePage> {
   void loadCloseStops() {
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => CloseStopsMenu(fm: widget.fm)),
+      MaterialPageRoute(builder: (context) => CloseStopsMenu()),
     );
   }
 
@@ -108,13 +106,13 @@ class _MyHomePageState extends State<MyHomePage> {
         if (result.length == 1) { //handle just looking based on the text
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => BusStopTimes(searchNumber: result[0].number, fm: widget.fm)),
+            MaterialPageRoute(builder: (context) => BusStopTimes(searchNumber: result[0].number)),
           );
         } else {
           //load up another view for selecting from multiple
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => SearchStopTimes(search: _controller.text, fm: widget.fm)),
+            MaterialPageRoute(builder: (context) => SearchStopTimes(search: _controller.text)),
           );
         }
       }).catchError(errorPrompt.onError);

@@ -14,8 +14,7 @@ import '../widgets/refreshing_snackbar.dart';
 
 class BusStopTimes extends StatefulWidget {
   final int searchNumber;
-  final FavoriteManager fm;
-  const BusStopTimes({required this.searchNumber, required this.fm, Key? key}) : super(key: key);
+  const BusStopTimes({required this.searchNumber, Key? key}) : super(key: key);
 
   @override
   BusStopTimesListState createState() => BusStopTimesListState();
@@ -35,7 +34,8 @@ class BusStopTimesListState extends State<BusStopTimes> {
   initState() {
     super.initState();
     errorPrompt = ErrorSnackBar(context: context);
-    Future<bool> future = widget.fm.isFavorited(widget.searchNumber);
+    FavoriteManager fm = FavoriteManager();
+    Future<bool> future = fm.isFavorited(widget.searchNumber);
     future.then((result) {
       if (result) {
         favoriteIcon = const Icon(Icons.favorite);
@@ -80,16 +80,17 @@ class BusStopTimesListState extends State<BusStopTimes> {
 
   Future<void> toggleFavorite() async {
     print("toggling favorite");
-    bool isFavorited = await widget.fm.isFavorited(widget.searchNumber);
+    FavoriteManager fm = FavoriteManager();
+    bool isFavorited = await fm.isFavorited(widget.searchNumber);
     if (isFavorited) {
       favoriteIcon = const Icon(Icons.favorite_border_outlined);
-      await widget.fm.removeFavorite(busStop);
+      await fm.removeFavorite(busStop);
       setState(() {
         favoriteIcon = const Icon(Icons.favorite_border_outlined);
       });
     } else {
       favoriteIcon = const Icon(Icons.favorite);
-      await widget.fm.addFavorite(busStop);
+      await fm.addFavorite(busStop);
       setState(() {
         favoriteIcon = const Icon(Icons.favorite);
       });

@@ -16,8 +16,7 @@ import 'favorites_menu.dart';
 
 class SearchStopTimes extends StatefulWidget {
   final String search;
-  final FavoriteManager fm;
-  const SearchStopTimes({required this.search, required this.fm, Key? key}) : super(key: key);
+  const SearchStopTimes({required this.search, Key? key}) : super(key: key);
 
   @override
   SearchStopTimesListState createState() => SearchStopTimesListState();
@@ -54,7 +53,7 @@ class SearchStopTimesListState extends State<SearchStopTimes> {
         stopName = busStop.name;
         stopNumber = busStop.number;
         newList.add(BusStopListTile(
-            stopName: stopName, stopNumber: stopNumber, fm: widget.fm));
+            stopName: stopName, stopNumber: stopNumber));
       }
     } catch(e) {
       errorPrompt.onError(e);

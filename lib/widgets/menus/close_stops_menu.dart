@@ -17,9 +17,7 @@ import 'package:geolocator/geolocator.dart';
 import '../widgets/refreshing_snackbar.dart';
 
 class CloseStopsMenu extends StatefulWidget {
-  final FavoriteManager fm;
-
-  const CloseStopsMenu({Key? key, required this.fm}) : super(key: key);
+  const CloseStopsMenu({Key? key}) : super(key: key);
 
   @override
   CloseStopsMenuListState createState() => CloseStopsMenuListState();
@@ -58,7 +56,7 @@ class CloseStopsMenuListState extends State<CloseStopsMenu> {
         stopName = busStop.name;
         stopNumber = busStop.number;
         newList.add(BusStopListTile(
-            stopName: stopName, stopNumber: stopNumber, fm: widget.fm));
+            stopName: stopName, stopNumber: stopNumber));
       }
     } catch(e) {
       errorPrompt.onError(e);
