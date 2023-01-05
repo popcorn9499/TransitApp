@@ -36,19 +36,18 @@ class FavoritesMenuListState extends State<FavoritesMenu> {
         .addPostFrameCallback((_) => loadFavoritesList()); //run a start item on startup
   }
 
-  loadFavoritesList() {
+  Future<void> loadFavoritesList() async {
     newList.clear();
     FavoriteManager fm = FavoriteManager();
     BusStopListTile busStopTile;
-    Future<List<BusStop>> future = fm.getFavorites();
-    future.then((favorites) {
-        for (BusStop busStop in favorites) {
-        busStopTile = BusStopListTile(stopName: busStop.name, stopNumber: busStop.number, fm: fm);
-        newList.add(busStopTile);
-      }
+    List<BusStop> favorites = await fm.getFavorites();
+
+    for (BusStop busStop in favorites) {
+      busStopTile = BusStopListTile(stopName: busStop.name, stopNumber: busStop.number, fm: fm);
+      newList.add(busStopTile);
+    }
     //unsure what this is for? something to do with updating the listview
     setState(() {});
-    });
 
   }
 
