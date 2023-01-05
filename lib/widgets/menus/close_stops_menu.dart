@@ -14,6 +14,8 @@ import '../widgets/layout_stop_times_header.dart';
 
 import 'package:geolocator/geolocator.dart';
 
+import '../widgets/refreshing_snackbar.dart';
+
 class CloseStopsMenu extends StatefulWidget {
   final FavoriteManager fm;
 
@@ -41,10 +43,7 @@ class CloseStopsMenuListState extends State<CloseStopsMenu> {
   }
 
   Future<void>_refreshSearchList() async{
-    const snackBar = SnackBar(
-      content: Text('Reloading bus schedule'),
-    );
-    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    ScaffoldMessenger.of(context).showSnackBar(const RefreshingSnackbar());
     try {
       Position pos = await _determinePosition();
 

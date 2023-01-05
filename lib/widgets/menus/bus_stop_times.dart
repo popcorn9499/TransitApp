@@ -10,6 +10,7 @@ import '../../api/DataModels/bus_info.dart';
 import '../../api/DataModels/bus_stop.dart';
 import '../widgets/error_snackbar.dart';
 import '../widgets/layout_stop_times_header.dart';
+import '../widgets/refreshing_snackbar.dart';
 
 class BusStopTimes extends StatefulWidget {
   final int searchNumber;
@@ -46,10 +47,7 @@ class BusStopTimesListState extends State<BusStopTimes> {
   }
 
   Future<void> _refreshStopList() async {
-    const snackBar = SnackBar(
-      content: Text('Reloading bus schedule'),
-    );
-    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    ScaffoldMessenger.of(context).showSnackBar(const RefreshingSnackbar());
     print("Reloading stop list");
     TransitManager tm = TransitManager();
     try {
