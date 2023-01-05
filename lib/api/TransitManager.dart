@@ -93,6 +93,31 @@ class TransitManager {
 
     return result;
   }
+
+  String genStopLocationURL(double long, double lat, double distance, bool walking){
+    URLGenerator url = URLGenerator(url: sprintf(apiUrl, ["stops"]));
+    url.addParam("lat", lat.toString());
+    url.addParam("lon", long.toString());
+    url.addParam("distance", distance.toString());
+    url.addParam("walking", walking.toString());
+    return url.toString();
+  }
+
+  Future<List<BusStop>> genStopLocations(double long, double lat, double distance, bool walking) async {
+    List<BusStop> busStops = [];
+    BusStop busStop;
+
+    String url = genStopLocationURL(long, lat, distance, walking);
+    Map<String, dynamic> data = await getJson(url);
+
+    for (var element in data["stops"]) {
+      busStop = BusStop.fromJson(element);
+      busStops.add(busStop);
+    }
+
+    return busStops;
+  }
+
 }
 
 
