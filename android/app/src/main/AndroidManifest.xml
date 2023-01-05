@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.transit_app">
+    package="com.popicraft.transit_app">
    <application
         android:label="transit_app"
         android:name="${applicationName}"

@@ -1,4 +1,4 @@
-package com.example.transit_app;
+package com.popicraft.transit_app;
 
 import io.flutter.embedding.android.FlutterActivity;
 
