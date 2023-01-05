@@ -15,7 +15,7 @@ class BusStop {
   final int number;
   final String name;
   final String direction;
-  final double distance;
+  final double distance; //walking distance to stop. this is optional and will display -1 if
 
 
   factory BusStop.fromJson(Map<String, dynamic> data) {
