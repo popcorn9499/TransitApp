@@ -47,7 +47,7 @@ class CloseStopsMenuListState extends State<CloseStopsMenu> {
 
       TransitManager tm = TransitManager();
       List<BusStop> busStops = await tm.genStopLocations(
-          pos.longitude, pos.latitude, 200, true);
+          pos.longitude, pos.latitude, 2000, true);
 
       busStops.sort((a,b) => a.distance.compareTo(b.distance));
 
