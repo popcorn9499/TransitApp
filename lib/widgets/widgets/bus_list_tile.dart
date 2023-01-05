@@ -11,7 +11,7 @@ class BusListTile extends StatelessWidget {
     int remaining = busInfo.arrivalEstimated
         .difference(lookupTime)
         .inMinutes;
-    timeRemaining = "busInfo Min";
+    timeRemaining = "$remaining Min";
     busStatus = busInfo.getOnTime();
     stopName = busInfo.route.name;
     busNumber = busInfo.route.number.toString();
