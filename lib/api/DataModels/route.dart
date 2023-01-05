@@ -10,7 +10,7 @@ the variant names of the buses
 class Route {
   static const List<dynamic>  defaultData = ["none data"];
 
-  Route({required this.key, required this.number,required this.name, required List<String> variantKeys}) {
+  Route({required this.key, required this.number,required this.name,required this.borderColor, required List<String> variantKeys}) {
     List<String> tempVariantKeys = <String>[];
     String temp = "";
     //copy the variantKeys list to keep it safe from the input list being changed
@@ -24,12 +24,15 @@ class Route {
   final String number; //this should be the same as the key
   final String name; //this should show the route name example "Route 11 Portage-Kildonan"
   late  List<String> _variantKeys; //list of the variant keys "11-1-D"
+  final String borderColor;
+
 
   //turns the incoming json into a object
   factory Route.fromJson(Map<String, dynamic> data, {List <dynamic> variantsData = Route.defaultData}) {
     String key;
     String number;
     String name;
+    String borderColor = "#FFFFFF";
     List<dynamic> variants = <String>[];
     List<String> variantKeys = <String>[];
     //handle main data
@@ -55,6 +58,11 @@ class Route {
       }
     }
 
+    //handle gathering some details about badge style
+    if (data.containsKey("badge-style") && data["badge-style"].containsKey("border-color")) {
+      borderColor = data["badge-style"]["border-color"] as String;
+    }
+
     key = data['key'].toString();
     number = data['number'].toString();
     if (data.containsKey("name")) { //handles the case when name is null
@@ -64,7 +72,7 @@ class Route {
     }
 
 
-    return Route(name: name, key: key,number: number, variantKeys: variantKeys);
+    return Route(name: name, key: key,number: number,borderColor: borderColor, variantKeys: variantKeys);
   }
 
 /*
