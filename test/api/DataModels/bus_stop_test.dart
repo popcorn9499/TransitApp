@@ -12,7 +12,7 @@ import 'package:transit_app/api/DataModels/variant.dart';
 
 void main() {
   test('Test bus Stop Creation', () async {
-    BusStop busStop = BusStop(key: 1234, number: 1234, name: "cool stop", direction: "South");
+    BusStop busStop = BusStop(key: 1234, number: 1234, name: "cool stop", direction: "South", distance: -1);
 
     expect(busStop.key, equals(1234));
     expect(busStop.number, equals(1234));
@@ -44,7 +44,7 @@ void main() {
   });
 
   test('Test bus Stop toString', () async {
-    BusStop busStop = BusStop(key: 1234, number: 1234, name: "cool stop", direction: "South");
+    BusStop busStop = BusStop(key: 1234, number: 1234, name: "cool stop", direction: "South", distance: -1);
     expect(busStop.toString(), equals("Stop #1234 at cool stop direction South"));
   });
 }

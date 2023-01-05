@@ -19,12 +19,13 @@ void main() {
   test('Test BusStopSchedules Creation', () async {
 
     BusStop busStop =
-    BusStop(key: 1234, number: 1234, name: "cool stop", direction: "South");
+    BusStop(key: 1234, number: 1234, name: "cool stop", direction: "South", distance: -1);
     Route route = Route(
         name: "cool super name",
         number: "123",
         key: "123",
-        variantKeys: ["123", "hello"]);
+        variantKeys: ["123", "hello"],
+        borderColor: "#FFFFFF");
     Variant variant = Variant(name: "cool super name 123", key: "123");
     BusInfo busInfo = BusInfo(
         stop: busStop,
