@@ -103,11 +103,11 @@ class TransitManager {
     return url.toString();
   }
 
-  Future<List<BusStop>> genStopLocations(double long, double lat, int distance, bool walking) async {
+  Future<List<BusStop>> genStopLocations(double long, double lat, int distance) async {
     List<BusStop> busStops = [];
     BusStop busStop;
 
-    String url = genStopLocationURL(long, lat, distance, walking);
+    String url = genStopLocationURL(long, lat, distance, false);
     Map<String, dynamic> data = await getJson(url);
 
     for (var element in data["stops"]) {
