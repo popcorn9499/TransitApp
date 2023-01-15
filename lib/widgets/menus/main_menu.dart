@@ -27,7 +27,7 @@ class MainMenu extends StatelessWidget {
       theme: Styles.lightTheme( context),
       darkTheme: Styles.darkTheme(context),
       themeMode: ThemeMode.dark,
-      home: MyHomePage(title: 'Transit App'),
+      home: const MyHomePage(title: 'Transit App'),
     );
   }
 }
