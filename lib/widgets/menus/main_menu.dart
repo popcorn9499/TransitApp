@@ -24,7 +24,9 @@ class MainMenu extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Transit App',
-      theme: Styles.themeData(true, context),
+      theme: Styles.lightTheme( context),
+      darkTheme: Styles.darkTheme(context),
+      themeMode: ThemeMode.dark,
       home: MyHomePage(title: 'Transit App'),
     );
   }
