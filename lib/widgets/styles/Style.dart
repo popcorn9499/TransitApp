@@ -5,32 +5,29 @@ import 'package:flutter/material.dart';
 
 class Styles {
 
-  static ThemeData themeData(bool isDarkTheme, BuildContext context) {
+  static ThemeData darkTheme(BuildContext context) {
     return ThemeData(
+      brightness: Brightness.dark,
       primarySwatch: Colors.deepPurple,
-      primaryColor: isDarkTheme ? Colors.black : Colors.white,
-
-      backgroundColor: isDarkTheme ? Colors.black : Color(0xffF1F5FB),
-
-      indicatorColor: isDarkTheme ? Color(0xff0E1D36) : Color(0xffCBDCF8),
-      buttonColor: isDarkTheme ? Color(0xff3B3B3B) : Color(0xffF1F5FB),
-
-      hintColor: isDarkTheme ? Colors.deepPurple[300] : Colors.deepPurple[100],
-
-      highlightColor: isDarkTheme ? Color(0xff372901) : Color(0xffFCE192),
-      hoverColor: isDarkTheme ? Color(0xff3A3A3B) : Color(0xff4285F4),
-
-      focusColor: isDarkTheme ? Color(0xff0B2512) : Color(0xffA8DAB5),
-      disabledColor: Colors.grey,
-      cardColor: isDarkTheme ? Color(0xFF151515) : Colors.white,
-      canvasColor: isDarkTheme ? Colors.black : Colors.grey[50],
-      brightness: isDarkTheme ? Brightness.dark : Brightness.light,
-      buttonTheme: Theme.of(context).buttonTheme.copyWith(
-          colorScheme: isDarkTheme ? ColorScheme.dark() : ColorScheme.light()),
-      appBarTheme: AppBarTheme(
+      primaryColor: Colors.white,
+      floatingActionButtonTheme: const FloatingActionButtonThemeData(
+        backgroundColor: Colors.black12,
+        elevation: 0,
+        foregroundColor: Colors.white,
+      ),
+      appBarTheme: const AppBarTheme(
         elevation: 0.0,
-      ), textSelectionTheme: TextSelectionThemeData(selectionColor: isDarkTheme ? Colors.white : Colors.black),
+        iconTheme: IconThemeData(color: Colors.deepPurple),
+        actionsIconTheme: IconThemeData(color: Colors.deepPurple),
+      ),
+      textSelectionTheme: const TextSelectionThemeData(selectionColor: Colors.white),
     );
+  }
 
+  static ThemeData lightTheme(BuildContext context) {
+    return ThemeData(
+      brightness: Brightness.light,
+      primarySwatch: Colors.deepPurple,
+    );
   }
 }
