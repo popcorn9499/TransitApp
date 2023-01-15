@@ -49,7 +49,9 @@ class BusListTile extends StatelessWidget {
               border: Border.all(color: busColor),
               color: busColor,
             ),
-            child: Center(child: Text(busNumber)),
+            child: Center(child: RichText(text: TextSpan(text: busNumber, style: TextStyle(
+              color: Theme.of(context).secondaryHeaderColor,
+            )))),
           ),
           Expanded(
             flex: 6,
