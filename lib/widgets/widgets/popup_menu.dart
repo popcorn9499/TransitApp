@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+import '../menus/settings_menu.dart';
+
+
 // This is the type used by the popup menu below.
 enum SampleItem { settings, itemTwo, itemThree }
 
@@ -12,9 +15,16 @@ class PopupMenu extends StatelessWidget {
     return PopupMenuButton<SampleItem>(
       icon: const Icon(Icons.menu),
       itemBuilder: (BuildContext context) => <PopupMenuEntry<SampleItem>>[
-        const PopupMenuItem<SampleItem>(
+        PopupMenuItem<SampleItem>(
           value: SampleItem.settings,
-          child: Text('Settings'),
+          child: const Text('Settings'),
+          onTap: () {
+            print("HELLO");
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const SettingsMenu()),
+            );
+          },
         )
       ],
     );
