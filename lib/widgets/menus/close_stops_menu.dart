@@ -109,8 +109,7 @@ class CloseStopsMenuListState extends State<CloseStopsMenu> {
       appBar: AppBar(
         title: const Text("Nearby Stops"),
         actions: [
-          FloatingActionButton(
-              onPressed: _refreshSearchList, child: const Icon(Icons.menu)),
+          PopupMenu(),
         ],
       ),
       body: RefreshIndicator(

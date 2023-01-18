@@ -11,6 +11,7 @@ import '../../api/DataModels/bus_info.dart';
 import '../../api/DataModels/bus_stop.dart';
 import '../widgets/bus_stop_list_tile.dart';
 import '../widgets/layout_stop_times_header.dart';
+import '../widgets/popup_menu.dart';
 import '../widgets/refreshing_snackbar.dart';
 import 'favorites_menu.dart';
 
@@ -72,8 +73,7 @@ class SearchStopTimesListState extends State<SearchStopTimes> {
         actions: [
           FloatingActionButton(
               onPressed: loadFavorites, child: const Icon(Icons.favorite)),
-          FloatingActionButton(
-              onPressed: _refreshSearchList, child: const Icon(Icons.menu)),
+          PopupMenu(),
         ],
       ),
       body: RefreshIndicator(

@@ -11,6 +11,7 @@ import '../../Config/favorite_manager.dart';
 import '../../api/DataModels/bus_stop.dart';
 import '../../api/Exceptions/NetworkError.dart';
 import '../styles/Style.dart';
+import '../widgets/popup_menu.dart';
 import 'close_stops_menu.dart';
 import 'favorites_menu.dart';
 
@@ -22,11 +23,12 @@ class MainMenu extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    ThemeMode mode = ThemeMode.dark;
     return MaterialApp(
       title: 'Transit App',
       theme: Styles.lightTheme( context),
       darkTheme: Styles.darkTheme(context),
-      themeMode: ThemeMode.dark,
+      themeMode: mode,
       home: const MyHomePage(title: 'Transit App'),
     );
   }
@@ -111,6 +113,10 @@ class _MyHomePageState extends State<MyHomePage> {
 
   }
 
+  void bringUpPopup() {
+    ;
+  }
+
   @override
   Widget build(BuildContext context) {
     // This method is rerun every time setState is called, for instance as done
@@ -129,8 +135,7 @@ class _MyHomePageState extends State<MyHomePage> {
           onPressed: loadCloseStops, child: const Icon(Icons.location_pin)),
           FloatingActionButton(
               onPressed: loadFavorites, child: const Icon(Icons.favorite)),
-          FloatingActionButton(
-              onPressed: _incrementCounter, child: const Icon(Icons.menu)),
+          PopupMenu(),
         ],
       ),
       body: Center(
