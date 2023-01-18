@@ -14,6 +14,7 @@ import '../widgets/layout_stop_times_header.dart';
 
 import 'package:geolocator/geolocator.dart';
 
+import '../widgets/popup_menu.dart';
 import '../widgets/refreshing_snackbar.dart';
 
 class CloseStopsMenu extends StatefulWidget {
