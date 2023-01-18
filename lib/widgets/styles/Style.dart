@@ -17,8 +17,8 @@ class Styles {
       ),
       appBarTheme: const AppBarTheme(
         elevation: 0.0,
-        iconTheme: IconThemeData(color: Colors.deepPurple),
-        actionsIconTheme: IconThemeData(color: Colors.deepPurple),
+        iconTheme: IconThemeData(color: Colors.white),
+        actionsIconTheme: IconThemeData(color: Colors.white),
       ),
       textSelectionTheme: const TextSelectionThemeData(selectionColor: Colors.white),
       secondaryHeaderColor: Colors.black
