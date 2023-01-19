@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:transit_app/Config/DarkThemePreference.dart';
 import 'package:transit_app/api/TransitManager.dart';
 import 'dart:math';
 import 'package:transit_app/widgets/menus/bus_stop_times.dart';
@@ -16,23 +17,50 @@ import 'close_stops_menu.dart';
 import 'favorites_menu.dart';
 
 
-class MainMenu extends StatelessWidget {
+class MainMenu extends StatefulWidget {
 
   MainMenu({Key? key}) : super(key: key);
+
+
+
+  @override
+  MainMenuState createState() => MainMenuState();
+}
+class MainMenuState extends State<MainMenu> {
+  ThemeMode themeMode = ThemeMode.dark;
+
+  @override
+  initState() {
+    WidgetsBinding.instance
+        .addPostFrameCallback((_) => loadSettings()); //run a start item on startup
+    super.initState();
+  }
+
+  Future<void> loadSettings() async {
+    bool themeStatus = await DarkThemePreference().getTheme();
+    setState(() {
+      if (themeStatus) {
+        themeMode = ThemeMode.dark;
+      } else {
+        themeMode = ThemeMode.light;
+      }
+    });
+  }
 
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    ThemeMode mode = ThemeMode.dark;
     return MaterialApp(
       title: 'Transit App',
       theme: Styles.lightTheme( context),
       darkTheme: Styles.darkTheme(context),
-      themeMode: mode,
+      themeMode: themeMode,
       home: const MyHomePage(title: 'Transit App'),
     );
   }
+
 }
+
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key, required this.title}) : super(key: key);
