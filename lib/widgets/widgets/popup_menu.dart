@@ -10,6 +10,9 @@ enum SampleItem { settings, itemTwo, itemThree }
 class PopupMenu extends StatelessWidget {
   SampleItem? selectedMenu;
 
+  PopupMenu({super.key});
+
+
   @override
   Widget build(BuildContext context) {
     return PopupMenuButton<SampleItem>(
