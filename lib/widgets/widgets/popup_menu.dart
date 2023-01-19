@@ -14,17 +14,18 @@ class PopupMenu extends StatelessWidget {
   Widget build(BuildContext context) {
     return PopupMenuButton<SampleItem>(
       icon: const Icon(Icons.menu),
+      onSelected: (result) {
+        if (result == SampleItem.settings) {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const SettingsMenu()),
+          );
+        }
+      },
       itemBuilder: (BuildContext context) => <PopupMenuEntry<SampleItem>>[
-        PopupMenuItem<SampleItem>(
+        const PopupMenuItem<SampleItem>(
           value: SampleItem.settings,
-          child: const Text('Settings'),
-          onTap: () {
-            print("HELLO");
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => const SettingsMenu()),
-            );
-          },
+          child: Text('Settings'),
         )
       ],
     );
