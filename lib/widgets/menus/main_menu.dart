@@ -63,7 +63,7 @@ class _MyHomePageState extends State<MyHomePage> {
     _controller = TextEditingController();
     errorPrompt = ErrorSnackBar(context: context);
   }
-  
+
   void loadFavorites() {
     Navigator.push(
       context,
@@ -74,7 +74,7 @@ class _MyHomePageState extends State<MyHomePage> {
   void loadCloseStops() {
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => CloseStopsMenu()),
+      MaterialPageRoute(builder: (context) => const CloseStopsMenu()),
     );
   }
 
