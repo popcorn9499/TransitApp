@@ -10,6 +10,7 @@ import '../../api/DataModels/bus_info.dart';
 import '../../api/DataModels/bus_stop.dart';
 import '../widgets/error_snackbar.dart';
 import '../widgets/layout_stop_times_header.dart';
+import '../widgets/popup_menu.dart';
 import '../widgets/refreshing_snackbar.dart';
 
 class BusStopTimes extends StatefulWidget {
@@ -108,8 +109,7 @@ class BusStopTimesListState extends State<BusStopTimes> {
               onPressed: toggleFavorite, child: favoriteIcon),
           FloatingActionButton(
               onPressed: _refreshStopList, child: const Icon(Icons.refresh)),
-          FloatingActionButton(
-              onPressed: _refreshStopList, child: const Icon(Icons.menu)),
+          PopupMenu(),
         ],
       ),
       body: RefreshIndicator(

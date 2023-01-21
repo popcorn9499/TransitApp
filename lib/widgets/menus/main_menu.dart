@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:transit_app/Config/DarkThemePreference.dart';
 import 'package:transit_app/api/TransitManager.dart';
 import 'dart:math';
 import 'package:transit_app/widgets/menus/bus_stop_times.dart';
@@ -10,35 +11,65 @@ import 'package:transit_app/widgets/widgets/error_snackbar.dart';
 import '../../Config/favorite_manager.dart';
 import '../../api/DataModels/bus_stop.dart';
 import '../../api/Exceptions/NetworkError.dart';
+import '../styles/Style.dart';
+import '../widgets/popup_menu.dart';
 import 'close_stops_menu.dart';
 import 'favorites_menu.dart';
 
+StreamController<ThemeMode> isLightTheme = StreamController();
 
-class MainMenu extends StatelessWidget {
+class MainMenu extends StatefulWidget {
 
   MainMenu({Key? key}) : super(key: key);
+
+
+
+  @override
+  MainMenuState createState() => MainMenuState();
+}
+class MainMenuState extends State<MainMenu> {
+  ThemeMode themeMode = ThemeMode.dark;
+
+  @override
+  initState() {
+    WidgetsBinding.instance
+        .addPostFrameCallback((_) => loadSettings()); //run a start item on startup
+    super.initState();
+  }
+
+  Future<void> loadSettings() async {
+    bool themeStatus = await DarkThemePreference().getTheme();
+    setState(() {
+      if (themeStatus) {
+        themeMode = ThemeMode.dark;
+      } else {
+        themeMode = ThemeMode.light;
+      }
+    });
+  }
 
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Transit App',
-      theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or simply save your changes to "hot reload" in a Flutter IDE).
-        // Notice that the counter didn't reset back to zero; the application
-        // is not restarted.
-        primarySwatch: Colors.deepPurple,
-      ),
-      home: MyHomePage(title: 'Transit App'),
-    );
+    return StreamBuilder<ThemeMode>(
+        initialData: ThemeMode.dark,
+        stream: isLightTheme.stream,
+        builder: (context, snapshot)
+    {
+      print("Running");
+
+      return MaterialApp(
+        title: 'Transit App',
+        theme: Styles.lightTheme(context),
+        darkTheme: Styles.darkTheme(context),
+        themeMode: snapshot.data,
+        home: const MyHomePage(title: 'Transit App'),
+      );
+    });
   }
+
 }
+
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key, required this.title}) : super(key: key);
@@ -59,7 +90,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
   late TextEditingController _controller;
   late ErrorSnackBar errorPrompt;
 
@@ -68,21 +98,6 @@ class _MyHomePageState extends State<MyHomePage> {
     super.initState();
     _controller = TextEditingController();
     errorPrompt = ErrorSnackBar(context: context);
-  }
-
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      if (_counter == 0) {
-        _counter = 1;
-      } else {
-        _counter = 0;
-      }
-    });
   }
 
   void loadFavorites() {
@@ -95,7 +110,7 @@ class _MyHomePageState extends State<MyHomePage> {
   void loadCloseStops() {
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => CloseStopsMenu()),
+      MaterialPageRoute(builder: (context) => const CloseStopsMenu()),
     );
   }
 
@@ -137,8 +152,7 @@ class _MyHomePageState extends State<MyHomePage> {
           onPressed: loadCloseStops, child: const Icon(Icons.location_pin)),
           FloatingActionButton(
               onPressed: loadFavorites, child: const Icon(Icons.favorite)),
-          FloatingActionButton(
-              onPressed: _incrementCounter, child: const Icon(Icons.menu)),
+          PopupMenu(),
         ],
       ),
       body: Center(

@@ -11,6 +11,7 @@ import '../../api/DataModels/bus_info.dart';
 import '../../api/DataModels/bus_stop.dart';
 import '../widgets/bus_stop_list_tile.dart';
 import '../widgets/layout_stop_times_header.dart';
+import '../widgets/popup_menu.dart';
 
 class FavoritesMenu extends StatefulWidget {
   const FavoritesMenu({Key? key}) : super(key: key);
@@ -57,8 +58,7 @@ class FavoritesMenuListState extends State<FavoritesMenu> {
       appBar: AppBar(
         title: const Text("Favorites"),
         actions: [
-          FloatingActionButton(
-              onPressed: loadFavoritesList, child: const Icon(Icons.menu)),
+          PopupMenu(),
         ],
       ),
       body: RefreshIndicator(

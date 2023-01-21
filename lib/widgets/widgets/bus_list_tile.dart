@@ -24,7 +24,7 @@ class BusListTile extends StatelessWidget {
   late String stopName;
   late String busNumber;
   late Color busColor;
-
+  final double badgeColorInterpretation = 0.95;
 
 
   @override
@@ -34,7 +34,11 @@ class BusListTile extends StatelessWidget {
       busNumber = busNumber.substring(0,3);
     }
 
-
+    //adjust the color to make the bus badge colors slightly nicer for viewing
+    HSVColor text = HSVColor.fromColor(Theme.of(context).secondaryHeaderColor);
+    HSVColor busCol = HSVColor.fromColor(busColor);
+    HSVColor? col = HSVColor.lerp(text, busCol, badgeColorInterpretation);
+    col ??= HSVColor.fromColor(busColor);
 
     return ListTile(
       onTap: () { print("COOL");},
@@ -46,10 +50,12 @@ class BusListTile extends StatelessWidget {
             margin: const EdgeInsets.all(2.0),
             padding: const EdgeInsets.all(5.0),
             decoration: BoxDecoration(
-              border: Border.all(color: busColor),
-              color: busColor,
+              border: Border.all(color: col.toColor()),
+              color: col.toColor(),
             ),
-            child: Center(child: Text(busNumber)),
+            child: Center(child: RichText(text: TextSpan(text: busNumber, style: TextStyle(
+              color: text.toColor(),
+            )))),
           ),
           Expanded(
             flex: 6,

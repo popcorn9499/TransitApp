@@ -14,6 +14,7 @@ import '../widgets/layout_stop_times_header.dart';
 
 import 'package:geolocator/geolocator.dart';
 
+import '../widgets/popup_menu.dart';
 import '../widgets/refreshing_snackbar.dart';
 
 class CloseStopsMenu extends StatefulWidget {
@@ -109,8 +110,7 @@ class CloseStopsMenuListState extends State<CloseStopsMenu> {
       appBar: AppBar(
         title: const Text("Nearby Stops"),
         actions: [
-          FloatingActionButton(
-              onPressed: _refreshSearchList, child: const Icon(Icons.menu)),
+          PopupMenu(),
         ],
       ),
       body: RefreshIndicator(
