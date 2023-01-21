@@ -41,9 +41,9 @@ class MainMenuState extends State<MainMenu> {
     bool themeStatus = await DarkThemePreference().getTheme();
     setState(() {
       if (themeStatus) {
-        themeMode = ThemeMode.dark;
+        isLightTheme.add(ThemeMode.dark);
       } else {
-        themeMode = ThemeMode.light;
+        isLightTheme.add(ThemeMode.light);
       }
     });
   }
