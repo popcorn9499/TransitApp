@@ -63,7 +63,7 @@ class SettingsMenuState extends State<SettingsMenu> {
               SettingsTile.switchTile(
                 onToggle: (value) {
                   DarkThemePreference().setDarkTheme(value);
-                  isLightTheme.add(value);
+                  isLightTheme.add(value ? ThemeMode.dark : ThemeMode.light);
                   setState(() {
                     darkMode = value;
                   });

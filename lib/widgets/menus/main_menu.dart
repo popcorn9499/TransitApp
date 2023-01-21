@@ -16,7 +16,7 @@ import '../widgets/popup_menu.dart';
 import 'close_stops_menu.dart';
 import 'favorites_menu.dart';
 
-StreamController<bool> isLightTheme = StreamController();
+StreamController<ThemeMode> isLightTheme = StreamController();
 
 class MainMenu extends StatefulWidget {
 
@@ -51,19 +51,18 @@ class MainMenuState extends State<MainMenu> {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<bool>(
-        initialData: true,
+    return StreamBuilder<ThemeMode>(
+        initialData: ThemeMode.dark,
         stream: isLightTheme.stream,
         builder: (context, snapshot)
     {
       print("Running");
-      WidgetsBinding.instance
-          .addPostFrameCallback((_) => loadSettings());
+
       return MaterialApp(
         title: 'Transit App',
         theme: Styles.lightTheme(context),
         darkTheme: Styles.darkTheme(context),
-        themeMode: themeMode,
+        themeMode: snapshot.data,
         home: const MyHomePage(title: 'Transit App'),
       );
     });
