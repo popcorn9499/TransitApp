@@ -1,7 +1,6 @@
 name: Build
 on:
   push:
-    branches: [ master ]
     workflows: [ "Android", "Web" ]
 jobs:
   Android:
@@ -20,6 +19,8 @@ jobs:
       - run: flutter build apk
       - run: flutter build appbundle
   Web:
+    branches-ignore:
+      - "dev"
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
