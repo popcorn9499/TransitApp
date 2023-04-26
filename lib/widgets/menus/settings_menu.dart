@@ -1,6 +1,5 @@
 
 import 'package:flutter/material.dart';
-import 'package:settings_ui/settings_ui.dart';
 import 'package:transit_app/Config/DarkThemePreference.dart';
 import 'package:transit_app/widgets/menus/main_menu.dart';
 import 'package:transit_app/widgets/widgets/error_snackbar.dart';
