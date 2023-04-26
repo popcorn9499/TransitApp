@@ -37,9 +37,7 @@ class SettingsMenuState extends State<SettingsMenu> {
 
   @override
   Widget build(BuildContext context) {
-    return Theme(
-      data: darkMode ? ThemeData.dark() : ThemeData.light(),
-      child: Scaffold(
+    return Scaffold(
         appBar: AppBar(
           title: const Text("Settings"),
         ),
@@ -72,8 +70,7 @@ class SettingsMenuState extends State<SettingsMenu> {
             ),
           ),
         ),
-      ),
-    );
+      );
   }
 }
 
