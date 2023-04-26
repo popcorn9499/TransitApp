@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:settings_ui/settings_ui.dart';
 import 'package:transit_app/Config/DarkThemePreference.dart';
@@ -16,14 +17,9 @@ class SettingsMenu extends StatefulWidget {
 class SettingsMenuState extends State<SettingsMenu> {
   late ErrorSnackBar errorPrompt;
   bool darkMode = false;
-
-
-  SettingsMenuState();
-
-
   @override
   initState() {
-    WidgetsBinding.instance
+      WidgetsBinding.instance
         .addPostFrameCallback((_) => loadSettings()); //run a start item on startup
     bool darkValue = false;
 
@@ -42,40 +38,93 @@ class SettingsMenuState extends State<SettingsMenu> {
 
   @override
   Widget build(BuildContext context) {
-    print("Setting Used $darkMode");
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text("Settings"),
-        actions: [
-          PopupMenu(),
-        ],
-      ),
-      body: SettingsList(
-        sections: [
-          SettingsSection(
-            title: Text('Common'),
-            tiles: <SettingsTile>[
-              SettingsTile.navigation(
-                leading: Icon(Icons.language),
-                title: Text('Language'),
-                value: Text('English'),
-              ),
-              SettingsTile.switchTile(
-                onToggle: (value) {
-                  DarkThemePreference().setDarkTheme(value);
-                  isLightTheme.add(value ? ThemeMode.dark : ThemeMode.light);
-                  setState(() {
-                    darkMode = value;
-                  });
-                },
-                initialValue: darkMode,
-                leading: Icon(Icons.format_paint),
-                title: Text('Enable Dark Mode'),
-              ),
-            ],
+    return Theme(
+      data: darkMode ? ThemeData.dark() : ThemeData.light(),
+      child: Scaffold(
+        appBar: AppBar(
+          title: const Text("Settings"),
+        ),
+        body: Center(
+          child: Container(
+            constraints: const BoxConstraints(maxWidth: 400),
+            child: ListView(
+              children: [
+                _SingleSection(
+                  title: "General",
+                  children: [
+                    _CustomListTile(
+                        title: "Dark Mode",
+                        icon: Icons.dark_mode_outlined,
+                        trailing: Switch(
+                            value: darkMode,
+                            onChanged: (value) {
+                              DarkThemePreference().setDarkTheme(value);
+                              isLightTheme.add(value ? ThemeMode.dark : ThemeMode.light);
+                              setState(() {
+                                darkMode = value;
+                              });
+                            })),
+                    const _CustomListTile(
+                        title: "Notifications",
+                        icon: Icons.notifications_none_rounded),
+                  ],
+                )
+              ],
+            ),
           ),
-        ],
+        ),
       ),
     );
   }
 }
+
+class _CustomListTile extends StatelessWidget {
+  final String title;
+  final IconData icon;
+  final Widget? trailing;
+  const _CustomListTile(
+      {Key? key, required this.title, required this.icon, this.trailing})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+      title: Text(title),
+      leading: Icon(icon),
+      trailing: trailing,
+      onTap: () {},
+    );
+  }
+}
+
+class _SingleSection extends StatelessWidget {
+  final String? title;
+  final List<Widget> children;
+  const _SingleSection({
+    Key? key,
+    this.title,
+    required this.children,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        if (title != null)
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(
+              title!,
+              style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+            ),
+          ),
+        Column(
+          children: children,
+        ),
+      ],
+    );
+  }
+}
+
