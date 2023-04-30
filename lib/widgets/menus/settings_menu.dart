@@ -182,6 +182,44 @@ class SettingsMenuState extends State<SettingsMenu> {
                       );
                     },
                   ),
+                  Tooltip(
+                      message: "Bus Schedule Results Times",
+                      child: TextButton.icon(
+                        icon: const Icon(Icons.color_lens),
+                        label: const Text("Color"),
+                        onPressed: () {
+                          showMenu(
+                              context: context,
+                              position: const RelativeRect.fromLTRB(100, 100, 100, 100),
+                              items: List.generate(Times.values.length, (index) {
+                                return PopupMenuItem(
+                                  value: Times.values[index],
+                                  child: AnimatedBuilder(
+
+                                    animation: _selectedItem,
+                                    builder: (BuildContext context, Widget? child) {
+                                      return RadioListTile<Times>(
+                                        value: Times.values[index],
+                                        groupValue: _selectedItem.value,
+                                        title: child,
+                                        onChanged: (Times? value) {
+                                          if (value != null) {
+                                            _selectedItem.value = value;
+                                          }
+                                        },
+                                      );
+
+                                    },
+                                    child: Text("${Times.values[index].valueOf()} Hours"),
+                                  ),
+
+                                );
+                              })
+                          );
+
+                        },
+                      )
+                  )
                 ],
               )
             ],
