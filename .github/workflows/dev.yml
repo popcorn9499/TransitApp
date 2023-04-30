@@ -20,6 +20,16 @@ jobs:
       - run: flutter test
       - run: flutter build apk
       - run: flutter build appbundle
+      - name: Upload artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: app-release-apk
+          path: build/app/outputs/flutter-apk/app-release.apk
+      - name: Upload artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: app-release-appbundle
+          path: build/app/outputs/bundle/release/app-release.aab
   Web-Dev:
     runs-on: ubuntu-latest
     steps:
@@ -30,3 +40,8 @@ jobs:
       - run: flutter pub get
       - run: flutter test
       - run: flutter build web
+      - name: Upload artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: web-build
+          path: build/web
