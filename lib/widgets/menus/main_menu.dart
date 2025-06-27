@@ -20,7 +20,7 @@ StreamController<ThemeMode> isLightTheme = StreamController();
 
 class MainMenu extends StatefulWidget {
 
-  MainMenu({Key? key}) : super(key: key);
+  const MainMenu({super.key});
 
 
 
