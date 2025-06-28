@@ -20,7 +20,7 @@ StreamController<ThemeMode> isLightTheme = StreamController();
 
 class MainMenu extends StatefulWidget {
 
-  MainMenu({Key? key}) : super(key: key);
+  const MainMenu({super.key});
 
 
 
@@ -72,7 +72,7 @@ class MainMenuState extends State<MainMenu> {
 
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key, required this.title}) : super(key: key);
+  const MyHomePage({super.key, required this.title});
 
   // This widget is the home page of your application. It is stateful, meaning
   // that it has a State object (defined below) that contains fields that affect
