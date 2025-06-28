@@ -15,7 +15,7 @@ import '../widgets/refreshing_snackbar.dart';
 
 class BusStopTimes extends StatefulWidget {
   final int searchNumber;
-  const BusStopTimes({required this.searchNumber, Key? key}) : super(key: key);
+  const BusStopTimes({required this.searchNumber, super.key});
 
   @override
   BusStopTimesListState createState() => BusStopTimesListState();

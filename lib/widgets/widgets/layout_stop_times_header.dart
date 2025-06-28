@@ -11,11 +11,10 @@ class LayoutStopTimesHeader extends StatelessWidget {
   final DateFormat formatDate = DateFormat('hh:mm:ss');
 
   LayoutStopTimesHeader(
-      {Key? key,
+      {super.key,
         required this.routeName,
         required this.time
-      })
-      : super(key: key);
+      });
 
   @override
   Widget build(BuildContext context) {

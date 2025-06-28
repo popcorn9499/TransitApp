@@ -17,7 +17,7 @@ import 'favorites_menu.dart';
 
 class SearchStopTimes extends StatefulWidget {
   final String search;
-  const SearchStopTimes({required this.search, Key? key}) : super(key: key);
+  const SearchStopTimes({required this.search, super.key});
 
   @override
   SearchStopTimesListState createState() => SearchStopTimesListState();

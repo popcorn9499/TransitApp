@@ -14,7 +14,7 @@ import '../widgets/layout_stop_times_header.dart';
 import '../widgets/popup_menu.dart';
 
 class FavoritesMenu extends StatefulWidget {
-  const FavoritesMenu({Key? key}) : super(key: key);
+  const FavoritesMenu({super.key});
 
   @override
   FavoritesMenuListState createState() => FavoritesMenuListState();

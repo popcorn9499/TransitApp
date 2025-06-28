@@ -7,10 +7,9 @@ import '../menus/bus_stop_times.dart';
 
 class BusStopListTile extends StatelessWidget {
   BusStopListTile(
-      {Key? key,
+      {super.key,
         required this.busStop,
-      })
-      : super(key: key) {
+      }) {
       stopName = busStop.name;
       stopNumber = busStop.number;
   }

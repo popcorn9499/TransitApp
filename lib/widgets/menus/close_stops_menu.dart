@@ -18,7 +18,7 @@ import '../widgets/popup_menu.dart';
 import '../widgets/refreshing_snackbar.dart';
 
 class CloseStopsMenu extends StatefulWidget {
-  const CloseStopsMenu({Key? key}) : super(key: key);
+  const CloseStopsMenu({super.key});
 
   @override
   CloseStopsMenuListState createState() => CloseStopsMenuListState();

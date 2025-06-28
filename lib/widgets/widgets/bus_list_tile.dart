@@ -6,8 +6,7 @@ import '../../api/DataModels/bus_info.dart';
 
 class BusListTile extends StatelessWidget {
   BusListTile(BusInfo busInfo, DateTime lookupTime,
-      {Key? key})
-      : super(key: key) {
+      {super.key}) {
     int remaining = busInfo.arrivalEstimated
         .difference(lookupTime)
         .inMinutes;

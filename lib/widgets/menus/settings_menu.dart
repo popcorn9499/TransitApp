@@ -8,7 +8,7 @@ import '../../Config/Config.dart';
 import '../widgets/popup_menu.dart';
 
 class SettingsMenu extends StatefulWidget {
-  const SettingsMenu({Key? key}) : super(key: key);
+  const SettingsMenu({super.key});
 
   @override
   SettingsMenuState createState() => SettingsMenuState();
