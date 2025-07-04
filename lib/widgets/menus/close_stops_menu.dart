@@ -23,7 +23,7 @@ class CloseStopsMenuListState extends State<CloseStopsMenu> {
   String routeName = "Example";
   DateTime lookupTime = DateTime.now();
   late ErrorSnackBar errorPrompt;
-  double nearbyStopsDistance = 2000; //in meters
+  int nearbyStopsDistance = 2000; //in meters
   CloseStopsMenuListState();
 
 
@@ -39,27 +39,27 @@ class CloseStopsMenuListState extends State<CloseStopsMenu> {
     double nearbyStopsDistance = await Config().getNearbyStopDist();
 
     setState(() {
-      this.nearbyStopsDistance = nearbyStopsDistance;
+      this.nearbyStopsDistance = nearbyStopsDistance.toInt();
     });
   }
   Future<void>_refreshSearchList() async{
     await loadSettings();
     ScaffoldMessenger.of(context).showSnackBar(const RefreshingSnackbar());
-    //try {
+    try {
       Position pos = await _determinePosition();
 
       TransitManager tm = TransitManager();
       List<BusStop> busStops = await tm.genStopLocations(
-          pos.longitude, pos.latitude, nearbyStopsDistance.toInt());
+          pos.longitude, pos.latitude, nearbyStopsDistance);
       busStops.sort((a,b) => a.distance.compareTo(b.distance));
 
       for (BusStop busStop in busStops) {
         newList.add(BusStopListTile(
             busStop: busStop));
       }
-    //} catch(e) {
-    //  errorPrompt.onError(e);
-    //}
+    } catch(e) {
+      errorPrompt.onError(e);
+    }
 
     //unsure what this is for? something to do with updating the listview
     setState(() {});
@@ -125,7 +125,26 @@ class CloseStopsMenuListState extends State<CloseStopsMenu> {
           },
           child: Column(children: <Widget>[
             Expanded(
-              child: ListView.builder(
+              child: newList.isEmpty
+                  ? Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(
+                      Icons.sentiment_dissatisfied,
+                      size: 100,
+                      color: Colors.grey,
+                    ),
+                    const SizedBox(height: 16),
+                    Text(
+                      "No bus stops found at this time, given the search radius $nearbyStopsDistance meters. Consider increasing your search radius",
+                      style: TextStyle(fontSize: 18, color: Colors.grey),
+                      textAlign: TextAlign.center,
+                    ),
+                  ],
+                ),
+              )
+                  : ListView.builder(
                 itemCount: newList.length,
                 itemBuilder: (context, index) => _buildRow(index),
               ),
