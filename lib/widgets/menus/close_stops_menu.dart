@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:transit_app/api/TransitManager.dart';
 import 'package:transit_app/widgets/widgets/error_snackbar.dart';
 
+import '../../Config/Config.dart';
 import '../../api/DataModels/bus_stop.dart';
 import '../widgets/bus_stop_list_tile.dart';
 
@@ -22,7 +23,7 @@ class CloseStopsMenuListState extends State<CloseStopsMenu> {
   String routeName = "Example";
   DateTime lookupTime = DateTime.now();
   late ErrorSnackBar errorPrompt;
-
+  double nearbyStopsDistance = 2000; //in meters
   CloseStopsMenuListState();
 
 
@@ -34,23 +35,31 @@ class CloseStopsMenuListState extends State<CloseStopsMenu> {
         .addPostFrameCallback((_) => _refreshSearchList()); //run a start item on startup
   }
 
+  Future<void> loadSettings() async {
+    double nearbyStopsDistance = await Config().getNearbyStopDist();
+
+    setState(() {
+      this.nearbyStopsDistance = nearbyStopsDistance;
+    });
+  }
   Future<void>_refreshSearchList() async{
+    await loadSettings();
     ScaffoldMessenger.of(context).showSnackBar(const RefreshingSnackbar());
-    try {
+    //try {
       Position pos = await _determinePosition();
 
       TransitManager tm = TransitManager();
       List<BusStop> busStops = await tm.genStopLocations(
-          pos.longitude, pos.latitude, 2000);
+          pos.longitude, pos.latitude, nearbyStopsDistance.toInt());
       busStops.sort((a,b) => a.distance.compareTo(b.distance));
 
       for (BusStop busStop in busStops) {
         newList.add(BusStopListTile(
             busStop: busStop));
       }
-    } catch(e) {
-      errorPrompt.onError(e);
-    }
+    //} catch(e) {
+    //  errorPrompt.onError(e);
+    //}
 
     //unsure what this is for? something to do with updating the listview
     setState(() {});
