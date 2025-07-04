@@ -23,7 +23,7 @@ class Config {
 
   Future<int> getBusScheduleMaxResultTime() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.getInt(BUS_SCHEDULE_MAX_RESULT_TIME) ?? 2;
+    return prefs.getInt(BUS_SCHEDULE_MAX_RESULT_TIME) ?? 250;
   }
 
 

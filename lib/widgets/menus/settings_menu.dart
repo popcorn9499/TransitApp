@@ -134,7 +134,7 @@ class SettingsMenuState extends State<SettingsMenu> {
                       icon: Icons.notifications_none_rounded),
                   TextField(
                     decoration: InputDecoration(
-                        labelText: "Nearby stops distance ${nearbyStopsDist}km",
+                        labelText: "Nearby stops distance $nearbyStopsDist meters",
                         border: const OutlineInputBorder()),
                     keyboardType: TextInputType.number,
                     inputFormatters: <TextInputFormatter>[
