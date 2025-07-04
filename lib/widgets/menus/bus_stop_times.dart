@@ -105,10 +105,16 @@ class BusStopTimesListState extends State<BusStopTimes> {
       appBar: AppBar(
         title: Text("Stop ${widget.searchNumber}"),
         actions: [
-          FloatingActionButton(
-              onPressed: toggleFavorite, child: favoriteIcon),
-          FloatingActionButton(
-              onPressed: _refreshStopList, child: const Icon(Icons.refresh)),
+          IconButton(
+            onPressed: toggleFavorite,
+            icon: favoriteIcon,
+            tooltip: 'Toggle Favorite',
+          ),
+          IconButton(
+            onPressed: _refreshStopList,
+            icon: const Icon(Icons.refresh),
+            tooltip: 'Refresh',
+          ),
           PopupMenu(),
         ],
       ),

@@ -148,10 +148,16 @@ class _MyHomePageState extends State<MyHomePage> {
         // the App.build method, and use it to set our appbar title.
         title: Text(widget.title),
         actions: [
-          FloatingActionButton(
-          onPressed: loadCloseStops, child: const Icon(Icons.location_pin)),
-          FloatingActionButton(
-              onPressed: loadFavorites, child: const Icon(Icons.favorite)),
+          IconButton(
+            onPressed: loadCloseStops,
+            icon: const Icon(Icons.location_pin),
+            tooltip: 'Find close stops',
+          ),
+          IconButton(
+            onPressed: loadFavorites,
+            icon: const Icon(Icons.favorite),
+            tooltip: 'Load Favorites',
+          ),
           PopupMenu(),
         ],
       ),

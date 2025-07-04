@@ -71,8 +71,11 @@ class SearchStopTimesListState extends State<SearchStopTimes> {
       appBar: AppBar(
         title: const Text("Search Results"),
         actions: [
-          FloatingActionButton(
-              onPressed: loadFavorites, child: const Icon(Icons.favorite)),
+          IconButton(
+            onPressed: loadFavorites,
+            icon: const Icon(Icons.favorite),
+            tooltip: 'Load Favorites',
+          ),
           PopupMenu(),
         ],
       ),
