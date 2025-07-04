@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import "package:transit_app/bus_status.dart";
 import 'package:transit_app/hex_color.dart';
+import 'package:transit_app/widgets/menus/bus_info_menu.dart';
 
 import '../../api/DataModels/bus_info.dart';
 
 class BusListTile extends StatelessWidget {
-  BusListTile(BusInfo busInfo, DateTime lookupTime,
+  BusListTile(this.busInfo, DateTime lookupTime,
       {super.key}) {
     int remaining = busInfo.arrivalEstimated
         .difference(lookupTime)
@@ -17,7 +18,7 @@ class BusListTile extends StatelessWidget {
     busColor = HexColor(busInfo.route.borderColor);
   }
 
-
+  BusInfo busInfo;
   late String timeRemaining;
   late BusStatus busStatus;
   late String stopName;
@@ -40,7 +41,10 @@ class BusListTile extends StatelessWidget {
     col ??= HSVColor.fromColor(busColor);
 
     return ListTile(
-      onTap: () { print("COOL");},
+      onTap: () { Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => BusInfoMenu(busInfo: this.busInfo)),
+      );},
       title: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
