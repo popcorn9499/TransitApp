@@ -3,14 +3,11 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:transit_app/Config/DarkThemePreference.dart';
 import 'package:transit_app/api/TransitManager.dart';
-import 'dart:math';
 import 'package:transit_app/widgets/menus/bus_stop_times.dart';
 import 'package:transit_app/widgets/menus/search_bus_stops.dart';
 import 'package:transit_app/widgets/widgets/error_snackbar.dart';
 
-import '../../Config/favorite_manager.dart';
 import '../../api/DataModels/bus_stop.dart';
-import '../../api/Exceptions/NetworkError.dart';
 import '../styles/Style.dart';
 import '../widgets/popup_menu.dart';
 import 'close_stops_menu.dart';

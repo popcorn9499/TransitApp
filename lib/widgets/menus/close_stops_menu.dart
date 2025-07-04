@@ -1,16 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:transit_app/Config/favorite_manager.dart';
-import 'package:transit_app/api/DataModels/bus_stop_schedules.dart';
 import 'package:transit_app/api/TransitManager.dart';
-import "package:transit_app/bus_status.dart";
-import 'package:transit_app/widgets/widgets/bus_list_tile.dart';
-import 'package:http/http.dart' as http;
 import 'package:transit_app/widgets/widgets/error_snackbar.dart';
 
-import '../../api/DataModels/bus_info.dart';
 import '../../api/DataModels/bus_stop.dart';
 import '../widgets/bus_stop_list_tile.dart';
-import '../widgets/layout_stop_times_header.dart';
 
 import 'package:geolocator/geolocator.dart';
 
