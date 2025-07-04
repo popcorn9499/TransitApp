@@ -123,7 +123,26 @@ class BusStopTimesListState extends State<BusStopTimes> {
           child: Column(children: <Widget>[
             LayoutStopTimesHeader(routeName: routeName, time: lookupTime),
             Expanded(
-              child: ListView.builder(
+              child: newList.isEmpty
+                  ? Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(
+                      Icons.sentiment_dissatisfied,
+                      size: 100,
+                      color: Colors.grey,
+                    ),
+                    const SizedBox(height: 16),
+                    Text(
+                      "No buses found at this time.",
+                      style: TextStyle(fontSize: 18, color: Colors.grey),
+                      textAlign: TextAlign.center,
+                    ),
+                  ],
+                ),
+              )
+                  : ListView.builder(
                 itemCount: newList.length,
                 itemBuilder: (context, index) => _buildRow(index),
               ),
