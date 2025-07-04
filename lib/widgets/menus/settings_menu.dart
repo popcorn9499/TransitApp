@@ -22,7 +22,8 @@ enum Times {
   eight,
   twelve,
   sixteen,
-  twentyFour;
+  twentyFour,
+  thirty;
 
 
   String valueOf() {
@@ -55,6 +56,9 @@ enum Times {
       case 8:
         result = "24";
         break;
+      case 9:
+        result = "30";
+        break;
     }
     return result;
   }
@@ -67,7 +71,7 @@ class SettingsMenuState extends State<SettingsMenu> {
   double nearbyStopsDist = 0.5;
   int busScheduleMaxResultTime = 2;
   bool use24Hour = false;
-  ValueNotifier<Times> _selectedItem = new ValueNotifier<Times>(Times.two);
+  final ValueNotifier<Times> _selectedItem = ValueNotifier<Times>(Times.two);
 
   @override
   initState() {
@@ -150,17 +154,24 @@ class SettingsMenuState extends State<SettingsMenu> {
                       }
                     },
                   ),
-                  PopupMenuButton<Times>(
-                    itemBuilder: (BuildContext context) {
-                      return List<PopupMenuEntry<Times>>.generate(
-                        Times.values.length,
-                            (int index) {
-                          return PopupMenuItem(
+                  Container(
+                    alignment: Alignment.centerLeft,
+                    child: TextButton.icon(
+                    icon: const Icon(Icons.access_time),
+                    label: Text(
+                        "Bus schedule results interval: ${_selectedItem.value.valueOf()} hrs",
+                        style: const TextStyle(color: Colors.white), // 👈 sets text color),
+                      ),
+                    onPressed: () {
+                      showMenu<Times>(
+                        context: context,
+                        position: const RelativeRect.fromLTRB(100, 100, 100, 100),
+                        items: List.generate(Times.values.length, (index) {
+                          return PopupMenuItem<Times>(
                             value: Times.values[index],
                             child: AnimatedBuilder(
-
                               animation: _selectedItem,
-                              builder: (BuildContext context, Widget? child) {
+                              builder: (context, child) {
                                 return RadioListTile<Times>(
                                   value: Times.values[index],
                                   groupValue: _selectedItem.value,
@@ -168,18 +179,18 @@ class SettingsMenuState extends State<SettingsMenu> {
                                   onChanged: (Times? value) {
                                     if (value != null) {
                                       _selectedItem.value = value;
+                                      Navigator.pop(context);
                                     }
                                   },
                                 );
-
                               },
                               child: Text("${Times.values[index].valueOf()} Hours"),
                             ),
-
                           );
-                        },
+                        }),
                       );
                     },
+                  ),
                   ),
                   Tooltip(
                       message: "Bus Schedule Results Times",
