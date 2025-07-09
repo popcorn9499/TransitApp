@@ -6,6 +6,7 @@ import '../../api/DataModels/bus_info.dart';
 import '../../bus_status.dart';
 import '../../hex_color.dart';
 import '../widgets/bus_stop_list_tile.dart';
+import '../widgets/departure_info_box.dart';
 import '../widgets/popup_menu.dart';
 
 class BusInfoMenu extends StatefulWidget {
@@ -76,35 +77,14 @@ class BusInfoMenuState extends State<BusInfoMenu> {
           },
           child: Column(children: <Widget>[
             BusInfoHeader(routeName: widget.busInfo.stop.name, time: DateTime.now(), busInfo: widget.busInfo),
-          Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                Container(
-                  width: 45, //this should not be static
-                  margin: const EdgeInsets.all(2.0),
-                  padding: const EdgeInsets.all(5.0),
-                  decoration: BoxDecoration(
-                    border: Border.all(color: col.toColor()),
-                    color: col.toColor(),
-                  ),
-                  child: Center(child: RichText(text: TextSpan(text: busNumber, style: TextStyle(
-                    color: text.toColor(),
-                  )))),
-                ),
-                Expanded(
-                  flex: 6,
-                  child: Text(stopName, textAlign: TextAlign.left),
-                ),
-                Expanded(
-                  flex: 1,
-                  child: Text(busStatus.toShortString(), textAlign: TextAlign.right),
-                ),
-                Expanded(
-                  flex: 1,
-                  child: Text(timeRemaining, textAlign: TextAlign.right),
-                ),
-              ],
-          ),
+          DepartureInfoBox(
+            scheduled: widget.busInfo.departureScheduled,
+            estimated: widget.busInfo.departureEstimated,
+            busNumber: widget.busInfo.busNumber,
+            hasBikeRack: widget.busInfo.bikeRack,
+            hasWifi: widget.busInfo.wifi,
+          )
+          ,
             Expanded(
               child: ListView.builder(
                 itemCount: newList.length,
