@@ -6,7 +6,7 @@ import '../../api/DataModels/bus_info.dart';
 import '../../bus_status.dart';
 import '../../hex_color.dart';
 import '../widgets/bus_stop_list_tile.dart';
-import '../widgets/departure_info_box.dart';
+import '../widgets/bus_summary_box.dart';
 import '../widgets/popup_menu.dart';
 
 class BusInfoMenu extends StatefulWidget {
@@ -77,7 +77,7 @@ class BusInfoMenuState extends State<BusInfoMenu> {
           },
           child: Column(children: <Widget>[
             BusInfoHeader(routeName: widget.busInfo.stop.name, time: DateTime.now(), busInfo: widget.busInfo),
-          DepartureInfoBox(
+          BusSummaryBox(
             scheduled: widget.busInfo.departureScheduled,
             estimated: widget.busInfo.departureEstimated,
             busNumber: widget.busInfo.busNumber,

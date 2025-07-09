@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class DepartureInfoBox extends StatelessWidget {
+class BusSummaryBox extends StatelessWidget {
   final DateTime scheduled;
   final DateTime estimated;
   final int busNumber;
   final bool hasBikeRack;
   final bool hasWifi;
 
-  const DepartureInfoBox({
+  const BusSummaryBox({
     super.key,
     required this.scheduled,
     required this.estimated,
