@@ -4,6 +4,7 @@ import 'package:transit_app/api/DataModels/bus_stop_schedules.dart';
 import 'package:transit_app/api/TransitManager.dart';
 import 'package:transit_app/widgets/widgets/bus_list_tile.dart';
 
+import '../../Config/Config.dart';
 import '../../api/DataModels/bus_info.dart';
 import '../../api/DataModels/bus_stop.dart';
 import '../widgets/error_snackbar.dart';
@@ -28,6 +29,7 @@ class BusStopTimesListState extends State<BusStopTimes> {
   late ErrorSnackBar errorPrompt;
   late BusStop busStop;
   Icon favoriteIcon = const Icon(Icons.favorite_border_outlined);
+  int busScheduleLength = 3;
 
   @override
   initState() {
@@ -45,14 +47,25 @@ class BusStopTimesListState extends State<BusStopTimes> {
         .addPostFrameCallback((_) => _refreshStopList()); //run a start item on startup
   }
 
+  Future<void> loadSettings() async {
+    int busScheduleLength = await Config().getBusScheduleMaxResultTime();
+
+    setState(() {
+      this.busScheduleLength = busScheduleLength.toInt();
+    });
+  }
+
   Future<void> _refreshStopList() async {
+    await loadSettings();
     ScaffoldMessenger.of(context).showSnackBar(const RefreshingSnackbar());
     print("Reloading stop list");
     TransitManager tm = TransitManager();
     try {
       print("getting stop information");
+      DateTime now = DateTime.now();
+      DateTime future = now.add(Duration(hours: busScheduleLength));
       BusStopSchedules info = await tm.genStopNumbers(
-          widget.searchNumber.toString());
+          widget.searchNumber.toString(),startTime: now, endTime: future);
 
       newList.clear();
       print("Parsing stop information");
@@ -151,6 +164,7 @@ class BusStopTimesListState extends State<BusStopTimes> {
                 itemBuilder: (context, index) => _buildRow(index),
               ),
             ),
+
           ])),
     );
   }
