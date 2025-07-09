@@ -30,8 +30,8 @@ class DepartureInfoBox extends StatelessWidget {
         ? Colors.orangeAccent
         : Colors.greenAccent;
 
-    TextStyle labelStyle = const TextStyle(color: Colors.white70, fontSize: 14);
-    TextStyle valueStyle = const TextStyle(color: Colors.white, fontSize: 14);
+    const labelStyle = TextStyle(color: Colors.white70, fontSize: 14);
+    const valueStyle = TextStyle(color: Colors.white, fontSize: 14);
 
     return Container(
       width: double.infinity,
@@ -44,30 +44,33 @@ class DepartureInfoBox extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          /// Header Row: Bus number
-          Text(
-            'Bus #$busNumber',
-            style: const TextStyle(
-              fontSize: 16,
-              color: Colors.white,
-              fontWeight: FontWeight.bold,
-            ),
+          /// Bus number on its own row
+          Row(
+            children: [
+              const Icon(Icons.directions_bus, color: Colors.white70, size: 18),
+              const SizedBox(width: 6),
+              Text('Bus #$busNumber', style: valueStyle),
+            ],
           ),
 
-          const SizedBox(height: 8),
+          const SizedBox(height: 6),
 
-          /// Wifi & Bike Rack
+          /// Bike Rack and Wi-Fi on a row below
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Row(
                 children: [
+                  const Icon(Icons.directions_bike, color: Colors.white70, size: 18),
+                  const SizedBox(width: 4),
                   Text('Bike Rack: ', style: labelStyle),
                   Text(hasBikeRack ? 'Yes' : 'No', style: valueStyle),
                 ],
               ),
               Row(
                 children: [
+                  const Icon(Icons.wifi, color: Colors.white70, size: 18),
+                  const SizedBox(width: 4),
                   Text('Wi-Fi: ', style: labelStyle),
                   Text(hasWifi ? 'Yes' : 'No', style: valueStyle),
                 ],
@@ -75,9 +78,9 @@ class DepartureInfoBox extends StatelessWidget {
             ],
           ),
 
-          const SizedBox(height: 8),
+          const SizedBox(height: 10),
 
-          /// Departure Times
+          /// Departure times
           const Text(
             'Departure Times',
             style: TextStyle(
@@ -90,19 +93,18 @@ class DepartureInfoBox extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Text('Scheduled:', style: TextStyle(color: Colors.white, fontSize: 14)),
-              Text(scheduledStr, style: const TextStyle(color: Colors.white, fontSize: 14)),
+              const Text('Scheduled:', style: labelStyle),
+              Text(scheduledStr, style: valueStyle),
             ],
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Text('Estimated:', style: TextStyle(color: Colors.white, fontSize: 14)),
+              const Text('Estimated:', style: labelStyle),
               Text(
                 estimatedStr,
-                style: TextStyle(
+                style: valueStyle.copyWith(
                   color: estimatedColor,
-                  fontSize: 14,
                   fontWeight: FontWeight.w600,
                 ),
               ),
