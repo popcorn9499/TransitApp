@@ -18,6 +18,7 @@ class BusStopListTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print("Test build");
     return ListTile(
       onTap: () {
         Navigator.push(
