@@ -13,7 +13,7 @@ class Config {
 
   Future<double> getNearbyStopDist() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.getDouble(NEARBY_STOPS_DISTANCE) ?? 0.5;
+    return prefs.getDouble(NEARBY_STOPS_DISTANCE) ?? 400;
   }
 
   setBusScheduleMaxResultTime(int value) async {

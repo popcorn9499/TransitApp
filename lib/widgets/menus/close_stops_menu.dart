@@ -1,16 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:transit_app/Config/favorite_manager.dart';
-import 'package:transit_app/api/DataModels/bus_stop_schedules.dart';
 import 'package:transit_app/api/TransitManager.dart';
-import "package:transit_app/bus_status.dart";
-import 'package:transit_app/widgets/widgets/bus_list_tile.dart';
-import 'package:http/http.dart' as http;
 import 'package:transit_app/widgets/widgets/error_snackbar.dart';
 
-import '../../api/DataModels/bus_info.dart';
+import '../../Config/Config.dart';
 import '../../api/DataModels/bus_stop.dart';
 import '../widgets/bus_stop_list_tile.dart';
-import '../widgets/layout_stop_times_header.dart';
 
 import 'package:geolocator/geolocator.dart';
 
@@ -18,7 +12,7 @@ import '../widgets/popup_menu.dart';
 import '../widgets/refreshing_snackbar.dart';
 
 class CloseStopsMenu extends StatefulWidget {
-  const CloseStopsMenu({Key? key}) : super(key: key);
+  const CloseStopsMenu({super.key});
 
   @override
   CloseStopsMenuListState createState() => CloseStopsMenuListState();
@@ -29,7 +23,7 @@ class CloseStopsMenuListState extends State<CloseStopsMenu> {
   String routeName = "Example";
   DateTime lookupTime = DateTime.now();
   late ErrorSnackBar errorPrompt;
-
+  int nearbyStopsDistance = 2000; //in meters
   CloseStopsMenuListState();
 
 
@@ -41,14 +35,22 @@ class CloseStopsMenuListState extends State<CloseStopsMenu> {
         .addPostFrameCallback((_) => _refreshSearchList()); //run a start item on startup
   }
 
+  Future<void> loadSettings() async {
+    double nearbyStopsDistance = await Config().getNearbyStopDist();
+
+    setState(() {
+      this.nearbyStopsDistance = nearbyStopsDistance.toInt();
+    });
+  }
   Future<void>_refreshSearchList() async{
+    await loadSettings();
     ScaffoldMessenger.of(context).showSnackBar(const RefreshingSnackbar());
     try {
       Position pos = await _determinePosition();
 
       TransitManager tm = TransitManager();
       List<BusStop> busStops = await tm.genStopLocations(
-          pos.longitude, pos.latitude, 2000);
+          pos.longitude, pos.latitude, nearbyStopsDistance);
       busStops.sort((a,b) => a.distance.compareTo(b.distance));
 
       for (BusStop busStop in busStops) {
@@ -123,7 +125,26 @@ class CloseStopsMenuListState extends State<CloseStopsMenu> {
           },
           child: Column(children: <Widget>[
             Expanded(
-              child: ListView.builder(
+              child: newList.isEmpty
+                  ? Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(
+                      Icons.sentiment_dissatisfied,
+                      size: 100,
+                      color: Colors.grey,
+                    ),
+                    const SizedBox(height: 16),
+                    Text(
+                      "No bus stops found at this time, given the search radius $nearbyStopsDistance meters. Consider increasing your search radius",
+                      style: TextStyle(fontSize: 18, color: Colors.grey),
+                      textAlign: TextAlign.center,
+                    ),
+                  ],
+                ),
+              )
+                  : ListView.builder(
                 itemCount: newList.length,
                 itemBuilder: (context, index) => _buildRow(index),
               ),

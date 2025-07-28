@@ -12,7 +12,6 @@ import 'package:transit_app/api/DataModels/bus_info.dart';
 import 'package:transit_app/api/DataModels/bus_stop_schedules.dart';
 import 'package:transit_app/api/DataModels/route.dart';
 import 'package:transit_app/api/DataModels/variant.dart';
-import 'package:transit_app/api/DataModels/variants.dart';
 import 'package:transit_app/api/TransitManager.dart';
 
 void main() {

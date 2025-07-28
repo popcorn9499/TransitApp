@@ -25,9 +25,16 @@ class BusStop {
     final direction = data['direction'] as String;
     double distance = -1;
     //handle parsing in walking distance if it in fact exists
-    if (data.containsKey("distances") && data["distances"].containsKey("direct") && double.tryParse(data["distances"]["direct"]) != null){
-      distance = double.tryParse(data["distances"]["direct"]) as double;
+    if (data.containsKey("distances") &&
+        data["distances"].containsKey("direct")) {
+      var direct = data["distances"]["direct"];
+      if (direct is String) {
+        distance = double.tryParse(direct) ?? 0.0;
+      } else if (direct is num) {
+        distance = direct.toDouble();
+      }
     }
+
     return BusStop(name: name, key: key,number: number, direction: direction, distance: distance);
   }
 

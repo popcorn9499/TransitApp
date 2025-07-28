@@ -45,3 +45,10 @@ jobs:
         with:
           name: web-build
           path: build/web
+      - name: Deploy to Webserver
+        env:
+          SSH_KEY: ${{ secrets.DEPLOY_SSH_KEY }}
+        run: |
+          echo "$SSH_KEY" > private_key
+          chmod 600 private_key
+          rsync -avz -e "ssh -p2525 -i private_key -o StrictHostKeyChecking=no" build/web/ deploybot@popicraft.net:/var/www/wpgtransitapp/

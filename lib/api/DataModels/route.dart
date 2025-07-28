@@ -1,4 +1,3 @@
-import "package:transit_app/api/DataModels/variants.dart";
 //stores information on a buses route.
 /*
 the route name

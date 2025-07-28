@@ -5,60 +5,23 @@ import 'package:transit_app/widgets/menus/main_menu.dart';
 import 'package:transit_app/widgets/widgets/error_snackbar.dart';
 
 import '../../Config/Config.dart';
-import '../widgets/popup_menu.dart';
 
 class SettingsMenu extends StatefulWidget {
-  const SettingsMenu({Key? key}) : super(key: key);
+  const SettingsMenu({super.key});
 
   @override
   SettingsMenuState createState() => SettingsMenuState();
 }
 
+//TODO fix my stupidity. I think i must of really loved enumerators!
 enum Times {
-  one,
-  two,
-  three,
-  four,
-  six,
-  eight,
-  twelve,
-  sixteen,
-  twentyFour;
+  one(1), two(2), three(3), four(4), six(6), eight(8),
+  twelve(12), sixteen(16), twentyFour(24), thirty(30);
 
+  final int hours;
+  const Times(this.hours);
 
-  String valueOf() {
-    String result = "N/A";
-    switch(index) {
-      case 0:
-        result = "1";
-        break;
-      case 1:
-        result = "2";
-        break;
-      case 2:
-        result = "3";
-        break;
-      case 3:
-        result = "4";
-        break;
-      case 4:
-        result = "6";
-        break;
-      case 5:
-        result = "8";
-        break;
-      case 6:
-        result = "12";
-        break;
-      case 7:
-        result = "16";
-        break;
-      case 8:
-        result = "24";
-        break;
-    }
-    return result;
-  }
+  String valueOf() => hours.toString();
 }
 
 
@@ -68,7 +31,7 @@ class SettingsMenuState extends State<SettingsMenu> {
   double nearbyStopsDist = 0.5;
   int busScheduleMaxResultTime = 2;
   bool use24Hour = false;
-  ValueNotifier<Times> _selectedItem = new ValueNotifier<Times>(Times.two);
+  final ValueNotifier<Times> _selectedItem = ValueNotifier<Times>(Times.two);
 
   @override
   initState() {
@@ -93,6 +56,10 @@ class SettingsMenuState extends State<SettingsMenu> {
       darkMode = darkValue;
       nearbyStopsDist = nearbyStopsDistance;
       busScheduleMaxResultTime = maxScheduleTime;
+      _selectedItem.value = Times.values.firstWhere(
+            (t) => t.hours == maxScheduleTime,
+        orElse: () => Times.two,
+      );
       use24Hour = using24Hourtime;
     });
   }
@@ -131,7 +98,7 @@ class SettingsMenuState extends State<SettingsMenu> {
                       icon: Icons.notifications_none_rounded),
                   TextField(
                     decoration: InputDecoration(
-                        labelText: "Nearby stops distance ${nearbyStopsDist}km",
+                        labelText: "Nearby stops distance $nearbyStopsDist meters",
                         border: const OutlineInputBorder()),
                     keyboardType: TextInputType.number,
                     inputFormatters: <TextInputFormatter>[
@@ -151,75 +118,46 @@ class SettingsMenuState extends State<SettingsMenu> {
                       }
                     },
                   ),
-                  PopupMenuButton<Times>(
-                    itemBuilder: (BuildContext context) {
-                      return List<PopupMenuEntry<Times>>.generate(
-                        Times.values.length,
-                            (int index) {
-                          return PopupMenuItem(
-                            value: Times.values[index],
-                            child: AnimatedBuilder(
-
-                              animation: _selectedItem,
-                              builder: (BuildContext context, Widget? child) {
-                                return RadioListTile<Times>(
-                                  value: Times.values[index],
-                                  groupValue: _selectedItem.value,
-                                  title: child,
-                                  onChanged: (Times? value) {
-                                    if (value != null) {
-                                      _selectedItem.value = value;
-                                    }
-                                  },
-                                );
-
-                              },
-                              child: Text("${Times.values[index].valueOf()} Hours"),
-                            ),
-
-                          );
-                        },
-                      );
-                    },
-                  ),
-                  Tooltip(
-                      message: "Bus Schedule Results Times",
-                      child: TextButton.icon(
-                        icon: const Icon(Icons.color_lens),
-                        label: const Text("Color"),
-                        onPressed: () {
-                          showMenu(
-                              context: context,
-                              position: const RelativeRect.fromLTRB(100, 100, 100, 100),
-                              items: List.generate(Times.values.length, (index) {
-                                return PopupMenuItem(
-                                  value: Times.values[index],
-                                  child: AnimatedBuilder(
-
-                                    animation: _selectedItem,
-                                    builder: (BuildContext context, Widget? child) {
-                                      return RadioListTile<Times>(
-                                        value: Times.values[index],
-                                        groupValue: _selectedItem.value,
-                                        title: child,
-                                        onChanged: (Times? value) {
-                                          if (value != null) {
-                                            _selectedItem.value = value;
-                                          }
-                                        },
-                                      );
-
+                  Container(
+                    alignment: Alignment.centerLeft,
+                    child: TextButton.icon(
+                      icon: const Icon(Icons.access_time),
+                      label: Text(
+                        "Bus schedule results interval: ${_selectedItem.value.valueOf()} hrs",
+                        style: const TextStyle(color: Colors.white),
+                      ),
+                      onPressed: () {
+                        showMenu<Times>(
+                          context: context,
+                          position: const RelativeRect.fromLTRB(100, 100, 100, 100),
+                          items: Times.values.map((time) {
+                            return PopupMenuItem<Times>(
+                              value: time,
+                              child: AnimatedBuilder(
+                                animation: _selectedItem,
+                                builder: (context, _) {
+                                  return RadioListTile<Times>(
+                                    value: time,
+                                    groupValue: _selectedItem.value,
+                                    title: Text("${time.valueOf()} Hours"),
+                                    onChanged: (Times? value) {
+                                      if (value != null) {
+                                        _selectedItem.value = value;
+                                        Config().setBusScheduleMaxResultTime(value.hours);
+                                        Navigator.pop(context);
+                                        setState(() {});
+                                      }
                                     },
-                                    child: Text("${Times.values[index].valueOf()} Hours"),
-                                  ),
-
-                                );
-                              })
-                          );
-
-                        },
-                      )
+                                  );
+                                },
+                              ),
+                            );
+                          }).toList(),
+                        );
+                      },
+                    ),
                   )
+
                 ],
               )
             ],

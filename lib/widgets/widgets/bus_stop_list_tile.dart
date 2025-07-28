@@ -1,16 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:transit_app/Config/favorite_manager.dart';
-import "package:transit_app/bus_status.dart";
 
 import '../../api/DataModels/bus_stop.dart';
 import '../menus/bus_stop_times.dart';
 
 class BusStopListTile extends StatelessWidget {
   BusStopListTile(
-      {Key? key,
+      {super.key,
         required this.busStop,
-      })
-      : super(key: key) {
+      }) {
       stopName = busStop.name;
       stopNumber = busStop.number;
   }
