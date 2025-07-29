@@ -15,7 +15,7 @@ import 'DataModels/bus_stop.dart';
 
 class TransitManager {
   static DateFormat apiDateFormat = DateFormat("yyyy-MM-dd'T'HH:mm:ss");
-  static const String apiUrl = "https://api.winnipegtransit.com/v3/%s.json?usage=short&api-key=${BuildConfig.apiKey}";
+  static const String apiUrl = "https://api.winnipegtransit.com/v4/%s.json?usage=short&api-key=${BuildConfig.apiKey}";
   static const Duration startTimeDecrease = Duration(microseconds: 10000);
 
   TransitManager();
