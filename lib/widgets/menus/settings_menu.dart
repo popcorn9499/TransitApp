@@ -38,7 +38,6 @@ class SettingsMenuState extends State<SettingsMenu> {
     WidgetsBinding.instance
         .addPostFrameCallback((_) =>
         loadSettings()); //run a start item on startup
-    bool darkValue = false;
 
 
     super.initState();

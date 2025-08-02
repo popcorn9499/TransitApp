@@ -37,7 +37,7 @@ class TransitManager {
 
     } on SocketException {
       throw NetworkError("No internet access. Please connect your device to the Internet");
-    } on TimeoutException catch (e) {
+    } on TimeoutException {
       throw NetworkError("Connection timed out. please check your internet connection");
     }
 
