@@ -24,7 +24,8 @@ void main() {
     Map<String, dynamic> data = await manager.getJson("https://jsonplaceholder.typicode.com/albums/1");
     Map<String, dynamic> testData = {
       "userId": 1,
-      "title": "quidem molestiae enim"
+      "title": "quidem molestiae enim",
+      "id": 1
     };
     expect(data, equals(testData));
   });
@@ -33,7 +34,7 @@ void main() {
     TransitManager manager = TransitManager();
     String url = manager.genSearchQueryURL("coolStop");
     int apiIndex = url.lastIndexOf("api-key");
-    expect(url.substring(0, apiIndex +8), equals("https://api.winnipegtransit.com/v3/stops:coolStop.json?usage=short&api-key="));
+    expect(url.substring(0, apiIndex +8), equals("https://api.winnipegtransit.com/v4/stops:coolStop.json?usage=short&api-key="));
   });
 
   test('Test Transit Manager genSearchQuery', () async {
@@ -56,7 +57,9 @@ void main() {
     String search = "Fort";
     List<BusStop> stops = await manager.genSearchQuery(search);
     print(stops);
-    expect(stops.toString(), equals("[Stop #10644 at NB Fort@Graham North direction Northbound, Stop #10643 at NB Fort@Graham direction Northbound, Stop #10646 at NB Fort@Portage direction Northbound, Stop #10830 at NB Fort@Assiniboine direction Northbound, Stop #11010 at NB Fort@Broadway direction Northbound, Stop #11024 at NB Fort@St. Mary direction Northbound, Stop #11038 at SB Fort Rouge Station@Fort Rouge Station (95 to Riverview) direction Southbound, Stop #11037 at SB Fort Rouge Station@Fort Rouge Station (Route 95) direction Southbound]"));
+    // TODO stub network away for testing.
+    // should sub in my own api data base server. So realistically I should stub all the network stuff
+    expect(stops.toString(), equals("[Stop #10646 at NB Fort@Portage direction Northbound, Stop #11037 at SB Fort Rouge Station@Fort Rouge Station (F5, 557 to Windermere) direction Southbound, Stop #62044 at NB Fort Whyte@Fort Whyte Alive direction Northbound, Stop #11038 at SB Fort Rouge Station@Fort Rouge Station (557 to Sage Creek) direction Southbound]"));
     //no real checks just ensures the code functions
   });
 }
