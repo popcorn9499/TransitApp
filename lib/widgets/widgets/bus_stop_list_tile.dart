@@ -4,20 +4,17 @@ import '../../api/DataModels/bus_stop.dart';
 import '../menus/bus_stop_times.dart';
 
 class BusStopListTile extends StatelessWidget {
-  BusStopListTile(
+  const BusStopListTile(
       {super.key,
         required this.busStop,
-      }) {
-      stopName = busStop.name;
-      stopNumber = busStop.number;
-  }
+      });
   final BusStop busStop;
-  late String stopName;
-  late int stopNumber;
 
 
   @override
   Widget build(BuildContext context) {
+    final String stopName = busStop.name;
+    final int stopNumber = busStop.number;
     return ListTile(
       onTap: () {
         Navigator.push(

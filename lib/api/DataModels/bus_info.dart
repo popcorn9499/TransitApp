@@ -25,14 +25,14 @@ class BusInfo implements Comparable {
   final Variant variant;
 
   BusStatus getOnTime() {
-    BusStatus result = BusStatus.Ok;
+    BusStatus result = BusStatus.ok;
     int diff = arrivalEstimated.compareTo(arrivalScheduled);
     if (cancelled) {
-      result = BusStatus.Cancelled;
+      result = BusStatus.cancelled;
     } else if (diff > 0) {
-      result = BusStatus.Late;
+      result = BusStatus.late;
     } else if (diff < 0){
-      result = BusStatus.Early;
+      result = BusStatus.early;
     }
     return result;
   }
