@@ -6,12 +6,25 @@ import 'package:transit_app/widgets/menus/bus_info_menu.dart';
 import '../../api/DataModels/bus_info.dart';
 
 class BusListTile extends StatelessWidget {
-  BusListTile(this.busInfo, DateTime lookupTime,
+  BusListTile(this.busInfo, DateTime lookupTime, bool use24hour,
       {super.key}) {
     int remaining = busInfo.arrivalEstimated
         .difference(lookupTime)
         .inMinutes;
-    timeRemaining = "$remaining Min";
+    if (remaining <= 60) {
+      timeRemaining = "$remaining min";
+    } else {
+      if (use24hour) {
+        timeRemaining =
+        "${busInfo.arrivalEstimated.hour.toString().padLeft(2, '0')}:${busInfo
+            .arrivalEstimated.minute.toString().padLeft(2, '0')}";
+      } else {
+        timeRemaining =
+        "${(busInfo.arrivalEstimated.hour % 12).toString().padLeft(
+            2, '0').replaceAll("00", "12").replaceAll(RegExp(r'^0+(?=.)'), '')}:${busInfo.arrivalEstimated
+            .minute.toString().padLeft(2, '0')} ${["AM", "PM"][busInfo.arrivalEstimated.hour >= 12 ? 1 : 0]}";
+      }
+    }
     busStatus = busInfo.getOnTime();
     stopName = busInfo.getName();
     busNumber = busInfo.route.number;
@@ -51,7 +64,7 @@ class BusListTile extends StatelessWidget {
           Container(
             width: 45, //this should not be static
             margin: const EdgeInsets.all(2.0),
-            padding: const EdgeInsets.all(5.0),
+            padding: const EdgeInsets.all(3.0),
             decoration: BoxDecoration(
               border: Border.all(color: col.toColor()),
               color: col.toColor(),
@@ -65,12 +78,12 @@ class BusListTile extends StatelessWidget {
             child: Text(stopName, textAlign: TextAlign.left),
           ),
           Expanded(
-            flex: 1,
-            child: Text(busStatus.toShortString(), textAlign: TextAlign.right),
+            flex: 2,
+            child: Text(busStatus.toShortString(), textAlign: TextAlign.right, style: TextStyle(fontSize: 15)),
           ),
           Expanded(
-            flex: 1,
-            child: Text(timeRemaining, textAlign: TextAlign.right),
+            flex: 3,
+            child: Text(timeRemaining, textAlign: TextAlign.right, style: TextStyle(wordSpacing: 0.05, letterSpacing: 0.5),),
           ),
         ],
       ),
