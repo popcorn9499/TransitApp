@@ -11,7 +11,7 @@ class BusListTile extends StatelessWidget {
     int remaining = busInfo.arrivalEstimated
         .difference(lookupTime)
         .inMinutes;
-    timeRemaining = "$remaining Min";
+    timeRemaining = (remaining > 60 ? "${busInfo.arrivalEstimated.hour}:${busInfo.arrivalEstimated.minute.toString().padLeft(2, '0')}" : "$remaining min");
     busStatus = busInfo.getOnTime();
     stopName = busInfo.getName();
     busNumber = busInfo.route.number;
@@ -51,7 +51,7 @@ class BusListTile extends StatelessWidget {
           Container(
             width: 45, //this should not be static
             margin: const EdgeInsets.all(2.0),
-            padding: const EdgeInsets.all(5.0),
+            padding: const EdgeInsets.all(3.0),
             decoration: BoxDecoration(
               border: Border.all(color: col.toColor()),
               color: col.toColor(),
@@ -65,12 +65,12 @@ class BusListTile extends StatelessWidget {
             child: Text(stopName, textAlign: TextAlign.left),
           ),
           Expanded(
-            flex: 1,
-            child: Text(busStatus.toShortString(), textAlign: TextAlign.right),
+            flex: 2,
+            child: Text(busStatus.toShortString(), textAlign: TextAlign.center, style: TextStyle(fontSize: 15)),
           ),
           Expanded(
-            flex: 1,
-            child: Text(timeRemaining, textAlign: TextAlign.right),
+            flex: 2,
+            child: Text(timeRemaining, textAlign: TextAlign.right, style: TextStyle(wordSpacing: 0.05, letterSpacing: 0.5),),
           ),
         ],
       ),
