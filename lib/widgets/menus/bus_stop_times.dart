@@ -5,7 +5,7 @@ import 'package:transit_app/api/DataModels/bus_stop_schedules.dart';
 import 'package:transit_app/api/TransitManager.dart';
 import 'package:transit_app/widgets/widgets/bus_list_tile.dart';
 
-import '../../Config/Config.dart';
+import '../../Config/config.dart';
 import '../../api/DataModels/bus_info.dart';
 import '../../api/DataModels/bus_stop.dart';
 import '../widgets/error_snackbar.dart';

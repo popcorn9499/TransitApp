@@ -4,7 +4,7 @@ import 'package:transit_app/Config/DarkThemePreference.dart';
 import 'package:transit_app/widgets/menus/main_menu.dart';
 import 'package:transit_app/widgets/widgets/error_snackbar.dart';
 
-import '../../Config/Config.dart';
+import '../../Config/config.dart';
 
 class SettingsMenu extends StatefulWidget {
   const SettingsMenu({super.key});

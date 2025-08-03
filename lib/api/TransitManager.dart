@@ -8,7 +8,7 @@ import 'package:transit_app/api/Exceptions/NetworkError.dart';
 
 import 'package:transit_app/api/URLGenerator.dart';
 import 'package:sprintf/sprintf.dart';
-import '../Config/BuildConfig.dart';
+import '../Config/build_config.dart';
 import 'package:http/http.dart' as http;
 
 import 'DataModels/bus_stop.dart';
