@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:transit_app/api/TransitManager.dart';
+import 'package:transit_app/api/transit_manager.dart';
 import 'package:transit_app/widgets/widgets/error_snackbar.dart';
 
-import '../../Config/Config.dart';
+import '../../Config/config.dart';
 import '../../api/DataModels/bus_stop.dart';
 import '../widgets/bus_stop_list_tile.dart';
 

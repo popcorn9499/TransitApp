@@ -44,7 +44,6 @@ void main() {
   });
 
   test('Test Variants fromJson', () async {
-    List<Variant> variantsList = <Variant>[];
     //copy of json from a actual api request
     Variants variants = Variants.fromJson("16", {"variants":[{"key":"16-0-s","name":"Selkirk-Osborne to St.Vital Center"},{"key":"16-0-B","name":"Selkirk-Osborne to Tyndall Park via Burrows"}],"query-time":"2022-10-19T21:09:38"});
 

@@ -6,13 +6,14 @@
 // tree, read text, and verify that the values of widget properties are correct.
 
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:transit_app/api/DataModels/bus_stop.dart';
 import 'package:transit_app/api/DataModels/bus_info.dart';
 import 'package:transit_app/api/DataModels/bus_stop_schedules.dart';
 import 'package:transit_app/api/DataModels/route.dart';
 import 'package:transit_app/api/DataModels/variant.dart';
-import 'package:transit_app/api/TransitManager.dart';
+import 'package:transit_app/api/transit_manager.dart';
 
 void main() {
   test('Test BusStopSchedules Creation', () async {
@@ -1606,9 +1607,15 @@ void main() {
     };
 
     BusStopSchedules bss = BusStopSchedules.fromJson(input);
-    print(bss.busStop.toString());
-    print(bss.schedules[0].toString());
-    print(bss.schedules.length);
+    if (kDebugMode) {
+      print(bss.busStop.toString());
+    }
+    if (kDebugMode) {
+      print(bss.schedules[0].toString());
+    }
+    if (kDebugMode) {
+      print(bss.schedules.length);
+    }
     expect(bss.busStop.toString(), equals("Stop #10611 at EB Graham@Fort (Wpg Square) direction Eastbound"));
     expect(bss.schedules[0].toString(), equals("Bus Route name: Talbot key: 45 number: 45 variants:]arrival scheduled: 2022-12-12T23:04:47 arrival estimated: 2022-12-12T23:04:16 departure scheduled 2022-12-12T23:04:47 departure estimated 2022-12-12T23:04:16 45-0-K: Kildonan Place at stop Stop #10611 at EB Graham@Fort (Wpg Square) direction Eastbound"));
     expect(bss.schedules.length, equals(57));

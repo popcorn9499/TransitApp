@@ -1,6 +1,7 @@
 
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../api/DataModels/bus_stop.dart';
@@ -10,10 +11,14 @@ class FavoriteManager {
   FavoriteManager();
 
   Future<List<BusStop>> load() async {
-    print("fm loading");
+    if (kDebugMode) {
+      print("fm loading");
+    }
     SharedPreferences prefs  = await SharedPreferences.getInstance();
     List<BusStop> favorites = []; //reset the favorites list back to blank before continuing
-    print("fm loaded");
+    if (kDebugMode) {
+      print("fm loaded");
+    }
     List<String>? routes = prefs.getStringList("Favorites");
     if (routes != null) {
       for (String route in routes) { //add each bus stop from the favorites file

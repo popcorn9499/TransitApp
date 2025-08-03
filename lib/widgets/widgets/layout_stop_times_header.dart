@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import "package:transit_app/bus_status.dart";
 
 class LayoutStopTimesHeader extends StatelessWidget {
 

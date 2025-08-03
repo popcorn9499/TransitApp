@@ -4,18 +4,18 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:intl/intl.dart';
 import 'package:transit_app/api/DataModels/bus_stop_schedules.dart';
-import 'package:transit_app/api/Exceptions/NetworkError.dart';
+import 'package:transit_app/api/Exceptions/network_error.dart';
 
-import 'package:transit_app/api/URLGenerator.dart';
+import 'package:transit_app/api/url_generator.dart';
 import 'package:sprintf/sprintf.dart';
-import '../Config/BuildConfig.dart';
+import '../Config/build_config.dart';
 import 'package:http/http.dart' as http;
 
 import 'DataModels/bus_stop.dart';
 
 class TransitManager {
   static DateFormat apiDateFormat = DateFormat("yyyy-MM-dd'T'HH:mm:ss");
-  static const String apiUrl = "https://api.winnipegtransit.com/v3/%s.json?usage=short&api-key=${BuildConfig.apiKey}";
+  static const String apiUrl = "https://api.winnipegtransit.com/v4/%s.json?usage=short&api-key=${BuildConfig.apiKey}";
   static const Duration startTimeDecrease = Duration(microseconds: 10000);
 
   TransitManager();
@@ -37,7 +37,7 @@ class TransitManager {
 
     } on SocketException {
       throw NetworkError("No internet access. Please connect your device to the Internet");
-    } on TimeoutException catch (e) {
+    } on TimeoutException {
       throw NetworkError("Connection timed out. please check your internet connection");
     }
 
@@ -119,42 +119,3 @@ class TransitManager {
   }
 
 }
-
-
-
-
-
-//
-// Map<String, dynamic> test(String x){
-//   dynamic parsedJson = jsonDecode(x);
-//   return parsedJson;
-// }
-
-// class Restaurant {
-//   Restaurant({required this.name, required this.cuisine,required this.hasIndoorSeating, this.yearOpened});
-//   final String name;
-//   final String cuisine;
-//   final int? yearOpened;
-//   final bool hasIndoorSeating;
-//
-//   factory Restaurant.fromJson(Map<String, dynamic> data) {
-//     // note the explicit cast to String
-//     // this is required if robust lint rules are enabled
-//     final name = data['name'] as String;
-//     final cuisine = data['cuisine'] as String;
-//     final year = data['year_opened'] as int?;
-//     final hasIndoorSeating = data['has_indoor_seating'] as bool?;
-//     return Restaurant(name: name, cuisine: cuisine,hasIndoorSeating: hasIndoorSeating ?? true , yearOpened: year);
-//   }
-// }
-
-
-// main()
-// {
-//   var x = '{"name": "Pizza da Mario", "cuisine": "Italian" }';
-//   Restaurant rest = Restaurant.fromJson(test(x));
-//   print(rest.name);
-//   print(rest.cuisine);
-//   print(rest.yearOpened);
-//   print(rest.hasIndoorSeating);
-// }

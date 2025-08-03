@@ -5,6 +5,7 @@
 // gestures. You can also use WidgetTester to find child widgets in the widget
 // tree, read text, and verify that the values of widget properties are correct.
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:transit_app/api/DataModels/route.dart';
 
@@ -83,7 +84,9 @@ void main() {
     expect(route.name, equals("Route 16 Selkirk-Osborne"));
     List<String> v = route.getVariants();
     expect(v.length, equals(11));
-    print(route.toString());
+    if (kDebugMode) {
+      print(route.toString());
+    }
     expect(route.toString(), equals("Route name: Route 16 Selkirk-Osborne key: 16 number: 16 variants: [16-0-B, 16-0-M, 16-1-P, 16-1-V, 16-1-##, 16-1-*, 16-1-L, 16-0-*, 16-1-K, 16-0-K, 16-0-s]"));
   });
 
@@ -113,7 +116,9 @@ void main() {
     expect(route.name, equals("Route 16 Selkirk-Osborne"));
     List<String> v = route.getVariants();
     expect(v.length, equals(2));
-    print(route.toString());
+    if (kDebugMode) {
+      print(route.toString());
+    }
     expect(route.toString(), equals("Route name: Route 16 Selkirk-Osborne key: 16 number: 16 variants: [1234, 567]"));
   });
 

@@ -1,10 +1,11 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:transit_app/Config/favorite_manager.dart';
 import 'package:transit_app/api/DataModels/bus_stop_schedules.dart';
-import 'package:transit_app/api/TransitManager.dart';
+import 'package:transit_app/api/transit_manager.dart';
 import 'package:transit_app/widgets/widgets/bus_list_tile.dart';
 
-import '../../Config/Config.dart';
+import '../../Config/config.dart';
 import '../../api/DataModels/bus_info.dart';
 import '../../api/DataModels/bus_stop.dart';
 import '../widgets/error_snackbar.dart';
@@ -42,7 +43,9 @@ class BusStopTimesListState extends State<BusStopTimes> {
         favoriteIcon = const Icon(Icons.favorite);
       }
     });
-    print("Loading bus stop times");
+    if (kDebugMode) {
+      print("Loading bus stop times");
+    }
     WidgetsBinding.instance
         .addPostFrameCallback((_) => _refreshStopList()); //run a start item on startup
   }
@@ -58,17 +61,23 @@ class BusStopTimesListState extends State<BusStopTimes> {
   Future<void> _refreshStopList() async {
     await loadSettings();
     ScaffoldMessenger.of(context).showSnackBar(const RefreshingSnackbar());
-    print("Reloading stop list");
+    if (kDebugMode) {
+      print("Reloading stop list");
+    }
     TransitManager tm = TransitManager();
     try {
-      print("getting stop information");
+      if (kDebugMode) {
+        print("getting stop information");
+      }
       DateTime now = DateTime.now();
       DateTime future = now.add(Duration(hours: busScheduleLength));
       BusStopSchedules info = await tm.genStopNumbers(
           widget.searchNumber.toString(),startTime: now, endTime: future);
 
       newList.clear();
-      print("Parsing stop information");
+      if (kDebugMode) {
+        print("Parsing stop information");
+      }
       BusStopSchedules bss = info;
       routeName = bss.busStop.name;
       busStop = bss.busStop;
@@ -76,7 +85,9 @@ class BusStopTimesListState extends State<BusStopTimes> {
       for (BusInfo bi in bss
           .schedules) { //loop over the busInfo list to parse that data
 
-        print("adding stop item to display");
+        if (kDebugMode) {
+          print("adding stop item to display");
+        }
         //create and add the new object to the list
         newList.add(BusListTile(bi, lookupTime));
       }
@@ -87,11 +98,15 @@ class BusStopTimesListState extends State<BusStopTimes> {
       errorPrompt.onError(e);
     }
     setState(() {});
-    print("Finished");
+    if (kDebugMode) {
+      print("Finished");
+    }
   }
 
   Future<void> toggleFavorite() async {
-    print("toggling favorite");
+    if (kDebugMode) {
+      print("toggling favorite");
+    }
     FavoriteManager fm = FavoriteManager();
     bool isFavorited = await fm.isFavorited(widget.searchNumber);
     if (isFavorited) {
@@ -107,7 +122,9 @@ class BusStopTimesListState extends State<BusStopTimes> {
         favoriteIcon = const Icon(Icons.favorite);
       });
     }
-    print("Setting icon");
+    if (kDebugMode) {
+      print("Setting icon");
+    }
   }
 
   @override

@@ -8,9 +8,7 @@ enum SampleItem { settings, itemTwo, itemThree }
 
 
 class PopupMenu extends StatelessWidget {
-  SampleItem? selectedMenu;
-
-  PopupMenu({super.key});
+  const PopupMenu({super.key});
 
 
   @override

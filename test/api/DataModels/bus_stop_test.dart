@@ -7,7 +7,6 @@
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:transit_app/api/DataModels/bus_stop.dart';
-import 'package:transit_app/api/DataModels/variant.dart';
 
 
 void main() {
@@ -22,7 +21,6 @@ void main() {
 
 
   test('Test bus stop fromJson', () async {
-    List<Variant> variantsList = <Variant>[];
     //copy of json from a actual api request
     BusStop busStop = BusStop.fromJson({
     "key": 10171,

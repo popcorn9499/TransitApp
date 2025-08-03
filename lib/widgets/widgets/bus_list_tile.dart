@@ -43,7 +43,7 @@ class BusListTile extends StatelessWidget {
     return ListTile(
       onTap: () { Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => BusInfoMenu(busInfo: this.busInfo)),
+        MaterialPageRoute(builder: (context) => BusInfoMenu(busInfo: busInfo)),
       );},
       title: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,

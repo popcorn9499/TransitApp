@@ -1,7 +1,8 @@
+import "package:flutter/foundation.dart";
 import "package:transit_app/api/DataModels/bus_stop.dart";
 import "package:transit_app/api/DataModels/variant.dart";
 import "package:transit_app/api/DataModels/route.dart";
-import 'package:transit_app/api/TransitManager.dart';
+import 'package:transit_app/api/transit_manager.dart';
 
 import '../../bus_status.dart';
 
@@ -24,14 +25,14 @@ class BusInfo implements Comparable {
   final Variant variant;
 
   BusStatus getOnTime() {
-    BusStatus result = BusStatus.Ok;
+    BusStatus result = BusStatus.ok;
     int diff = arrivalEstimated.compareTo(arrivalScheduled);
     if (cancelled) {
-      result = BusStatus.Cancelled;
+      result = BusStatus.cancelled;
     } else if (diff > 0) {
-      result = BusStatus.Late;
+      result = BusStatus.late;
     } else if (diff < 0){
-      result = BusStatus.Early;
+      result = BusStatus.early;
     }
     return result;
   }
@@ -62,7 +63,9 @@ class BusInfo implements Comparable {
       busNumber = routeInfo["bus"]["key"] as int;
       bikeRack = routeInfo["bus"]["bike-rack"] == "true" ? true : false;
     } else {
-      print("WTF TRANSIT");
+      if (kDebugMode) {
+        print("WTF TRANSIT");
+      }
     }
     String arrivalScheduledStr;
     String arrivalEstimatedStr;
@@ -99,6 +102,6 @@ class BusInfo implements Comparable {
 
   @override
   int compareTo(other) {
-    return this.arrivalEstimated.difference(other.arrivalEstimated).inMicroseconds;
+    return arrivalEstimated.difference(other.arrivalEstimated).inMicroseconds;
   }
 }
