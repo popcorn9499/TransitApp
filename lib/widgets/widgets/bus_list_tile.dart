@@ -39,16 +39,23 @@ class BusListTileState extends State<BusListTile> {
           .addPostFrameCallback((_) => load24HourClock());
     if (remaining <= 60) {
       timeRemaining = "$remaining min";
-    } else if (use24Hour) {
-      timeRemaining = "${widget.busInfo.arrivalEstimated.hour}:${widget.busInfo.arrivalEstimated.minute.toString().padLeft(2, '0')}";
     } else {
-      timeRemaining = "${(widget.busInfo.arrivalEstimated.hour % 12).toString().padLeft(2, '0').replaceAll("00", "12")}:${widget.busInfo.arrivalEstimated.minute.toString().padLeft(2, '0')} ${["AM", "PM"][widget.busInfo.arrivalEstimated.hour >= 12]}";
+      if (use24Hour) {
+        timeRemaining =
+        "${widget.busInfo.arrivalEstimated.hour}:${widget.busInfo
+            .arrivalEstimated.minute.toString().padLeft(2, '0')}";
+      } else {
+        timeRemaining =
+        "${(widget.busInfo.arrivalEstimated.hour % 12).toString().padLeft(
+            2, '0').replaceAll("00", "12").replaceAll(RegExp(r'^0+(?=.)'), '')}:${widget.busInfo.arrivalEstimated
+            .minute.toString().padLeft(2, '0')} ${["AM", "PM"][widget.busInfo.arrivalEstimated.hour >= 12 ? 1 : 0]}";
+      }
     }
-    busStatus = widget.busInfo.getOnTime();
-    stopName = widget.busInfo.getName();
-    busNumber = widget.busInfo.route.number;
-    busColor = HexColor(widget.busInfo.route.borderColor);
-  }
+      busStatus = widget.busInfo.getOnTime();
+      stopName = widget.busInfo.getName();
+      busNumber = widget.busInfo.route.number;
+      busColor = HexColor(widget.busInfo.route.borderColor);
+    }
 
   Future<void> load24HourClock() async {
     bool use24Hour = await Config().getUse24HourTimes();
