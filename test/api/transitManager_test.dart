@@ -7,6 +7,7 @@
 
 
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:transit_app/api/DataModels/bus_stop.dart';
 import 'package:transit_app/api/DataModels/bus_stop_schedules.dart';
@@ -56,7 +57,9 @@ void main() {
     TransitManager manager = TransitManager();
     String search = "Fort";
     List<BusStop> stops = await manager.genSearchQuery(search);
-    print(stops);
+    if (kDebugMode) {
+      print(stops);
+    }
     // TODO stub network away for testing.
     // should sub in my own api data base server. So realistically I should stub all the network stuff
     expect(stops.toString(), equals("[Stop #10646 at NB Fort@Portage direction Northbound, Stop #11037 at SB Fort Rouge Station@Fort Rouge Station (F5, 557 to Windermere) direction Southbound, Stop #62044 at NB Fort Whyte@Fort Whyte Alive direction Northbound, Stop #11038 at SB Fort Rouge Station@Fort Rouge Station (557 to Sage Creek) direction Southbound]"));

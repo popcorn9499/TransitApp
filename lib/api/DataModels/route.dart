@@ -6,6 +6,8 @@ the variant names of the buses
   basically keeps track of which variant of say an 11. 11 westwood or 11 glenway or something
  */
 
+import 'package:flutter/foundation.dart';
+
 class Route {
   static const List<dynamic>  defaultData = ["none data"];
 
@@ -41,7 +43,9 @@ class Route {
 
     //handles adding variants if they exist in the json
     if (data.containsKey("variants")){
-      print("I GOT THE KEY");
+      if (kDebugMode) {
+        print("I GOT THE KEY");
+      }
       variants = data['variants'];
       for (var element in variants) {
         String variant = element["key"];
@@ -51,7 +55,9 @@ class Route {
 
     //handles adding elements from the variantsData argument
     if (variantsData != Route.defaultData) {
-      print("GOT extra data");
+      if (kDebugMode) {
+        print("GOT extra data");
+      }
       for (String element in variantsData) {
         variantKeys.add(element);
       }

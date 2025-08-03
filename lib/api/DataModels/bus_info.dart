@@ -1,3 +1,4 @@
+import "package:flutter/foundation.dart";
 import "package:transit_app/api/DataModels/bus_stop.dart";
 import "package:transit_app/api/DataModels/variant.dart";
 import "package:transit_app/api/DataModels/route.dart";
@@ -62,7 +63,9 @@ class BusInfo implements Comparable {
       busNumber = routeInfo["bus"]["key"] as int;
       bikeRack = routeInfo["bus"]["bike-rack"] == "true" ? true : false;
     } else {
-      print("WTF TRANSIT");
+      if (kDebugMode) {
+        print("WTF TRANSIT");
+      }
     }
     String arrivalScheduledStr;
     String arrivalEstimatedStr;
@@ -99,6 +102,6 @@ class BusInfo implements Comparable {
 
   @override
   int compareTo(other) {
-    return this.arrivalEstimated.difference(other.arrivalEstimated).inMicroseconds;
+    return arrivalEstimated.difference(other.arrivalEstimated).inMicroseconds;
   }
 }

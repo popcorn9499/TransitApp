@@ -5,6 +5,7 @@
 // gestures. You can also use WidgetTester to find child widgets in the widget
 // tree, read text, and verify that the values of widget properties are correct.
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:transit_app/api/DataModels/bus_info.dart';
 import 'package:transit_app/api/DataModels/bus_stop.dart';
@@ -148,7 +149,9 @@ void main() {
     expect(busInfo.bikeRack, equals(true));
     expect(busInfo.wifi, equals(false));
     expect(busInfo.cancelled, equals(false));
-    print(busInfo.toString());
+    if (kDebugMode) {
+      print(busInfo.toString());
+    }
     expect(busInfo.toString(), equals("Bus Route name: Route 16 Selkirk-Osborne key: 16 number: 16 variants: [16-0-B, 16-0-M, 16-1-P, 16-1-V, 16-1-##, 16-1-*, 16-1-L, 16-0-*, 16-1-K, 16-0-K, 16-0-s]arrival scheduled: 2022-12-12T23:25:20 arrival estimated: 2022-12-12T23:25:20 departure scheduled 2022-12-12T23:25:20 departure estimated 2022-12-12T23:25:20 16-0-M: Via Manitoba at stop Stop #10171 at Northbound Osborne at River direction Northbound"));
   });
 
@@ -175,7 +178,9 @@ void main() {
         departureScheduled: TransitManager.apiDateFormat.parse("2022-12-19T19:44:50"),
         variant: variant);
 
-    print(busInfo.toString());
+    if (kDebugMode) {
+      print(busInfo.toString());
+    }
     expect(
         busInfo.toString(),
         equals(

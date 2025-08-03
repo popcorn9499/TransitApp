@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:transit_app/Config/DarkThemePreference.dart';
 import 'package:transit_app/api/TransitManager.dart';
@@ -53,7 +54,9 @@ class MainMenuState extends State<MainMenu> {
         stream: isLightTheme.stream,
         builder: (context, snapshot)
     {
-      print("Running");
+      if (kDebugMode) {
+        print("Running");
+      }
 
       return MaterialApp(
         title: 'Transit App',
