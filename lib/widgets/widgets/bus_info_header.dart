@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import "package:transit_app/bus_status.dart";
 
 import '../../api/DataModels/bus_info.dart';
 import '../../hex_color.dart';

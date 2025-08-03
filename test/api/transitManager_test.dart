@@ -16,7 +16,7 @@ import 'package:transit_app/api/TransitManager.dart';
 void main() {
 
   test('Test Transit Manager Creation', () async {
-    TransitManager manager = TransitManager();
+    TransitManager();
   });
 
   test('Test Transit Manager getJson', () async {
@@ -47,9 +47,9 @@ void main() {
 
   test('Test Transit Manager genStopNumbers', () async {
     TransitManager manager = TransitManager();
-    BusStopSchedules stops;
-    stops = await manager.genStopNumbers("10611");
+    await manager.genStopNumbers("10611");
     //no real checks just ensures the code functions
+    //TODO add stuff to this test
   });
 
   test('Test Transit Manager genStopNumbers names', () async {
