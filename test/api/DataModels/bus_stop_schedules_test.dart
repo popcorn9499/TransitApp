@@ -17,9 +17,9 @@ import 'package:transit_app/api/transit_manager.dart';
 
 void main() {
   test('Test BusStopSchedules Creation', () async {
-
+    // TODO add longitude and lattitude
     BusStop busStop =
-    BusStop(key: 1234, number: 1234, name: "cool stop", direction: "South", distance: -1);
+    BusStop(key: 1234, number: 1234, name: "cool stop", direction: "South", distance: -1, longitude: 0, latitude: 0);
     Route route = Route(
         name: "cool super name",
         number: "123",
@@ -78,8 +78,8 @@ void main() {
               "y": 5528384
             },
             "geographic": {
-              "latitude": "49.8929",
-              "longitude": "-97.13897"
+              "latitude": 49.8929,
+              "longitude": -97.13897
             }
           }
         },
