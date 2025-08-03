@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:transit_app/Config/DarkThemePreference.dart';
+import 'package:transit_app/Config/dark_theme_preference.dart';
 import 'package:transit_app/widgets/menus/main_menu.dart';
 import 'package:transit_app/widgets/widgets/error_snackbar.dart';
 
@@ -173,8 +173,7 @@ class _CustomListTile extends StatelessWidget {
   final Widget? trailing;
 
   const _CustomListTile(
-      {Key? key, required this.title, required this.icon, this.trailing})
-      : super(key: key);
+      {required this.title, required this.icon, this.trailing});
 
   @override
   Widget build(BuildContext context) {
@@ -192,10 +191,9 @@ class _SingleSection extends StatelessWidget {
   final List<Widget> children;
 
   const _SingleSection({
-    Key? key,
     this.title,
     required this.children,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

@@ -2,7 +2,7 @@ import "package:flutter/foundation.dart";
 import "package:transit_app/api/DataModels/bus_stop.dart";
 import "package:transit_app/api/DataModels/variant.dart";
 import "package:transit_app/api/DataModels/route.dart";
-import 'package:transit_app/api/TransitManager.dart';
+import 'package:transit_app/api/transit_manager.dart';
 
 import '../../bus_status.dart';
 

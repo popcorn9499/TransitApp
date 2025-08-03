@@ -2,7 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:transit_app/Config/favorite_manager.dart';
 import 'package:transit_app/api/DataModels/bus_stop_schedules.dart';
-import 'package:transit_app/api/TransitManager.dart';
+import 'package:transit_app/api/transit_manager.dart';
 import 'package:transit_app/widgets/widgets/bus_list_tile.dart';
 
 import '../../Config/config.dart';

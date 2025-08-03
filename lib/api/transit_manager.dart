@@ -4,9 +4,9 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:intl/intl.dart';
 import 'package:transit_app/api/DataModels/bus_stop_schedules.dart';
-import 'package:transit_app/api/Exceptions/NetworkError.dart';
+import 'package:transit_app/api/Exceptions/network_error.dart';
 
-import 'package:transit_app/api/URLGenerator.dart';
+import 'package:transit_app/api/url_generator.dart';
 import 'package:sprintf/sprintf.dart';
 import '../Config/build_config.dart';
 import 'package:http/http.dart' as http;

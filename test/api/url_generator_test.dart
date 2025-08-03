@@ -6,7 +6,7 @@
 // tree, read text, and verify that the values of widget properties are correct.
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:transit_app/api/URLGenerator.dart';
+import 'package:transit_app/api/url_generator.dart';
 
 
 void main() {

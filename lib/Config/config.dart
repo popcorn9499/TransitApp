@@ -1,49 +1,49 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Config {
-  static const NEARBY_STOPS_DISTANCE = "NEARBYSTOPSDISTANCE";
-  static const BUS_SCHEDULE_MAX_RESULT_TIME = "BUSSCHEDULEMAXRESULTTIME";
-  static const USE_24_HOUR_TIMES = "USE24HOURTIME";
-  static const AUTO_REFRESH = "AUTOREFRESH";
+  static const nearbyStopsDistance = "NEARBYSTOPSDISTANCE";
+  static const busScheduleMaxResultTime = "BUSSCHEDULEMAXRESULTTIME";
+  static const use24HourTimes = "USE24HOURTIME";
+  static const autoRefresh = "AUTOREFRESH";
 
   setNearbyStopDist(double value) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setDouble(NEARBY_STOPS_DISTANCE, value);
+    prefs.setDouble(nearbyStopsDistance, value);
   }
 
   Future<double> getNearbyStopDist() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.getDouble(NEARBY_STOPS_DISTANCE) ?? 400;
+    return prefs.getDouble(nearbyStopsDistance) ?? 400;
   }
 
   setBusScheduleMaxResultTime(int value) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setInt(BUS_SCHEDULE_MAX_RESULT_TIME, value);
+    prefs.setInt(busScheduleMaxResultTime, value);
   }
 
   Future<int> getBusScheduleMaxResultTime() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.getInt(BUS_SCHEDULE_MAX_RESULT_TIME) ?? 2;
+    return prefs.getInt(busScheduleMaxResultTime) ?? 2;
   }
 
 
   setUse24HourTimes(bool value) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setBool(USE_24_HOUR_TIMES, value);
+    prefs.setBool(use24HourTimes, value);
   }
 
   Future<bool> getUse24HourTimes() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.getBool(USE_24_HOUR_TIMES) ?? false;
+    return prefs.getBool(use24HourTimes) ?? false;
   }
 
   setAutoRefresh(bool value) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setBool(AUTO_REFRESH, value);
+    prefs.setBool(autoRefresh, value);
   }
 
   Future<bool> getAutoRefresh() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.getBool(AUTO_REFRESH) ?? false;
+    return prefs.getBool(autoRefresh) ?? false;
   }
 }

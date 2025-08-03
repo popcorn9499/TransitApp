@@ -1,7 +1,7 @@
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:transit_app/Config/DarkThemePreference.dart';
+import 'package:transit_app/Config/dark_theme_preference.dart';
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
