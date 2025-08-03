@@ -26,6 +26,7 @@ class BusStopTimesListState extends State<BusStopTimes> {
 
   String routeName = "Example";
   DateTime lookupTime = DateTime.now();
+  bool use24hour = false;
   BusStopTimesListState();
   late ErrorSnackBar errorPrompt;
   late BusStop busStop;
@@ -52,9 +53,10 @@ class BusStopTimesListState extends State<BusStopTimes> {
 
   Future<void> loadSettings() async {
     int busScheduleLength = await Config().getBusScheduleMaxResultTime();
-
+    bool use24hour = await Config().getUse24HourTimes();
     setState(() {
       this.busScheduleLength = busScheduleLength.toInt();
+      this.use24hour= use24hour;
     });
   }
 
@@ -89,7 +91,7 @@ class BusStopTimesListState extends State<BusStopTimes> {
           print("adding stop item to display");
         }
         //create and add the new object to the list
-        newList.add(BusListTile(bi, lookupTime));
+        newList.add(BusListTile(bi, lookupTime, use24hour));
       }
 
       //unsure what this is for? something to do with updating the listview
