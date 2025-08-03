@@ -1,10 +1,8 @@
 class NetworkError implements Exception {
-  final _message;
+  final String message;
 
-  NetworkError([this._message]);
+  NetworkError([this.message = "A network error occurred."]);
 
   @override
-  String toString() {
-    return "$_message";
-  }
+  String toString() => "NetworkError: $message";
 }
