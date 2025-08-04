@@ -43,6 +43,7 @@ class BusListTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     String busNumber = this.busNumber;
+    //TODO learn why I did this.
     if (this.busNumber.length >= 3) {
       busNumber = busNumber.substring(0,3);
     }
