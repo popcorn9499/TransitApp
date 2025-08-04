@@ -61,7 +61,7 @@ class BusStopInfoState extends State<BusStopInfo> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("Stop #$stopNumber Informations"),
+        title: Text("Stop #$stopNumber Information"),
         actions: [
           PopupMenu(),
         ],
