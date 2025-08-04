@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import "package:transit_app/bus_status.dart";
 import 'package:transit_app/hex_color.dart';
 import 'package:transit_app/widgets/menus/bus_info_menu.dart';
@@ -6,7 +7,7 @@ import 'package:transit_app/widgets/menus/bus_info_menu.dart';
 import '../../api/DataModels/bus_info.dart';
 
 class BusListTile extends StatelessWidget {
-  BusListTile(this.busInfo, DateTime lookupTime, bool use24hour,
+  BusListTile(this.busInfo, DateTime lookupTime, bool use24Hour,
       {super.key}) {
     int remaining = busInfo.arrivalEstimated
         .difference(lookupTime)
@@ -14,16 +15,7 @@ class BusListTile extends StatelessWidget {
     if (remaining <= 60) {
       timeRemaining = "$remaining min";
     } else {
-      if (use24hour) {
-        timeRemaining =
-        "${busInfo.arrivalEstimated.hour.toString().padLeft(2, '0')}:${busInfo
-            .arrivalEstimated.minute.toString().padLeft(2, '0')}";
-      } else {
-        timeRemaining =
-        "${(busInfo.arrivalEstimated.hour % 12).toString().padLeft(
-            2, '0').replaceAll("00", "12").replaceAll(RegExp(r'^0+(?=.)'), '')}:${busInfo.arrivalEstimated
-            .minute.toString().padLeft(2, '0')} ${["AM", "PM"][busInfo.arrivalEstimated.hour >= 12 ? 1 : 0]}";
-      }
+      timeRemaining = use24Hour ? DateFormat('HH:mm').format(busInfo.arrivalEstimated) : DateFormat('h:mm a').format(busInfo.arrivalEstimated);
     }
     busStatus = busInfo.getOnTime();
     stopName = busInfo.getName();
