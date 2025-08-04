@@ -10,12 +10,15 @@
 import 'dart:convert';
 
 class BusStop {
-  BusStop({required this.key,required this.number,required this.name,required this.direction, required this.distance});
+  BusStop({required this.key,required this.number,required this.name,required this.direction,
+    required this.distance, required this.longitude, required this.latitude});
   final int key;
   final int number;
   final String name;
   final String direction;
   final double distance; //walking distance to stop. this is optional and will display -1 if
+  final double longitude;
+  final double latitude;
 
 
   factory BusStop.fromJson(Map<String, dynamic> data) {
@@ -23,6 +26,8 @@ class BusStop {
     final number = data['number'] as int;
     final name = data['name'] as String;
     final direction = data['direction'] as String;
+    double longitude = 0.0;
+    double latitude = 0.0;
     double distance = -1;
     //handle parsing in walking distance if it in fact exists
     if (data.containsKey("distances") &&
@@ -35,12 +40,17 @@ class BusStop {
       }
     }
 
-    return BusStop(name: name, key: key,number: number, direction: direction, distance: distance);
+    if (data.containsKey("centre") && data["centre"].containsKey("geographic")) {
+      latitude = data["centre"]["geographic"]["latitude"] as double;
+      longitude = data["centre"]["geographic"]["longitude"] as double;
+    }
+
+    return BusStop(name: name, key: key,number: number, direction: direction, distance: distance, longitude: longitude, latitude: latitude);
   }
 
   String toJson() {
     String result = "";
-
+    // TODO finish toJson.
     Map<String, dynamic> mapped = {
       "key": key,
       "number": number,

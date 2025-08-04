@@ -15,8 +15,9 @@ import 'package:transit_app/api/transit_manager.dart';
 
 void main() {
   test('Test bus_info Creation', () async {
+    // TODO add longitude and lattitude
     BusStop busStop =
-        BusStop(key: 1234, number: 1234, name: "cool stop", direction: "South", distance: -1);
+        BusStop(key: 1234, number: 1234, name: "cool stop", direction: "South", distance: -1, longitude: 0, latitude: 0);
     Route route = Route(
         name: "cool super name",
         number: "123",
@@ -62,7 +63,7 @@ void main() {
       "cross-street": {"key": 3057, "name": "River Avenue", "type": "Avenue"},
       "centre": {
         "utm": {"zone": "14U", "x": 633163, "y": 5526878},
-        "geographic": {"latitude": "49.87948", "longitude": "-97.1465"}
+        "geographic": {"latitude": 49.87948, "longitude": -97.1465}
       }
     });
     Route route = Route.fromJson({
@@ -156,8 +157,9 @@ void main() {
   });
 
   test('Test bus_info toString', () async {
+    // TODO add longitude and lattitude
     BusStop busStop =
-        BusStop(key: 1234, number: 1234, name: "cool stop", direction: "South", distance: -1);
+        BusStop(key: 1234, number: 1234, name: "cool stop", direction: "South", distance: -1, longitude: 0, latitude: 0);
     Route route = Route(
         name: "cool super name",
         number: "123",
