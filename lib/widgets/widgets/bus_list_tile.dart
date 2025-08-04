@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import "package:transit_app/bus_status.dart";
 import 'package:transit_app/hex_color.dart';
