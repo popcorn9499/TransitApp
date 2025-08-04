@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import "package:transit_app/bus_status.dart";
 import 'package:transit_app/hex_color.dart';
@@ -43,7 +45,7 @@ class BusListTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     String busNumber = this.busNumber;
-    if (this.busNumber.length >= 3) {
+    if (this.busNumber.length >= 3 && this.busNumber.toString() != "BLUE") {
       busNumber = busNumber.substring(0,3);
     }
 
@@ -75,15 +77,29 @@ class BusListTile extends StatelessWidget {
           ),
           Expanded(
             flex: 6,
-            child: Text(stopName, textAlign: TextAlign.left),
+            child: Text(stopName, textAlign: TextAlign.left, style: TextStyle(fontSize: 14.5)),
+          ),
+          Expanded(
+            flex: 1,
+            child: Align(
+              alignment: Alignment.centerRight,
+              child: Icon(busInfo.bikeRack ? Icons.pedal_bike : null, size: 20),
+            ),
+          ),
+          Expanded(
+            flex: 1,
+            child: Align(
+              alignment: Alignment.centerRight,
+              child: Icon(busInfo.isDualBus ? Icons.filter_2 : null, size: 20),
+            ),
           ),
           Expanded(
             flex: 2,
-            child: Text(busStatus.toShortString(), textAlign: TextAlign.right, style: TextStyle(fontSize: 15)),
+            child: Text(busStatus.toShortString(), textAlign: TextAlign.center, style: TextStyle(fontSize: 14)),
           ),
           Expanded(
-            flex: 3,
-            child: Text(timeRemaining, textAlign: TextAlign.right, style: TextStyle(wordSpacing: 0.05, letterSpacing: 0.5),),
+            flex: 2,
+            child: Text(timeRemaining, textAlign: TextAlign.right, style: TextStyle(fontSize: 14, wordSpacing: 0.05, letterSpacing: 0.5)),
           ),
         ],
       ),

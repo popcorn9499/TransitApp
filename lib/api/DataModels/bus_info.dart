@@ -9,12 +9,13 @@ import '../../bus_status.dart';
 class BusInfo implements Comparable {
 
   BusInfo({required this.stop, required this.route, required this.arrivalScheduled,
-    required this.arrivalEstimated, required this.departureEstimated, required this.departureScheduled, required this.variant, required this.busNumber, required this.bikeRack, required this.wifi, required this.cancelled});
+    required this.arrivalEstimated, required this.departureEstimated, required this.departureScheduled, required this.variant, required this.busNumber, required this.bikeRack, required this.wifi, required this.cancelled, required this.isDualBus});
 
   final int busNumber;
   final bool bikeRack; //shows if the bus has a bike rack
   final bool wifi; //shows if the bus has wifi or not
   final bool cancelled; //shows if the bus got cancelled or not
+  final bool isDualBus;
 
   final BusStop stop;
   final Route route;
@@ -71,6 +72,9 @@ class BusInfo implements Comparable {
     String arrivalEstimatedStr;
     final wifi = routeInfo["wifi"] == "true" ? true: false;
     final cancelled = routeInfo["cancelled"] == "true" ? true: false;
+    final isDualBus = ([971, 972, 973, 974, 975, 976, 977, 978, 979, 981, 982, 983, 984, 985, 986, 987, 988, 989, 990,
+      371, 372, 373, 374, 375, 376, 377, 378, 379, 380, 381, 382, 383, 384, 385, 386, 387, 388, 389, 390, 391, 392, 393, 394, 395, 396, 397, 398, 399]
+        .contains(busNumber));
     final variantKey = routeInfo["variant"]["key"] as String;
     final variantName = routeInfo["variant"]["name"] as String;
     final Variant variant = Variant(name: variantName, key: variantKey);
@@ -93,7 +97,7 @@ class BusInfo implements Comparable {
     DateTime departureScheduled = TransitManager.apiDateFormat.parse(departureScheduledStr);
     DateTime departureEstimated = TransitManager.apiDateFormat.parse(departureEstimatedStr);
 
-    return BusInfo(stop: stop, route: route, arrivalScheduled: arrivalScheduled, arrivalEstimated: arrivalEstimated, departureEstimated: departureEstimated, departureScheduled: departureScheduled, variant: variant, busNumber: busNumber, bikeRack: bikeRack, wifi: wifi, cancelled: cancelled);
+    return BusInfo(stop: stop, route: route, arrivalScheduled: arrivalScheduled, arrivalEstimated: arrivalEstimated, departureEstimated: departureEstimated, departureScheduled: departureScheduled, variant: variant, busNumber: busNumber, bikeRack: bikeRack, wifi: wifi, cancelled: cancelled, isDualBus: isDualBus);
   }
 
   String getName() {

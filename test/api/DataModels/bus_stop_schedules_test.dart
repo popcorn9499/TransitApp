@@ -33,6 +33,7 @@ void main() {
         bikeRack: false,
         wifi: false,
         cancelled: false,
+        isDualBus: false,
         busNumber: 666,
         arrivalEstimated: TransitManager.apiDateFormat.parse("2022-12-19T19:44:50"),
         arrivalScheduled: TransitManager.apiDateFormat.parse("2022-12-19T19:44:50"),
