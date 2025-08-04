@@ -42,6 +42,7 @@ dependencies:
   url_launcher: ^6.2.5
   location: ^5.0.0
   flutter_map_location_marker: any
+  latlong2: ^0.9.1
 dev_dependencies:
   flutter_test:
     sdk: flutter
