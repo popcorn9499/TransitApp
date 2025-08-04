@@ -77,29 +77,29 @@ class BusListTile extends StatelessWidget {
           ),
           Expanded(
             flex: 6,
-            child: Text(stopName, textAlign: TextAlign.left),
+            child: Text(stopName, textAlign: TextAlign.left, style: TextStyle(fontSize: 14.5)),
           ),
           Expanded(
             flex: 1,
             child: Align(
               alignment: Alignment.centerRight,
-              child: Icon(busInfo.bikeRack ? Icons.pedal_bike : null),
+              child: Icon(busInfo.bikeRack ? Icons.pedal_bike : null, size: 20),
             ),
           ),
           Expanded(
             flex: 1,
             child: Align(
               alignment: Alignment.centerRight,
-              child: Icon(busInfo.isDualBus ? Icons.filter_2 : null),
+              child: Icon(busInfo.isDualBus ? Icons.filter_2 : null, size: 20),
             ),
-          ),
-          Expanded(
-            flex: 1,
-            child: Text(busStatus.toShortString(), textAlign: TextAlign.right, style: TextStyle(fontSize: 15)),
           ),
           Expanded(
             flex: 2,
-            child: Text(timeRemaining, textAlign: TextAlign.right, style: TextStyle(wordSpacing: 0.05, letterSpacing: 0.5),),
+            child: Text(busStatus.toShortString(), textAlign: TextAlign.center, style: TextStyle(fontSize: 14)),
+          ),
+          Expanded(
+            flex: 2,
+            child: Text(timeRemaining, textAlign: TextAlign.right, style: TextStyle(fontSize: 14, wordSpacing: 0.05, letterSpacing: 0.5)),
           ),
         ],
       ),
