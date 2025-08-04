@@ -22,11 +22,11 @@ void main() {
 
   test('Test Transit Manager getJson', () async {
     TransitManager manager = TransitManager();
-    Map<String, dynamic> data = await manager.getJson("https://jsonplaceholder.typicode.com/albums/1");
+    Map<String, dynamic> data = await manager.getJson("https://raw.githubusercontent.com/popcorn9499/TransitApp/refs/heads/master/test/test.json");
     Map<String, dynamic> testData = {
       "userId": 1,
-      "title": "quidem molestiae enim",
-      "id": 1
+      "id": 1,
+      "title": "quidem molestiae enim"
     };
     expect(data, equals(testData));
   });

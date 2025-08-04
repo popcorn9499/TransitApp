@@ -10,11 +10,11 @@ class BusInfoHeader extends StatelessWidget {
 
   final String routeName;
   final DateTime time;
-  final DateFormat formatDate = DateFormat('hh:mm:ss');
   late final String stopName;
   late final String busNumber;
   late final Color busColor;
   final BusInfo busInfo;
+  final bool use24Hour;
 
   final double badgeColorInterpretation = 0.95;
 
@@ -22,7 +22,8 @@ class BusInfoHeader extends StatelessWidget {
       {super.key,
         required this.routeName,
         required this.time,
-        required this.busInfo
+        required this.busInfo,
+        required this.use24Hour
       }) {
     stopName = busInfo.getName();
     busNumber = busInfo.route.number;
@@ -40,6 +41,7 @@ class BusInfoHeader extends StatelessWidget {
     HSVColor busCol = HSVColor.fromColor(busColor);
     HSVColor? col = HSVColor.lerp(text, busCol, badgeColorInterpretation) ?? busCol;
 
+    DateFormat formatDate = use24Hour ? DateFormat('HH:mm:ss') : DateFormat('h:mm:ss a');
     String time = formatDate.format(this.time);
 
     return Container(
