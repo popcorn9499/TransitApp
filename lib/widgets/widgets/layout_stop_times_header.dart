@@ -6,20 +6,22 @@ class LayoutStopTimesHeader extends StatelessWidget {
 
   final bool use24Hour;
   final String routeName;
-  final DateTime time;
+  final DateTime? time;
 
-  LayoutStopTimesHeader(
+  const LayoutStopTimesHeader(
       {super.key,
         required this.routeName,
-        required this.time,
-        required this.use24Hour
+        this.time,
+        this.use24Hour = false
       });
 
   @override
   Widget build(BuildContext context) {
     DateFormat formatDate = use24Hour ? DateFormat('HH:mm:ss') : DateFormat('h:mm:ss a');
-
-    String time = formatDate.format(this.time);
+    String formattedTime = "";
+    if (time != null) {
+      formattedTime = formatDate.format(time!);
+    }
     return Container(
       decoration: const BoxDecoration(
         color: Colors.deepPurple,
@@ -42,16 +44,17 @@ class LayoutStopTimesHeader extends StatelessWidget {
               ),
             ),
           ),
-          Align(
-            alignment: Alignment.centerRight,
-            child: Text(
-              "Updated $time",
-              style: const TextStyle(
-                color: Colors.white,
-                fontSize: 15,
+          if (formattedTime.isNotEmpty)
+            Align(
+              alignment: Alignment.centerRight,
+              child: Text(
+                "Updated $formattedTime",
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 15,
+                ),
               ),
             ),
-          ),
         ],
       ),
     );
