@@ -20,13 +20,29 @@ void main() {
     TransitManager();
   });
 
-  test('Test Transit Manager getJson', () async {
+/*  test('Test Transit Manager getJson', () async {
     TransitManager manager = TransitManager();
     Map<String, dynamic> data = await manager.getJson("https://jsonplaceholder.typicode.com/albums/1");
     Map<String, dynamic> testData = {
       "userId": 1,
-      "title": "quidem molestiae enim",
-      "id": 1
+      "id": 1,
+      "title": "quidem molestiae enim"
+    };
+    expect(data, equals(testData));
+  });*/
+
+  test('Test Transit Manager getJson2', () async {
+    TransitManager manager = TransitManager();
+    Map<String, dynamic> data = await manager.getJson("https://raw.githubusercontent.com/jdorfman/awesome-json-datasets/refs/heads/master/tests/relaxed.json");
+    Map<String, dynamic> testData = {
+      "default": true,
+      "MD009": true,
+      "MD005": false,
+      "MD022": false,
+      "MD032": false,
+      "MD013": false,
+      "MD033": false,
+      "MD007": false
     };
     expect(data, equals(testData));
   });
