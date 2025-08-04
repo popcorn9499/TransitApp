@@ -88,6 +88,13 @@ class BusListTile extends StatelessWidget {
           ),
           Expanded(
             flex: 1,
+            child: Align(
+              alignment: Alignment.centerRight,
+              child: Icon(busInfo.isDualBus ? Icons.filter_2 : null),
+            ),
+          ),
+          Expanded(
+            flex: 1,
             child: Text(busStatus.toShortString(), textAlign: TextAlign.right, style: TextStyle(fontSize: 15)),
           ),
           Expanded(
