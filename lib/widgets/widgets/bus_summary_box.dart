@@ -6,6 +6,7 @@ class BusSummaryBox extends StatelessWidget {
   final int busNumber;
   final bool hasBikeRack;
   final bool hasWifi;
+  final bool isDualBus;
 
   const BusSummaryBox({
     super.key,
@@ -14,6 +15,7 @@ class BusSummaryBox extends StatelessWidget {
     required this.busNumber,
     required this.hasBikeRack,
     required this.hasWifi,
+    required this.isDualBus,
   });
 
   @override
@@ -46,10 +48,23 @@ class BusSummaryBox extends StatelessWidget {
         children: [
           /// Bus number on its own row
           Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Icon(Icons.directions_bus, color: Colors.white70, size: 18),
-              const SizedBox(width: 6),
-              Text('Bus #$busNumber', style: valueStyle),
+              Row(
+                children: [
+                  const Icon(Icons.directions_bus, color: Colors.white70, size: 18),
+                  const SizedBox(width: 6),
+                  Text('Bus #$busNumber', style: valueStyle),
+                ],
+              ),
+              Row(
+                children: [
+                  const Icon(Icons.filter_2, color: Colors.white70, size: 18),
+                  const SizedBox(width: 4),
+                  Text('Articulating Bus: ', style: labelStyle),
+                  Text(isDualBus ? 'Yes' : 'No', style: valueStyle),
+                ],
+              ),
             ],
           ),
 

@@ -83,6 +83,7 @@ class BusInfoMenuState extends State<BusInfoMenu> {
             busNumber: widget.busInfo.busNumber,
             hasBikeRack: widget.busInfo.bikeRack,
             hasWifi: widget.busInfo.wifi,
+            isDualBus: widget.busInfo.isDualBus,
           )
           ,
             Expanded(
