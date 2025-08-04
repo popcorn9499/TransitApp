@@ -39,6 +39,9 @@ dependencies:
   cupertino_icons: ^1.0.8
   settings_ui: ^2.0.2
   flutter_map: ^8.2.1
+  url_launcher: ^6.2.5
+  location: ^5.0.0
+  flutter_map_location_marker: any
 dev_dependencies:
   flutter_test:
     sdk: flutter
