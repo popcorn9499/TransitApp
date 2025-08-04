@@ -3,6 +3,10 @@ on:
   pull_request:
     types: [opened, reopened, edited]
     workflows: [ "Android_Demo", "Web_Demo" ]
+    paths-ignore:
+      - '.github/**'
+      - '**.md'
+      - '.gitignore'
     branches:
       - master
       - dev
