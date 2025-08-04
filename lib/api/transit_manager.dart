@@ -67,7 +67,7 @@ class TransitManager {
     return url.toString();
   }
 
-  Future<BusStopSchedules> genStopNumbers(String stopNumber, {List<String>? routeNumbers, DateTime? startTime, DateTime? endTime}) async{
+  Future<BusStopSchedules> genStopNumbers(String stopNumber, {List<String>? routeNumbers, DateTime? startTime, DateTime? endTime}) async {
     BusStopSchedules bss;
     String url = genStopNumbersURL(stopNumber, routeNumbers: routeNumbers, startTime: startTime, endTime: endTime);
     Map<String, dynamic> data = await getJson(url);
