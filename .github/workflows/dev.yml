@@ -1,7 +1,7 @@
 name: Build
 on:
   push:
-    workflows: [ "Android", "Web" ]
+    workflows: [ "Android-Dev", "Web-Dev" ]
     branches:
       - dev
 jobs:
