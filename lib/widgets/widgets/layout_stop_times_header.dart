@@ -4,19 +4,21 @@ import 'package:intl/intl.dart';
 class LayoutStopTimesHeader extends StatelessWidget {
 
 
-
+  final bool use24Hour;
   final String routeName;
   final DateTime time;
-  final DateFormat formatDate = DateFormat('hh:mm:ss');
 
   LayoutStopTimesHeader(
       {super.key,
         required this.routeName,
-        required this.time
+        required this.time,
+        required this.use24Hour
       });
 
   @override
   Widget build(BuildContext context) {
+    DateFormat formatDate = use24Hour ? DateFormat('HH:mm:ss') : DateFormat('h:mm:ss a');
+
     String time = formatDate.format(this.time);
     return Container(
       decoration: const BoxDecoration(

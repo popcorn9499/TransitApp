@@ -80,6 +80,17 @@ class SettingsMenuState extends State<SettingsMenu> {
                 title: "General",
                 children: [
                   _CustomListTile(
+                      title: "24-hour Clock",
+                      icon: Icons.access_time,
+                      trailing: Switch(
+                          value: use24Hour,
+                          onChanged: (value) {
+                            Config().setUse24HourTimes(value);
+                            setState(() {
+                              use24Hour = value;
+                            });
+                          })),
+                  _CustomListTile(
                       title: "Dark Mode",
                       icon: Icons.dark_mode_outlined,
                       trailing: Switch(

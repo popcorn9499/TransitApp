@@ -30,8 +30,8 @@ class BusStopListTile extends StatelessWidget {
           ),
         ),
         width: double.infinity,
-        margin: const EdgeInsets.all(5),
-        padding: const EdgeInsets.all(5),
+        margin: const EdgeInsets.all(2),
+        padding: const EdgeInsets.all(3),
         child: Column(
           children: [
             Align(
@@ -39,7 +39,7 @@ class BusStopListTile extends StatelessWidget {
               child: Text(
                 stopName,
                 style: const TextStyle(
-                  fontSize: 20,
+                  fontSize: 22,
                 ),
               ),
             ),

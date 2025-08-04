@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:transit_app/widgets/widgets/bus_info_header.dart';
 import 'package:transit_app/widgets/widgets/error_snackbar.dart';
 
+import '../../Config/config.dart';
 import '../../api/DataModels/bus_info.dart';
 import '../../bus_status.dart';
 import '../../hex_color.dart';
@@ -28,6 +29,7 @@ class BusInfoMenuState extends State<BusInfoMenu> {
   late String busNumber;
   late Color busColor;
   final double badgeColorInterpretation = 0.95;
+  bool use24Hour = false;
 
   BusInfoMenuState();
 
@@ -43,8 +45,18 @@ class BusInfoMenuState extends State<BusInfoMenu> {
     errorPrompt = ErrorSnackBar(context: context);
     // WidgetsBinding.instance
     //     .addPostFrameCallback((_) => loadFavoritesList()); //run a start item on startup
+
+
+    WidgetsBinding.instance
+        .addPostFrameCallback((_) => loadSettings()); //run a start item on startup
   }
 
+Future<void> loadSettings() async {
+  bool use24Hour = await Config().getUse24HourTimes();
+  setState(() {
+    this.use24Hour = use24Hour;
+  });
+}
 
   @override
   Widget build(BuildContext context) {
@@ -76,13 +88,15 @@ class BusInfoMenuState extends State<BusInfoMenu> {
             });
           },
           child: Column(children: <Widget>[
-            BusInfoHeader(routeName: widget.busInfo.stop.name, time: DateTime.now(), busInfo: widget.busInfo),
+            BusInfoHeader(routeName: widget.busInfo.stop.name, time: DateTime.now(), busInfo: widget.busInfo, use24Hour: use24Hour,),
           BusSummaryBox(
             scheduled: widget.busInfo.departureScheduled,
             estimated: widget.busInfo.departureEstimated,
             busNumber: widget.busInfo.busNumber,
             hasBikeRack: widget.busInfo.bikeRack,
             hasWifi: widget.busInfo.wifi,
+            isDualBus: widget.busInfo.isDualBus,
+            use24Hour: use24Hour,
           )
           ,
             Expanded(

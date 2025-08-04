@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import "package:transit_app/bus_status.dart";
 import 'package:transit_app/hex_color.dart';
 import 'package:transit_app/widgets/menus/bus_info_menu.dart';
@@ -6,12 +7,16 @@ import 'package:transit_app/widgets/menus/bus_info_menu.dart';
 import '../../api/DataModels/bus_info.dart';
 
 class BusListTile extends StatelessWidget {
-  BusListTile(this.busInfo, DateTime lookupTime,
+  BusListTile(this.busInfo, DateTime lookupTime, bool use24Hour,
       {super.key}) {
     int remaining = busInfo.arrivalEstimated
         .difference(lookupTime)
         .inMinutes;
-    timeRemaining = "$remaining Min";
+    if (remaining <= 60) {
+      timeRemaining = "$remaining min";
+    } else {
+      timeRemaining = use24Hour ? DateFormat('HH:mm').format(busInfo.arrivalEstimated) : DateFormat('h:mm a').format(busInfo.arrivalEstimated);
+    }
     busStatus = busInfo.getOnTime();
     stopName = busInfo.getName();
     busNumber = busInfo.route.number;
@@ -30,7 +35,7 @@ class BusListTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     String busNumber = this.busNumber;
-    if (this.busNumber.length >= 3) {
+    if (this.busNumber.length >= 3 && this.busNumber.toString() != "BLUE") {
       busNumber = busNumber.substring(0,3);
     }
 
@@ -51,7 +56,7 @@ class BusListTile extends StatelessWidget {
           Container(
             width: 45, //this should not be static
             margin: const EdgeInsets.all(2.0),
-            padding: const EdgeInsets.all(5.0),
+            padding: const EdgeInsets.all(3.0),
             decoration: BoxDecoration(
               border: Border.all(color: col.toColor()),
               color: col.toColor(),
@@ -62,15 +67,29 @@ class BusListTile extends StatelessWidget {
           ),
           Expanded(
             flex: 6,
-            child: Text(stopName, textAlign: TextAlign.left),
+            child: Text(stopName, textAlign: TextAlign.left, style: TextStyle(fontSize: 14.5)),
           ),
           Expanded(
             flex: 1,
-            child: Text(busStatus.toShortString(), textAlign: TextAlign.right),
+            child: Align(
+              alignment: Alignment.centerRight,
+              child: Icon(busInfo.bikeRack ? Icons.pedal_bike : null, size: 20),
+            ),
           ),
           Expanded(
             flex: 1,
-            child: Text(timeRemaining, textAlign: TextAlign.right),
+            child: Align(
+              alignment: Alignment.centerRight,
+              child: Icon(busInfo.isDualBus ? Icons.filter_2 : null, size: 20),
+            ),
+          ),
+          Expanded(
+            flex: 2,
+            child: Text(busStatus.toShortString(), textAlign: TextAlign.center, style: TextStyle(fontSize: 14)),
+          ),
+          Expanded(
+            flex: 2,
+            child: Text(timeRemaining, textAlign: TextAlign.right, style: TextStyle(fontSize: 14, wordSpacing: 0.05, letterSpacing: 0.5)),
           ),
         ],
       ),
