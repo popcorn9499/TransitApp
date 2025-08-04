@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:transit_app/widgets/widgets/bus_info_header.dart';
+import 'package:flutter_map_location_marker/flutter_map_location_marker.dart';
 import 'package:transit_app/widgets/widgets/error_snackbar.dart';
-
-import '../../api/DataModels/bus_info.dart';
+import 'package:flutter_map/flutter_map.dart';
+import 'package:latlong2/latlong.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../../api/DataModels/bus_stop.dart';
-import '../../bus_status.dart';
-import '../../hex_color.dart';
 import '../widgets/bus_stop_list_tile.dart';
-import '../widgets/bus_summary_box.dart';
 import '../widgets/popup_menu.dart';
 
 class BusStopInfo extends StatefulWidget {
@@ -20,12 +18,7 @@ class BusStopInfo extends StatefulWidget {
 }
 
 class BusStopInfoState extends State<BusStopInfo> {
-  var newList = <BusStopListTile>[];
   late ErrorSnackBar errorPrompt;
-
-  late String timeRemaining;
-
-  final double badgeColorInterpretation = 0.95;
 
   BusStopInfoState();
 
@@ -33,7 +26,6 @@ class BusStopInfoState extends State<BusStopInfo> {
   @override
   initState() {
     super.initState();
-    timeRemaining = "0 minutes";
 
     errorPrompt = ErrorSnackBar(context: context);
     // WidgetsBinding.instance
@@ -52,14 +44,56 @@ class BusStopInfoState extends State<BusStopInfo> {
           PopupMenu(),
         ],
       ),
-      body: Column(children: <Widget>[
-
-          ])
+      body: FlutterMap(
+        options: MapOptions(
+          initialCenter: LatLng(widget.busStop.latitude, widget.busStop.longitude), // Center the map over London
+          initialZoom: 15,
+        ),
+        children: [
+          TileLayer( // Bring your own tiles
+            urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png', // For demonstration only
+            userAgentPackageName: 'com.example.app', // Add your app identifier
+            // And many more recommended properties!
+          ),
+          MarkerLayer(
+            markers: [
+              Marker(
+                width: 50,
+                height: 50,
+                point: LatLng(widget.busStop.latitude, widget.busStop.longitude),
+                child: const Icon(
+                  Icons.location_pin,
+                  color: Colors.red,
+                  size: 40,
+                ),
+              ),
+            ],
+          ),
+          RichAttributionWidget( // Include a stylish prebuilt attribution widget that meets all requirments
+            attributions: [
+              TextSourceAttribution(
+                'OpenStreetMap contributors',
+                onTap: () => launchUrl(Uri.parse('https://openstreetmap.org/copyright')), // (external)
+              ),
+              // Also add images...
+            ],
+          ),
+        CurrentLocationLayer(
+          alignPositionOnUpdate: AlignOnUpdate.always,
+          alignDirectionOnUpdate: AlignOnUpdate.never,
+          style: LocationMarkerStyle(
+            marker: const DefaultLocationMarker(
+              child: Icon(
+                Icons.navigation,
+                color: Colors.white,
+              ),
+            ),
+            markerSize: const Size(40, 40),
+            markerDirection: MarkerDirection.heading,
+          ),
+        )
+        ],
+      )
     );
-  }
-
-  //actually manages to return the BusListTile object for the user interface
-  _buildRow(int index) {
-
   }
 }
