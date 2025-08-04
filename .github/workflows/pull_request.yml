@@ -1,7 +1,7 @@
 name: pull_request_test
 on:
   pull_request:
-    types: [opened]
+    types: [opened, reopened, edited]
     workflows: [ "Android_Demo", "Web_Demo" ]
     branches:
       - master
