@@ -2,12 +2,11 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_map_location_marker/flutter_map_location_marker.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:transit_app/widgets/widgets/error_snackbar.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
-import 'package:url_launcher/url_launcher.dart';
 import '../../api/DataModels/bus_stop.dart';
-import '../widgets/bus_stop_list_tile.dart';
 import '../widgets/popup_menu.dart';
 
 class BusStopInfo extends StatefulWidget {
@@ -33,14 +32,32 @@ class BusStopInfoState extends State<BusStopInfo> {
     _alignPositionOnUpdate = AlignOnUpdate.always;
     _alignPositionStreamController = StreamController<double?>();
     errorPrompt = ErrorSnackBar(context: context);
-    // WidgetsBinding.instance
-    //     .addPostFrameCallback((_) => loadFavoritesList()); //run a start item on startup
+    WidgetsBinding.instance
+        .addPostFrameCallback((_) => fixMapBounds()); //run a start item on startup
+  }
+
+  Future<void> fixMapBounds()  async{
+    Position currentLocation = await Geolocator.getCurrentPosition();
+    LatLng currentLocationLatLng = LatLng(currentLocation.latitude, currentLocation.longitude);
+
+    _mapController.fitCamera(
+      CameraFit.bounds(
+        bounds: LatLngBounds.fromPoints([
+          LatLng(widget.busStop.latitude, widget.busStop.longitude),
+          currentLocationLatLng, // You'll need to get this from your location stream
+        ]),
+        padding: EdgeInsets.all(50), // Optional: Adds padding around the bounds
+      ),
+    );
+
+
   }
 
 
   @override
   Widget build(BuildContext context) {
     String stopNumber = widget.busStop.number.toString();
+
 
     return Scaffold(
       appBar: AppBar(
