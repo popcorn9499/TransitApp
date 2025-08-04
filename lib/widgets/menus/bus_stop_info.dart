@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_map_location_marker/flutter_map_location_marker.dart';
 import 'package:transit_app/widgets/widgets/error_snackbar.dart';
@@ -19,14 +21,17 @@ class BusStopInfo extends StatefulWidget {
 
 class BusStopInfoState extends State<BusStopInfo> {
   late ErrorSnackBar errorPrompt;
-
+  final MapController _mapController = MapController();
+  late AlignOnUpdate _alignPositionOnUpdate;
+  late final StreamController<double?> _alignPositionStreamController;
   BusStopInfoState();
 
 
   @override
   initState() {
     super.initState();
-
+    _alignPositionOnUpdate = AlignOnUpdate.always;
+    _alignPositionStreamController = StreamController<double?>();
     errorPrompt = ErrorSnackBar(context: context);
     // WidgetsBinding.instance
     //     .addPostFrameCallback((_) => loadFavoritesList()); //run a start item on startup
@@ -45,9 +50,17 @@ class BusStopInfoState extends State<BusStopInfo> {
         ],
       ),
       body: FlutterMap(
+        mapController: _mapController,
         options: MapOptions(
           initialCenter: LatLng(widget.busStop.latitude, widget.busStop.longitude), // Center the map over London
           initialZoom: 15,
+          onPositionChanged: (MapCamera camera, bool hasGesture) {
+            if (hasGesture && _alignPositionOnUpdate != AlignOnUpdate.never) {
+              setState(
+                    () => _alignPositionOnUpdate = AlignOnUpdate.never,
+              );
+            }
+          },
         ),
         children: [
           TileLayer( // Bring your own tiles
@@ -69,18 +82,12 @@ class BusStopInfoState extends State<BusStopInfo> {
               ),
             ],
           ),
-          RichAttributionWidget( // Include a stylish prebuilt attribution widget that meets all requirments
-            attributions: [
-              TextSourceAttribution(
-                'OpenStreetMap contributors',
-                onTap: () => launchUrl(Uri.parse('https://openstreetmap.org/copyright')), // (external)
-              ),
-              // Also add images...
-            ],
-          ),
+
         CurrentLocationLayer(
-          alignPositionOnUpdate: AlignOnUpdate.always,
+          alignPositionOnUpdate: _alignPositionOnUpdate,
           alignDirectionOnUpdate: AlignOnUpdate.never,
+          alignPositionStream: _alignPositionStreamController.stream,
+
           style: LocationMarkerStyle(
             marker: const DefaultLocationMarker(
               child: Icon(
@@ -91,7 +98,39 @@ class BusStopInfoState extends State<BusStopInfo> {
             markerSize: const Size(40, 40),
             markerDirection: MarkerDirection.heading,
           ),
-        )
+        ),
+        Align(
+          alignment: Alignment.bottomRight,
+          child: Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: FloatingActionButton(
+              onPressed: () {
+                // Align the location marker to the center of the map widget
+                // on location update until user interact with the map.
+                setState(
+                      () => _alignPositionOnUpdate = AlignOnUpdate.always,
+                );
+                // Align the location marker to the center of the map widget
+                // and zoom the map to level 18.
+                _alignPositionStreamController.add(18);
+              },
+              child: const Icon(
+                Icons.my_location,
+                color: Colors.white,
+              ),
+            ),
+          ),
+        ),
+          // TODO add attribution to the map
+          // RichAttributionWidget( // Include a stylish prebuilt attribution widget that meets all requirments
+          //   attributions: [
+          //     TextSourceAttribution(
+          //       'OpenStreetMap contributors',
+          //       onTap: () => launchUrl(Uri.parse('https://openstreetmap.org/copyright')), // (external)
+          //     ),
+          //     // Also add images...
+          //   ],
+          // ),
         ],
       )
     );
