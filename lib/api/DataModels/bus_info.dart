@@ -72,8 +72,8 @@ class BusInfo implements Comparable {
     String arrivalEstimatedStr;
     final wifi = routeInfo["wifi"] == "true" ? true: false;
     final cancelled = routeInfo["cancelled"] == "true" ? true: false;
-    final isDualBus = ([971, 972, 973, 974, 975, 976, 977, 978, 979, 981, 982, 983, 984, 985, 986, 987, 988, 989, 990,
-      371, 372, 373, 374, 375, 376, 377, 378, 379, 380, 381, 382, 383, 384, 385, 386, 387, 388, 389, 390, 391, 392, 393, 394, 395, 396, 397, 398, 399]
+    final isDualBus = ([971, 972, 973, 974, 975, 976, 977, 978, 981, 982, 983, 984, 985, 986, 987, 988, 989, 990,
+      371, 372, 373, 374, 375, 376, 377, 378, 379, 380, 381, 382, 383, 384, 385, 386, 387, 388, 389, 390, 391, 392, 393, 394, 395, 396, 397, 398, 399, 497]
         .contains(busNumber));
     final variantKey = routeInfo["variant"]["key"] as String;
     final variantName = routeInfo["variant"]["name"] as String;
