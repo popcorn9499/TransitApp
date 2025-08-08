@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:transit_app/Config/favorite_manager.dart';
 import 'package:transit_app/api/DataModels/bus_stop_schedules.dart';
 import 'package:transit_app/api/transit_manager.dart';
+import 'package:transit_app/widgets/menus/bus_stop_info.dart';
 import 'package:transit_app/widgets/widgets/bus_list_tile.dart';
 
 import '../../Config/config.dart';
@@ -129,12 +130,24 @@ class BusStopTimesListState extends State<BusStopTimes> {
     }
   }
 
+  Future<void> loadMap() async {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => BusStopInfo(busStop: busStop)),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Stop ${widget.searchNumber}"),
+        title: Text("Stop #${widget.searchNumber}"),
         actions: [
+          IconButton(
+            onPressed: loadMap,
+            icon: const Icon(Icons.map),
+            tooltip: 'Map'
+          ),
           IconButton(
             onPressed: toggleFavorite,
             icon: favoriteIcon,
